@@ -1,1 +1,0 @@
-const e=314572800,t=6291456,i=26214400,n=r=>!r||r<0?"0 B":r<1024?`${r} B`:r<1048576?`${(r/1024).toFixed(0)} KB`:r<1073741824?`${(r/1024/1024).toFixed(1)} MB`:`${(r/1024/1024/1024).toFixed(1)} GB`,B=r=>r.size<=314572800?null:`${r.name} tem ${n(r.size)} e o limite é ${n(314572800)}.`;export{i as D,e as M,t as R,B as e,n as f};

@@ -1,1 +1,0 @@
-import{O as t,l as n,s as r}from"./index-G-E061gt.js";const u=()=>{const{dataOwnerId:e}=t(),{data:s=!1}=n({queryKey:["tem-instancia-whatsapp",e],enabled:!!e,staleTime:5*60*1e3,gcTime:10*60*1e3,queryFn:async()=>{const{data:a}=await r.from("whatsapp_instances").select("id").eq("user_id",e).limit(1);return((a==null?void 0:a.length)??0)>0}});return s};export{u};

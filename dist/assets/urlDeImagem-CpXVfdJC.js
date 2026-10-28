@@ -1,1 +1,0 @@
-function n(t){if(!t)return"";const o=String(t).trim(),e=o.match(/drive\.google\.com\/uc\?(?:[^#]*&)?id=([A-Za-z0-9_-]+)/);if(e)return`https://lh3.googleusercontent.com/d/${e[1]}`;const r=o.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/);return r?`https://lh3.googleusercontent.com/d/${r[1]}`:o}export{n as u};

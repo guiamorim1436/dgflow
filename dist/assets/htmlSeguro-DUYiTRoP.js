@@ -1,1 +1,0 @@
-import r from"./purify.es-C5KSVp3G.js";let e=!1;function a(){e||(e=!0,r.addHook("afterSanitizeAttributes",t=>{t.tagName==="A"&&t.getAttribute("target")==="_blank"&&t.setAttribute("rel","noopener noreferrer")}))}function i(t){return t?(a(),r.sanitize(t,{ADD_ATTR:["target"],FORBID_TAGS:["style","form","input","button","textarea","select"]})):""}export{i as h};
