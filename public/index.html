@@ -51,13 +51,13 @@
         var host = window.location.hostname;
         var path = window.location.pathname;
         var tennoflowDomains = ['tennoflow.lovable.app', 'tennoflow.com.br', 'www.tennoflow.com.br', 'tennoflow.app'];
-        var isDgflow = tennoflowDomains.indexOf(host) !== -1;
+        var isTennoFlow = tennoflowDomains.indexOf(host) !== -1;
         var isDevPreview = host.includes('lovableproject.com');
-        var allowedDomain = isDgflow || isDevPreview;
+        var allowedDomain = isTennoFlow || isDevPreview;
         var allowedPage = path === '/' || path.startsWith('/checkout');
         
         // NOTE: pixel init + PageView agora é gerenciado pelo módulo global
-        // src/components/DgflowPageViewTracker.tsx para garantir event_id
+        // src/components/TennoFlowPageViewTracker.tsx para garantir event_id
         // compartilhado entre browser e CAPI (dedup) e cobrir SPA navigations.
         // Mantemos apenas o noscript fallback abaixo (no body).
         void allowedDomain; void allowedPage;
@@ -147,7 +147,7 @@
     </script>
     <script type="module" crossorigin src="/assets/index-G-E061gt.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BnvEi71r.css">
-  <link rel="manifest" href="/manifest.webmanifest"><script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script><script defer src="/__l5e/events.b21a279f52bb8621.js" data-artifact-kind="dwl_content_hash" data-artifact-id="2d331df3c125bee4753f54763c602bda85fb321127a2bcd9849c09e01307e266" data-commit-sha="6cda73e380a0dd85d0e1855d3e51e14dc341f216" data-context-token="v1.eyJwcm9qZWN0X2lkIjoibG92cF81cms0Y3ZkdDM3OGFudm15eHpudnJqbWFqNCIsImFydGlmYWN0X2tpbmQiOiJkd2xfY29udGVudF9oYXNoIiwiYXJ0aWZhY3RfaWQiOiIyZDMzMWRmM2MxMjViZWU0NzUzZjU0NzYzYzYwMmJkYTg1ZmIzMjExMjdhMmJjZDk4NDljMDllMDEzMDdlMjY2IiwiY29tbWl0X3NoYSI6IjZjZGE3M2UzODBhMGRkODVkMGUxODU1ZDNlNTFlMTRkYzM0MWYyMTYiLCJleHAiOjE3OTU3OTQ5NDF9.JmzjcqjtLX4oi7jUX8TxwEP1WfscNQnxtFZhqPijDkY"></script></head>
+  <link rel="manifest" href="/manifest.webmanifest"></head>
 
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -161,9 +161,9 @@
         var host = window.location.hostname;
         var path = window.location.pathname;
         var tennoflowDomains = ['tennoflow.lovable.app', 'tennoflow.com.br', 'www.tennoflow.com.br', 'tennoflow.app'];
-        var isDgflow = tennoflowDomains.indexOf(host) !== -1;
+        var isTennoFlow = tennoflowDomains.indexOf(host) !== -1;
         var isDevPreview = host.includes('lovableproject.com');
-        var allowedDomain = isDgflow || isDevPreview;
+        var allowedDomain = isTennoFlow || isDevPreview;
         var allowedPage = path === '/' || path.startsWith('/checkout');
         if (allowedDomain && allowedPage) {
           document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2374392262979023&ev=PageView&noscript=1" /></noscript>');
