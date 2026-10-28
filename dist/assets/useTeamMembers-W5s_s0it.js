@@ -1,0 +1,13 @@
+import{k,N as h,l as b,s as i}from"./index-G-E061gt.js";import{u as q}from"./useMutation-DIXcdqRS.js";const M=[],T=()=>{const{activeTeamId:s,isOwner:d,isAdmin:_}=k(),g=h(),{data:f=M,isLoading:y}=b({queryKey:["team-members",s],queryFn:async()=>{if(!s)return[];const{data:t,error:n}=await i.from("team_members").select(`
+          id,
+          user_id,
+          team_id,
+          role,
+          job_title,
+          permissions,
+          status,
+          joined_at,
+          step_functions,
+          seller_type,
+          monthly_goal
+        `).eq("team_id",s).eq("status","active").order("role",{ascending:!0});if(n)return console.error("Error fetching team members:",n),[];const o=t.map(e=>e.user_id),{data:m}=await i.from("profiles").select("id, full_name, avatar_url, email").in("id",o);let l=new Map;try{const{data:e}=await i.rpc("get_team_member_emails",{p_team_id:s});Array.isArray(e)&&(l=new Map(e.map(a=>[a.user_id,a.email])))}catch{}return t.map(e=>{const a=(m==null?void 0:m.find(r=>r.id===e.user_id))||null,u=l.get(e.user_id)||(a==null?void 0:a.email)||void 0;return{...e,step_functions:e.step_functions||[],seller_type:e.seller_type??null,profile:a?{...a,email:u}:u?{full_name:null,avatar_url:null,email:u}:null}})},enabled:!!s,staleTime:1e3*60*2}),c=q({mutationFn:async({taskId:t,memberIds:n})=>{const{data:{user:o}}=await i.auth.getUser();if(!o)throw new Error("Não autenticado");const{data:m}=await i.from("task_assignees").select("team_member_id").eq("task_id",t),l=new Set((m||[]).map(r=>r.team_member_id)),e=new Set(n),a=n.filter(r=>!l.has(r)),u=[...l].filter(r=>!e.has(r));if(u.length>0&&await i.from("task_assignees").delete().eq("task_id",t).in("team_member_id",u),a.length>0){const{error:r}=await i.from("task_assignees").insert(a.map(w=>({task_id:t,user_id:w,team_member_id:w,assigned_by:o.id})));if(r)throw r}},onSuccess:()=>{g.invalidateQueries({queryKey:["task-assignees"]})}});return{members:f,isLoading:y,assignToTask:c,getTaskAssignees:async t=>{const{data:n,error:o}=await i.from("task_assignees").select("team_member_id").eq("task_id",t);return o?(console.error("Error fetching task assignees:",o),[]):n.map(m=>m.team_member_id)},canManageMembers:d||_,activeTeamId:s}},E=s=>{const{members:d}=T(),{data:_=[],isLoading:g,isSuccess:f}=b({queryKey:["task-assignees",s],queryFn:async()=>{if(!s)return[];const{data:c,error:p}=await i.from("task_assignees").select("team_member_id").eq("task_id",s);return p?(console.error("Error fetching task assignees:",p),[]):c.map(t=>t.team_member_id)},enabled:!!s}),y=d.filter(c=>_.includes(c.id));return{assigneeIds:_,assignees:y,isLoading:g,carregado:f}};export{E as a,T as u};
