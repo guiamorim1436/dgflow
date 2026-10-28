@@ -94,7 +94,7 @@ O CONTRATADO não atuará com exclusividade dentro do segmento do CONTRATANTE, p
 
 10 – DA ASSINATURA ELETRÔNICA
 
-As partes aceitam que este contrato será assinado eletronicamente utilizando a ferramenta online DGFlow e atestam a sua integridade e validade jurídica, nos termos da MP 2.200-2 e da Lei 14.063/2020. A DGFlow não se responsabiliza pelo conteúdo do contrato, sendo este de total responsabilidade do CONTRATANTE e do CONTRATADO.
+As partes aceitam que este contrato será assinado eletronicamente utilizando a ferramenta online Tenno Flow e atestam a sua integridade e validade jurídica, nos termos da MP 2.200-2 e da Lei 14.063/2020. A Tenno Flow não se responsabiliza pelo conteúdo do contrato, sendo este de total responsabilidade do CONTRATANTE e do CONTRATADO.
 
 11 – DO FORO
 
