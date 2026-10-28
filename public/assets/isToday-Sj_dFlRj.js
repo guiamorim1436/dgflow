@@ -1,0 +1,1 @@
+import{c as r}from"./getTimezoneOffsetInMilliseconds-BdI2qQQK.js";import{c as i}from"./constructNow-CH5yBwcd.js";import{i as s}from"./isSameDay-BNavFd6y.js";function a(o,t){return s(r(o,o),i(o))}export{a as i};
