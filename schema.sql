@@ -1,5 +1,5 @@
 -- ==============================================================================
--- DGFlow Complete Supabase Schema & Initial Seed
+-- Tenno Flow Complete Supabase Schema & Initial Seed
 -- Project: xzjugxtxuxgkiszbpuxx
 -- User: lgajspfc@gmail.com (ID: 198bf0db-ed7a-45d7-b6e2-7aabf5093f5b)
 -- ==============================================================================
@@ -36,6 +36,94 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+-- Admin RPCs
+CREATE OR REPLACE FUNCTION get_admin_users_stats()
+RETURNS jsonb AS $$
+DECLARE
+  v_total int;
+  v_membros int;
+  v_proprias int;
+BEGIN
+  SELECT count(*) INTO v_total FROM auth.users;
+  SELECT count(*) INTO v_membros FROM public.team_members WHERE role != 'owner';
+  SELECT count(*) INTO v_proprias FROM public.teams;
+  RETURN jsonb_build_object(
+    'total', COALESCE(v_total, 1),
+    'membros_equipe', COALESCE(v_membros, 0),
+    'contas_proprias', COALESCE(v_proprias, 1)
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION get_admin_users(
+  p_limit int DEFAULT 100,
+  p_offset int DEFAULT 0,
+  p_search text DEFAULT NULL
+)
+RETURNS TABLE (
+  id uuid,
+  email text,
+  full_name text,
+  phone text,
+  company_name text,
+  avatar_url text,
+  roles text[],
+  last_sign_in_at timestamptz,
+  auth_created_at timestamptz,
+  created_at timestamptz
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    u.id,
+    u.email::text,
+    p.full_name,
+    p.phone,
+    p.company_name,
+    p.avatar_url,
+    ARRAY(SELECT role FROM public.user_roles ur WHERE ur.user_id = u.id) AS roles,
+    u.last_sign_in_at,
+    u.created_at AS auth_created_at,
+    COALESCE(p.created_at, u.created_at) AS created_at
+  FROM auth.users u
+  LEFT JOIN public.profiles p ON p.id = u.id
+  WHERE (p_search IS NULL OR u.email ILIKE '%' || p_search || '%' OR p.full_name ILIKE '%' || p_search || '%')
+  ORDER BY u.created_at DESC
+  LIMIT p_limit OFFSET p_offset;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION get_admin_subscriptions(
+  p_limit int DEFAULT 100,
+  p_offset int DEFAULT 0
+)
+RETURNS TABLE (
+  id uuid,
+  user_id uuid,
+  plan_id text,
+  plan_name text,
+  is_active boolean,
+  is_trial boolean,
+  expires_at timestamptz,
+  created_at timestamptz
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    s.id,
+    s.user_id,
+    s.plan_id,
+    'Enterprise'::text AS plan_name,
+    s.is_active,
+    s.is_trial,
+    s.expires_at,
+    s.created_at
+  FROM public.user_subscriptions s
+  ORDER BY s.created_at DESC
+  LIMIT p_limit OFFSET p_offset;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- 3. CORE IDENTITY & ACCESS TABLES
 CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -44,6 +132,8 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   company_name text DEFAULT 'Minha Agência',
   phone text,
   avatar_url text,
+  onboarding_completed boolean DEFAULT true,
+  needs_password_reset boolean DEFAULT false,
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
@@ -65,7 +155,7 @@ CREATE TABLE IF NOT EXISTS public.team_members (
   job_title text DEFAULT 'Fundador',
   seller_type text,
   monthly_goal numeric,
-  permissions jsonb DEFAULT '{}'::jsonb,
+  permissions jsonb DEFAULT '{"admin": true, "finance": true, "quotes": true, "whatsapp": true}'::jsonb,
   status text NOT NULL DEFAULT 'active',
   invited_by uuid,
   joined_at timestamptz DEFAULT now(),
@@ -91,6 +181,14 @@ CREATE TABLE IF NOT EXISTS public.user_subscriptions (
   updated_at timestamptz DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS public.user_roles (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  role text NOT NULL,
+  created_at timestamptz DEFAULT now(),
+  UNIQUE(user_id, role)
+);
+
 CREATE TABLE IF NOT EXISTS public.subscription_plans (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
@@ -107,18 +205,11 @@ CREATE TABLE IF NOT EXISTS public.feature_flags (
   metadata jsonb DEFAULT '{}'::jsonb
 );
 
-CREATE TABLE IF NOT EXISTS public.user_roles (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
-  role text NOT NULL,
-  created_at timestamptz DEFAULT now()
-);
-
 -- 4. CRM & SALES TABLES
 CREATE TABLE IF NOT EXISTS public.lead_pipelines (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  name text NOT NULL DEFAULT 'Funil Padrão',
+  name text NOT NULL DEFAULT 'Funil Comercial',
   stages jsonb DEFAULT '["Novo Lead", "Contato Inicial", "Proposta Enviada", "Em Negociação", "Fechado Ganho", "Perdido"]'::jsonb,
   is_default boolean DEFAULT true,
   created_at timestamptz DEFAULT now()
@@ -333,8 +424,8 @@ CREATE TABLE IF NOT EXISTS public.finance_categories (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
   name text NOT NULL,
-  type text NOT NULL, -- 'income' or 'expense'
-  color text DEFAULT '#e8363b'
+  type text NOT NULL,
+  color text DEFAULT '#e60067'
 );
 
 CREATE TABLE IF NOT EXISTS public.accounts_receivable (
@@ -434,7 +525,7 @@ CREATE TABLE IF NOT EXISTS public.studio_generations (
 CREATE TABLE IF NOT EXISTS public.user_ai_provider_keys (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  provider text NOT NULL, -- 'openai', 'anthropic', 'google'
+  provider text NOT NULL,
   api_key text NOT NULL,
   created_at timestamptz DEFAULT now()
 );
@@ -473,7 +564,7 @@ CREATE TABLE IF NOT EXISTS public.client_portal_settings (
   user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   portal_name text DEFAULT 'Portal do Cliente',
   logo_url text,
-  theme_color text DEFAULT '#e8363b',
+  theme_color text DEFAULT '#e60067',
   created_at timestamptz DEFAULT now()
 );
 
@@ -485,12 +576,22 @@ CREATE TABLE IF NOT EXISTS public.dashboard_notes (
   updated_at timestamptz DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS public.reminders (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  content text NOT NULL,
+  is_pinned boolean DEFAULT false,
+  order_index int DEFAULT 0,
+  created_at timestamptz DEFAULT now()
+);
+
 -- 11. ROW LEVEL SECURITY (RLS) POLICIES
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.teams ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.team_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_active_team ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_subscriptions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.leads ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.lead_pipelines ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.quotes ENABLE ROW LEVEL SECURITY;
@@ -507,6 +608,7 @@ ALTER TABLE public.whatsapp_instances ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.portfolio_pages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.bio_pages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.capture_pages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.reminders ENABLE ROW LEVEL SECURITY;
 
 DO $$
 BEGIN
@@ -515,6 +617,7 @@ BEGIN
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on team_members" ON public.team_members FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on user_active_team" ON public.user_active_team FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on user_subscriptions" ON public.user_subscriptions FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all for authenticated users on user_roles" ON public.user_roles FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on leads" ON public.leads FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on lead_pipelines" ON public.lead_pipelines FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on quotes" ON public.quotes FOR ALL TO authenticated USING (true) WITH CHECK (true)';
@@ -531,6 +634,7 @@ BEGIN
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on portfolio_pages" ON public.portfolio_pages FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on bio_pages" ON public.bio_pages FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on capture_pages" ON public.capture_pages FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all for authenticated users on reminders" ON public.reminders FOR ALL TO authenticated USING (true) WITH CHECK (true)';
 EXCEPTION WHEN OTHERS THEN
   NULL;
 END $$;
@@ -545,17 +649,23 @@ DECLARE
   v_register_id uuid;
 BEGIN
   -- Insert or update profile
-  INSERT INTO public.profiles (id, email, full_name, company_name, phone)
-  VALUES (v_user_id, 'lgajspfc@gmail.com', 'Administrador DGFlow', 'DGFlow Agency', '+5511939342698')
+  INSERT INTO public.profiles (id, email, full_name, company_name, phone, onboarding_completed)
+  VALUES (v_user_id, 'lgajspfc@gmail.com', 'Administrador Tenno Flow', 'Tenno Flow', '+5511939342698', true)
   ON CONFLICT (id) DO UPDATE SET
     full_name = EXCLUDED.full_name,
-    company_name = EXCLUDED.company_name;
+    company_name = EXCLUDED.company_name,
+    onboarding_completed = true;
+
+  -- Add Admin role
+  INSERT INTO public.user_roles (user_id, role)
+  VALUES (v_user_id, 'admin')
+  ON CONFLICT (user_id, role) DO NOTHING;
 
   -- Create default team if not exists
   SELECT id INTO v_team_id FROM public.teams WHERE owner_id = v_user_id LIMIT 1;
   IF v_team_id IS NULL THEN
     INSERT INTO public.teams (name, owner_id, plan)
-    VALUES ('DGFlow Matriz', v_user_id, 'enterprise')
+    VALUES ('Tenno Flow Matriz', v_user_id, 'enterprise')
     RETURNING id INTO v_team_id;
   END IF;
 
