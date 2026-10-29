@@ -4,20 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="google" content="notranslate" />
     <meta http-equiv="Content-Language" content="pt-BR" />
-    <link rel="icon" href="/favicon.png?v=2" type="image/png" />
+    <link rel="icon" href="/favicon.png?v=3" type="image/png" />
 
-    <!-- Player de vendas (VTurb): marca o instante do carregamento e adianta o
-         download do player e do vídeo. Sem isto o player só começa a baixar
-         depois que o React monta, e o visitante encara um retângulo preto.
-         O id do vídeo aqui precisa acompanhar o de src/components/VturbPlayer.tsx. -->
-    <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
-    <!-- Sem preload do player VTurb: o smartplayer (280 KB) era baixado ANTES do
-         bundle do app em toda rota, e o vídeo fica abaixo da dobra. O
-         VturbPlayer injeta o script quando monta; fica só o dns-prefetch. -->
-    <link rel="dns-prefetch" href="https://cdn.converteai.net">
-    <link rel="dns-prefetch" href="https://scripts.converteai.net">
-    <link rel="dns-prefetch" href="https://images.converteai.net">
-    <link rel="dns-prefetch" href="https://license.vturb.com">
+
 
     <!-- Google Tag Manager — só nos domínios oficiais do Tenno Flow (não nas
          páginas públicas dos usuários). Gerencie tags pelo painel do GTM. -->
