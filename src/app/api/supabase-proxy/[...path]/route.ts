@@ -566,12 +566,30 @@ Dados: ${JSON.stringify(body)}`;
   const targetUrl = `${SUPABASE_URL}/${targetPath}${sanitizedSearch}`;
 
   const headers = new Headers();
+  const browserOnlyHeaders = [
+    'host',
+    'connection',
+    'content-length',
+    'accept-encoding',
+    'origin',
+    'referer',
+    'user-agent',
+    'sec-ch-ua',
+    'sec-ch-ua-mobile',
+    'sec-ch-ua-platform',
+    'sec-fetch-dest',
+    'sec-fetch-mode',
+    'sec-fetch-site',
+  ];
+
   req.headers.forEach((value, key) => {
     const lower = key.toLowerCase();
-    if (!['host', 'connection', 'content-length', 'accept-encoding'].includes(lower)) {
+    if (!browserOnlyHeaders.includes(lower)) {
       headers.set(key, value);
     }
   });
+
+  headers.set('User-Agent', 'TennoFlow-Server/1.0');
 
   const incomingAuth = req.headers.get('authorization') || '';
   const incomingApiKey = req.headers.get('apikey') || '';
