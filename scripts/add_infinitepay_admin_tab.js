@@ -1,0 +1,39 @@
+import fs from 'fs';
+import { execSync } from 'child_process';
+
+const adminPath = 'C:/Users/gui14/Projects/dgflow/public/assets/Admin-DIitkSWg.js';
+let content = fs.readFileSync(adminPath, 'utf8');
+
+// 1. Component definition for AdminInfinitePayTab
+const infinitePayComponentCode = `function AdminInfinitePayTab(){const[h,setH]=r.useState("tenno"),[act,setAct]=r.useState(!0),[ld,setLd]=r.useState(!1),[cp,setCp]=r.useState(null);r.useEffect(()=>{let unmounted=!1;(async()=>{try{const{data:u}=await O.auth.getUser();if(u&&u.user){const{data:c}=await O.from("user_infinitepay_config").select("handle,is_active").eq("user_id",u.user.id).maybeSingle();if(c&&c.handle&&!unmounted){setH(c.handle.replace(/^\\$/,""));setAct(c.is_active??!0)}}}catch(err){console.error("InfinitePay load error:",err)}})();return()=>{unmounted=!0}},[]);const saveTag=async()=>{const clean=h.trim().replace(/^\\$/,"");if(!clean){g.error("Informe sua InfiniteTag (ex: tenno)");return}setLd(!0);try{const{data:u}=await O.auth.getUser();if(!u||!u.user)throw new Error("Usuário não autenticado");const{error:err}=await O.from("user_infinitepay_config").upsert({user_id:u.user.id,handle:clean,is_active:act,updated_at:new Date().toISOString()},{onConflict:"user_id"});if(err)throw err;setH(clean);g.success("InfinitePay configurada com sucesso!")}catch(err){g.error(err.message||"Erro ao salvar configuração")}finally{setLd(!1)}};const cpTxt=async(txt,id)=>{await navigator.clipboard.writeText(txt);setCp(id);g.success("Copiado para a área de transferência!");setTimeout(()=>setCp(null),2000)};const pUrl="https://infinitepay.io/$"+h,whUrl="https://xzjugxtxuxgkiszbpuxx.supabase.co/rest/v1/rpc/confirm_infinitepay_payment";return e.jsxs("div",{className:"space-y-6",children:[e.jsxs("div",{children:[e.jsxs("h2",{className:"text-2xl font-bold flex items-center gap-2",children:[e.jsx("span",{className:"text-emerald-500 font-extrabold text-2xl",children:"$"}),"Configuração InfinitePay"]}),e.jsx("p",{className:"text-muted-foreground",children:"Configure o gateway InfinitePay para processar assinaturas e pagamentos da plataforma via PIX e Cartão com sua InfiniteTag oficial."})]}),e.jsx(z,{className:"p-6",children:e.jsxs("div",{className:"flex items-center justify-between",children:[e.jsxs("div",{className:"flex items-center gap-3",children:[e.jsx("div",{className:"p-3 rounded-full bg-emerald-500/10",children:e.jsx(Ls,{className:"w-6 h-6 text-emerald-500"})}),e.jsxs("div",{children:[e.jsx("h3",{className:"font-semibold",children:"Integração InfinitePay Ativa"}),e.jsx("p",{className:"text-sm text-muted-foreground",children:"Sua InfiniteTag $"+h+" está conectada e operacional para assinaturas e cobranças."})]})]}),e.jsx(H,{variant:"default",className:act?"bg-emerald-500 hover:bg-emerald-600 text-white":"bg-muted text-muted-foreground",children:act?"Conectado":"Desativado"})]})}),e.jsxs(z,{className:"p-6 space-y-6",children:[e.jsxs("div",{className:"flex items-center justify-between p-4 border rounded-lg",children:[e.jsxs("div",{children:[e.jsx("p",{className:"font-medium",children:"Ativar InfinitePay na Plataforma"}),e.jsx("p",{className:"text-sm text-muted-foreground",children:"Habilita a InfinitePay como gateway para assinaturas e geração de faturas."})]}),e.jsx(ke,{checked:act,onCheckedChange:setAct})]}),e.jsxs("div",{className:"space-y-2",children:[e.jsx(X,{children:"Sua InfiniteTag (Handle)"}),e.jsxs("div",{className:"flex gap-2 max-w-md",children:[e.jsxs("div",{className:"relative flex-1",children:[e.jsx("span",{className:"absolute left-3 top-2.5 text-muted-foreground font-bold",children:"$"}),e.jsx(te,{value:h,onChange:ev=>setH(ev.target.value.replace(/^\\$/,"")),placeholder:"tenno",className:"pl-7 font-mono font-medium"})]}),e.jsx(P,{onClick:saveTag,disabled:ld,className:"bg-emerald-600 hover:bg-emerald-700 text-white",children:ld?"Salvando...":"Salvar InfiniteTag"})]}),e.jsx("p",{className:"text-xs text-muted-foreground",children:"Informe apenas o nome da sua tag (ex: tenno). O sistema formatará automaticamente como $tenno."})]}),e.jsxs("div",{className:"space-y-4 pt-4 border-t",children:[e.jsxs("div",{className:"space-y-2",children:[e.jsx(X,{children:"Link Direto de Pagamento / Assinatura"}),e.jsxs("div",{className:"flex gap-2",children:[e.jsx(te,{value:pUrl,readOnly:!0,className:"font-mono text-sm"}),e.jsx(P,{variant:"outline",size:"icon",onClick:()=>cpTxt(pUrl,"pay"),className:"shrink-0",children:cp==="pay"?e.jsx(Aa,{className:"w-4 h-4 text-emerald-500"}):e.jsx(gs,{className:"w-4 h-4"})}),e.jsx(P,{variant:"outline",onClick:()=>window.open(pUrl,"_blank"),className:"shrink-0",children:"Abrir Link"})]}),e.jsx("p",{className:"text-xs text-muted-foreground",children:"Seus clientes podem pagar instantaneamente via Pix ou Cartão de Crédito parcelado."})]}),e.jsxs("div",{className:"space-y-2",children:[e.jsx(X,{children:"Endpoint Webhook de Liquidação Automática"}),e.jsxs("div",{className:"flex gap-2",children:[e.jsx(te,{value:whUrl,readOnly:!0,className:"font-mono text-sm"}),e.jsx(P,{variant:"outline",size:"icon",onClick:()=>cpTxt(whUrl,"wh"),className:"shrink-0",children:cp==="wh"?e.jsx(Aa,{className:"w-4 h-4 text-emerald-500"}):e.jsx(gs,{className:"w-4 h-4"})})]}),e.jsx("p",{className:"text-xs text-muted-foreground",children:"Endpoint RPC do Supabase para confirmação automática de pagamentos e ativação imediata de assinaturas."})]})]})]})]});}`;
+
+// We insert AdminInfinitePayTab right before function Ji()
+const targetJi = 'function Ji(){';
+if (!content.includes(targetJi)) {
+  console.error('Target function Ji() not found in Admin-DIitkSWg.js');
+  process.exit(1);
+}
+
+content = content.replace(targetJi, infinitePayComponentCode + targetJi);
+
+// 2. Now add the tab and content inside the gateways Tabs container
+const targetTabs = 'e.jsx(ce,{value:"gateways",children:e.jsxs(as,{defaultValue:"pagarme",className:"space-y-4",children:[e.jsxs(ts,{className:"w-full justify-start",children:[e.jsxs(je,{value:"pagarme",className:"flex items-center gap-2",children:[e.jsx(Ze,{className:"w-4 h-4"}),"Pagar.me"]}),e.jsxs(je,{value:"asaas-pix",className:"flex items-center gap-2",children:[e.jsx(_r,{className:"w-4 h-4"}),"PIX Asaas"]}),e.jsxs(je,{value:"woovi",className:"flex items-center gap-2",children:[e.jsx(vs,{className:"w-4 h-4"}),"Woovi"]})]}),e.jsxs(ce,{value:"pagarme",className:"space-y-4",children:[e.jsx(xi,{}),e.jsx(ui,{})]}),e.jsx(ce,{value:"asaas-pix",children:e.jsx(Ji,{})}),e.jsx(ce,{value:"woovi",children:e.jsx(In,{})})]})})';
+
+const replacementTabs = 'e.jsx(ce,{value:"gateways",children:e.jsxs(as,{defaultValue:"infinitepay",className:"space-y-4",children:[e.jsxs(ts,{className:"w-full justify-start",children:[e.jsxs(je,{value:"infinitepay",className:"flex items-center gap-2",children:[e.jsx("span",{className:"font-bold text-emerald-500 text-sm",children:"$"}),"InfinitePay"]}),e.jsxs(je,{value:"pagarme",className:"flex items-center gap-2",children:[e.jsx(Ze,{className:"w-4 h-4"}),"Pagar.me"]}),e.jsxs(je,{value:"asaas-pix",className:"flex items-center gap-2",children:[e.jsx(_r,{className:"w-4 h-4"}),"PIX Asaas"]}),e.jsxs(je,{value:"woovi",className:"flex items-center gap-2",children:[e.jsx(vs,{className:"w-4 h-4"}),"Woovi"]})]}),e.jsx(ce,{value:"infinitepay",children:e.jsx(AdminInfinitePayTab,{})}),e.jsxs(ce,{value:"pagarme",className:"space-y-4",children:[e.jsx(xi,{}),e.jsx(ui,{})]}),e.jsx(ce,{value:"asaas-pix",children:e.jsx(Ji,{})}),e.jsx(ce,{value:"woovi",children:e.jsx(In,{})})]})})';
+
+if (!content.includes(targetTabs)) {
+  console.error('Target tabs container not found in Admin-DIitkSWg.js');
+  process.exit(1);
+}
+
+content = content.replace(targetTabs, replacementTabs);
+
+fs.writeFileSync(adminPath, content, 'utf8');
+
+try {
+  execSync(`node --check "${adminPath}"`);
+  console.log('Successfully added InfinitePay tab to Admin panel and verified syntax!');
+} catch (e) {
+  console.error('Syntax verification failed:', e.message);
+  process.exit(1);
+}
