@@ -79,6 +79,48 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
   }
 
   // ==========================================
+  // 1.1 COMPATIBILIDADE KANBAN & OPERACIONAL
+  // ==========================================
+  const defaultKanbanColumns = [
+    { id: 'pending', title: 'Backlog', color: 'text-muted-foreground' },
+    { id: 'todo', title: 'A Fazer', color: 'text-cyan' },
+    { id: 'doing', title: 'Em Progresso', color: 'text-orange' },
+    { id: 'review', title: 'Revisão', color: 'text-pink' },
+    { id: 'done', title: 'Concluído', color: 'text-green-500' },
+  ];
+
+  if (targetPath === 'rest/v1/user_kanban_columns' || targetPath === 'rest/v1/project_columns') {
+    if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
+      return NextResponse.json([{ id: 'default', status: 'saved' }], { headers: corsHeaders() });
+    }
+    const acceptHeader = req.headers.get('accept') || '';
+    const payload = { columns: defaultKanbanColumns, fluxo_linear: false };
+    if (acceptHeader.includes('application/vnd.pgrst.object+json')) {
+      return NextResponse.json(payload, { headers: corsHeaders() });
+    }
+    return NextResponse.json([payload], { headers: corsHeaders() });
+  }
+
+  const emptyRelationTables = [
+    'rest/v1/task_assignees',
+    'rest/v1/task_services',
+    'rest/v1/project_services',
+    'rest/v1/project_members',
+    'rest/v1/project_team_members',
+    'rest/v1/task_templates',
+    'rest/v1/client_demands',
+    'rest/v1/entregas',
+    'rest/v1/briefings',
+  ];
+
+  if (emptyRelationTables.includes(targetPath)) {
+    if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
+      return NextResponse.json([], { headers: corsHeaders() });
+    }
+    return NextResponse.json([], { headers: corsHeaders() });
+  }
+
+  // ==========================================
   // 2. EDGE FUNCTIONS DE IA DO FRONT-END
   // ==========================================
 
@@ -371,7 +413,20 @@ Dados: ${JSON.stringify(body)}`;
   // ==========================================
   // 3. PASSTHROUGH PADRÃO PARA O SUPABASE REST / STORAGE
   // ==========================================
-  const targetUrl = `${SUPABASE_URL}/${targetPath}${search}`;
+  let sanitizedSearch = search;
+  if (targetPath === 'rest/v1/projects') {
+    sanitizedSearch = sanitizedSearch.replace(/customer_name/g, 'customer_name:name');
+  }
+  if (targetPath === 'rest/v1/tasks') {
+    sanitizedSearch = sanitizedSearch
+      .replace(/select=[^&]*/, 'select=*')
+      .replace(/&parent_task_id=[^&]*/g, '')
+      .replace(/parent_task_id=[^&]*&?/g, '')
+      .replace(/&is_archived=[^&]*/g, '')
+      .replace(/is_archived=[^&]*&?/g, '');
+  }
+
+  const targetUrl = `${SUPABASE_URL}/${targetPath}${sanitizedSearch}`;
 
   const headers = new Headers();
   req.headers.forEach((value, key) => {
@@ -407,6 +462,29 @@ Dados: ${JSON.stringify(body)}`;
     resHeaders.set('Access-Control-Allow-Headers', '*');
 
     const resBody = await response.arrayBuffer();
+
+    if (targetPath === 'rest/v1/tasks' && req.method === 'GET' && response.ok) {
+      try {
+        const text = new TextDecoder().decode(resBody);
+        const json = JSON.parse(text);
+        if (Array.isArray(json)) {
+          const enriched = json.map((t: any) => ({
+            ...t,
+            priority: t.priority || 'medium',
+            status: t.status || 'todo',
+            lead: null,
+            is_archived: false,
+            archived_at: null,
+            assignee_ids: t.assigned_to ? [t.assigned_to] : [],
+            service_ids: [],
+            task_assignees: t.assigned_to ? [{ team_member_id: t.assigned_to }] : [],
+            task_services: [],
+          }));
+          return NextResponse.json(enriched, { status: 200, headers: resHeaders });
+        }
+      } catch {}
+    }
+
     return new NextResponse(resBody, {
       status: response.status,
       statusText: response.statusText,
