@@ -1102,6 +1102,88 @@ Dados: ${JSON.stringify(body)}`;
     }
   }
 
+  // 12) Diagnóstico e Relatório de Tráfego por IA (Meta Ads)
+  if (targetPath === 'functions/v1/meta-ai-diagnosis') {
+    try {
+      const body = await req.json().catch(() => ({}));
+      const userId = extractUserId(req, body);
+      const requiredCredits = 1;
+
+      const hasCredits = await checkCredits(userId, requiredCredits);
+      if (!hasCredits) {
+        return NextResponse.json(
+          {
+            error: 'Créditos insuficientes para gerar diagnóstico de tráfego por IA.',
+            code: 'INSUFFICIENT_CREDITS',
+          },
+          { status: 402, headers: corsHeaders() }
+        );
+      }
+
+      const {
+        account_name,
+        period,
+        spend,
+        impressions,
+        clicks,
+        ctr,
+        cpc,
+        conversions,
+        cpa,
+        roas,
+        top_campaigns,
+      } = body;
+
+      const prompt = `Você é um Gestor de Tráfego Pago Sênior e Especialista em Growth Marketing (Meta Ads / Instagram / Facebook).
+Analise o desempenho da conta de anúncios abaixo e elabore um diagnóstico profissional de altíssimo nível.
+
+DADOS DA CONTA:
+- Conta / Cliente: ${account_name || 'Geral'}
+- Período: ${period || 'Últimos 30 dias'}
+- Investimento Total: R$ ${spend || '0,00'}
+- Impressões: ${impressions || '0'}
+- Cliques no Link: ${clicks || '0'}
+- CTR Médio: ${ctr || '0%'}
+- CPC Médio: R$ ${cpc || '0,00'}
+- Conversões / Resultados: ${conversions || '0'}
+- CPA Médio: R$ ${cpa || '0,00'}
+- ROAS Estimado: ${roas || 'N/A'}
+- Principais Campanhas / Criativos: ${JSON.stringify(top_campaigns || [])}
+
+ESTRUTURE SUA RESPOSTA EM 3 BLOCOS CLAROS:
+
+1. 📊 DIAGNÓSTICO E ANÁLISE DE PERFORMANCE
+- Avaliação objetiva do CTR, CPC, CPA e volume de conversões.
+- O que está performando acima da média e onde há desperdício de verba.
+
+2. 🚀 PLANO DE AÇÃO PARA A PRÓXIMA SEMANA
+- Ações pontuais de escala de orçamento nos melhores conjuntos/anúncios.
+- Otimização de criativos (quais formatos testar: Reels, Carrossel, VSL).
+- Ajustes recomendados de público e teste A/B.
+
+3. 💬 MENSAGEM EXECUTIVA PARA WHATSAPP DO CLIENTE
+(Escreva uma mensagem impecável, em tom executivo e parceiro, pronta para copiar e colar no WhatsApp do cliente, resumindo os resultados conquistados e próximos passos de forma confiante).`;
+
+      const aiRes = await callOpenRouter(
+        [
+          { role: 'system', content: 'Você é o maior especialista em tráfego pago da Meta no Brasil.' },
+          { role: 'user', content: prompt },
+        ],
+        'analyst'
+      );
+
+      await deductCredits(userId, requiredCredits, 'Diagnóstico de Tráfego Pago (Meta Ads)');
+
+      return NextResponse.json(
+        { diagnosis: aiRes.text, message: aiRes.text },
+        { headers: corsHeaders() }
+      );
+    } catch (err: any) {
+      console.error('meta-ai-diagnosis error:', err);
+      return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
+    }
+  }
+
   // ==========================================
   // 3. PASSTHROUGH PADRÃO PARA O SUPABASE REST / STORAGE
   // ==========================================
@@ -1170,7 +1252,45 @@ Dados: ${JSON.stringify(body)}`;
   headers.set('Authorization', effectiveAuth);
 
   try {
-    const body = ['GET', 'HEAD'].includes(req.method) ? undefined : await req.arrayBuffer();
+    let body = ['GET', 'HEAD'].includes(req.method) ? undefined : await req.arrayBuffer();
+
+    if (targetPath.startsWith('rest/v1/leads') && ['POST', 'PATCH', 'PUT'].includes(req.method) && body) {
+      try {
+        const text = new TextDecoder().decode(body);
+        const json = JSON.parse(text);
+        if (json && typeof json === 'object') {
+          const hasUtm =
+            json.utm_source !== undefined ||
+            json.utm_campaign !== undefined ||
+            json.utm_content !== undefined ||
+            json.ad_id !== undefined;
+
+          if (hasUtm) {
+            const extractedUtm = {
+              source: json.utm_source || null,
+              campaign: json.utm_campaign || null,
+              content: json.utm_content || null,
+              ad_id: json.ad_id || null,
+            };
+            delete json.utm_source;
+            delete json.utm_campaign;
+            delete json.utm_content;
+            delete json.ad_id;
+
+            let existingNotes = json.notes || '';
+            existingNotes = existingNotes.replace(/<!--UTM:[\s\S]*?-->/g, '').trim();
+            const utmTag = `\n<!--UTM:${JSON.stringify(extractedUtm)}-->`;
+            json.notes = existingNotes ? `${existingNotes}${utmTag}` : utmTag.trim();
+
+            const updatedStr = JSON.stringify(json);
+            body = new TextEncoder().encode(updatedStr).buffer as any;
+            headers.set('content-length', String((body as ArrayBuffer).byteLength));
+          }
+        }
+      } catch (e) {
+        console.warn('Error handling UTM in leads payload:', e);
+      }
+    }
 
     const response = await fetch(targetUrl, {
       method: req.method,
@@ -1191,6 +1311,36 @@ Dados: ${JSON.stringify(body)}`;
     resHeaders.set('Access-Control-Allow-Headers', '*');
 
     const resBody = await response.arrayBuffer();
+
+    if (targetPath.startsWith('rest/v1/leads') && req.method === 'GET' && response.ok) {
+      try {
+        const text = new TextDecoder().decode(resBody);
+        const json = JSON.parse(text);
+        const enrichLead = (lead: any) => {
+          if (!lead || typeof lead !== 'object') return lead;
+          const notes = lead.notes || '';
+          const match = notes.match(/<!--UTM:([\s\S]*?)-->/);
+          if (match && match[1]) {
+            try {
+              const utm = JSON.parse(match[1]);
+              lead.utm_source = utm.source || '';
+              lead.utm_campaign = utm.campaign || '';
+              lead.utm_content = utm.content || '';
+              lead.ad_id = utm.ad_id || '';
+            } catch {}
+          }
+          return lead;
+        };
+
+        if (Array.isArray(json)) {
+          const enriched = json.map(enrichLead);
+          return NextResponse.json(enriched, { status: 200, headers: resHeaders });
+        } else if (json && typeof json === 'object') {
+          const enriched = enrichLead(json);
+          return NextResponse.json(enriched, { status: 200, headers: resHeaders });
+        }
+      } catch {}
+    }
 
     if (targetPath === 'rest/v1/tasks' && req.method === 'GET' && response.ok) {
       try {
