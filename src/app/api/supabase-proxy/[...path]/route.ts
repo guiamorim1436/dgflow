@@ -316,7 +316,24 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
       const body = await req.json().catch(() => ({}));
       const userId = extractUserId(req, body);
       const pkgId = body.package_id || 'pack_50';
-      const pkg = CREDIT_PACKAGES.find((p) => p.id === pkgId) || CREDIT_PACKAGES[0];
+      let pkg: any = CREDIT_PACKAGES.find((p) => p.id === pkgId);
+
+      if (pkgId === 'custom' || body.custom_credits || (body.credits && typeof body.credits === 'number')) {
+        const rawCredits = parseInt(String(body.custom_credits || body.credits || (pkg?.credits ?? 50)), 10);
+        const customCredits = isNaN(rawCredits) || rawCredits < 5 ? 5 : rawCredits;
+        const priceCents = customCredits * 50; // R$ 0,50 por crédito (50 centavos)
+        pkg = {
+          id: 'custom',
+          name: `${customCredits} Créditos (Personalizado)`,
+          credits: customCredits,
+          price_cents: priceCents,
+          sort_order: 99,
+          is_active: true,
+        };
+      } else if (!pkg) {
+        pkg = CREDIT_PACKAGES[0];
+      }
+
       const paymentMethod = body.payment_method || 'pix';
       const orderId = `ord_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
 
