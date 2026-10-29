@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:path*',
+        source: '/((?!api|_next|favicon|assets|logo|.*\\..*).*)',
         destination: '/index.html',
       },
     ];
