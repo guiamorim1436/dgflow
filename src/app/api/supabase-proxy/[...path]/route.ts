@@ -98,6 +98,11 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
             message: creditCheck.error,
             required: requiredCredits,
             balance: creditCheck.balance,
+            context: {
+              error: 'insufficient_credits',
+              required: requiredCredits,
+              balance: creditCheck.balance,
+            },
           },
           { status: 402, headers: corsHeaders() }
         );

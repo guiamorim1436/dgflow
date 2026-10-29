@@ -89,18 +89,10 @@ export async function getUserCredits(userId: string): Promise<UserCreditsData> {
       }
     }
 
-    // Usuário novo: inicializar com 10 créditos de cortesia para teste
+    // Usuário sem créditos comprados: inicializar com saldo 0
     const initialData: UserCreditsData = {
-      balance: 10,
-      transactions: [
-        {
-          id: `tx_${Date.now()}_init`,
-          type: 'bonus',
-          amount: 10,
-          description: 'Créditos iniciais de cortesia (10 créditos)',
-          created_at: new Date().toISOString(),
-        },
-      ],
+      balance: 0,
+      transactions: [],
     };
 
     await fetch(`${SUPABASE_URL}/rest/v1/user_ai_provider_keys`, {
