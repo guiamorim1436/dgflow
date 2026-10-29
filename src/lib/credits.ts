@@ -183,6 +183,129 @@ export async function deductCredits(
   return { success: true, balance: newBalance };
 }
 
+export async function addCredits(
+  userId: string,
+  amount: number,
+  description: string
+): Promise<{ success: boolean; balance: number }> {
+  if (!userId) return { success: false, balance: 0 };
+  if (amount <= 0) return { success: true, balance: 0 };
+
+  const current = await getUserCredits(userId);
+  const newBalance = current.balance + amount;
+  const newTransactions: CreditTransaction[] = [
+    {
+      id: `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      type: 'purchase',
+      amount: amount,
+      description,
+      created_at: new Date().toISOString(),
+    },
+    ...current.transactions.slice(0, 49),
+  ];
+
+  const updatedData: UserCreditsData = {
+    balance: newBalance,
+    transactions: newTransactions,
+  };
+
+  await fetch(
+    `${SUPABASE_URL}/rest/v1/user_ai_provider_keys?user_id=eq.${userId}&provider=eq.tenno_credits`,
+    {
+      method: 'PATCH',
+      headers: {
+        apikey: SERVICE_KEY,
+        Authorization: `Bearer ${SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        api_key: JSON.stringify(updatedData),
+      }),
+    }
+  );
+
+  return { success: true, balance: newBalance };
+}
+
+export interface CreditOrder {
+  id: string;
+  user_id: string;
+  package_id: string;
+  package_name: string;
+  credits: number;
+  amount_cents: number;
+  payment_method: string;
+  status: 'pending' | 'paid' | 'failed' | 'expired';
+  pix_qr_code?: string;
+  pix_qr_code_url?: string;
+  customer?: any;
+  created_at: string;
+  paid_at?: string;
+}
+
+export async function saveCreditOrder(order: CreditOrder): Promise<void> {
+  const providerKey = `credit_order_${order.id}`;
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/user_ai_provider_keys`, {
+      method: 'POST',
+      headers: {
+        apikey: SERVICE_KEY,
+        Authorization: `Bearer ${SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates',
+      },
+      body: JSON.stringify({
+        user_id: order.user_id,
+        provider: providerKey,
+        api_key: JSON.stringify(order),
+      }),
+    });
+  } catch (err) {
+    console.error('Error saving credit order:', err);
+  }
+}
+
+export async function getCreditOrder(orderId: string): Promise<CreditOrder | null> {
+  const providerKey = `credit_order_${orderId}`;
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/user_ai_provider_keys?provider=eq.${providerKey}&limit=1`,
+      {
+        headers: {
+          apikey: SERVICE_KEY,
+          Authorization: `Bearer ${SERVICE_KEY}`,
+        },
+      }
+    );
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0) {
+        return JSON.parse(rows[0].api_key);
+      }
+    }
+  } catch (err) {
+    console.error('Error getting credit order:', err);
+  }
+  return null;
+}
+
+export async function markCreditOrderPaid(orderId: string): Promise<CreditOrder | null> {
+  const order = await getCreditOrder(orderId);
+  if (!order || order.status === 'paid') return order;
+
+  order.status = 'paid';
+  order.paid_at = new Date().toISOString();
+
+  await saveCreditOrder(order);
+  await addCredits(
+    order.user_id,
+    order.credits,
+    `Compra de Pacote ${order.package_name} (+${order.credits} créditos)`
+  );
+
+  return order;
+}
+
 export function getCreditCosts() {
   return Object.entries(DEFAULT_COSTS).map(([operation, cost]) => ({
     operation,
