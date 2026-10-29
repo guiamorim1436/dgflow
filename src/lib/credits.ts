@@ -308,3 +308,81 @@ export function getCreditCosts() {
     is_active: true,
   }));
 }
+
+export interface UserDesignPreference {
+  user_id: string;
+  image_provider: 'credits' | 'gemini' | 'openai';
+  onboarding_completed: boolean;
+  updated_at?: string;
+}
+
+const designPrefCache = new Map<string, UserDesignPreference>();
+
+export async function getUserDesignPreference(userId: string): Promise<UserDesignPreference> {
+  if (designPrefCache.has(userId)) {
+    return designPrefCache.get(userId)!;
+  }
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/user_ai_provider_keys?user_id=eq.${userId}&provider=eq.ai_design_pref&limit=1`,
+      { headers: serverHeaders() }
+    );
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0 && rows[0].api_key) {
+        const parsed = JSON.parse(rows[0].api_key);
+        const pref: UserDesignPreference = {
+          user_id: userId,
+          image_provider: parsed.image_provider || 'credits',
+          onboarding_completed: parsed.onboarding_completed ?? true,
+        };
+        designPrefCache.set(userId, pref);
+        return pref;
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching design preference:', err);
+  }
+
+  const defaultPref: UserDesignPreference = {
+    user_id: userId,
+    image_provider: 'credits',
+    onboarding_completed: true,
+  };
+  designPrefCache.set(userId, defaultPref);
+  return defaultPref;
+}
+
+export async function saveUserDesignPreference(
+  userId: string,
+  partial: Partial<UserDesignPreference>
+): Promise<UserDesignPreference> {
+  const current = await getUserDesignPreference(userId);
+  const updated: UserDesignPreference = {
+    ...current,
+    ...partial,
+    user_id: userId,
+    updated_at: new Date().toISOString(),
+  };
+  designPrefCache.set(userId, updated);
+
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/user_ai_provider_keys`, {
+      method: 'POST',
+      headers: serverHeaders({
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates',
+      }),
+      body: JSON.stringify({
+        user_id: userId,
+        provider: 'ai_design_pref',
+        api_key: JSON.stringify(updated),
+      }),
+    });
+  } catch (err) {
+    console.error('Error saving design preference:', err);
+  }
+
+  return updated;
+}

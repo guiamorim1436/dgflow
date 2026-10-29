@@ -10,6 +10,8 @@ import {
   saveCreditOrder,
   getCreditOrder,
   markCreditOrderPaid,
+  getUserDesignPreference,
+  saveUserDesignPreference,
 } from '@/lib/credits';
 import { generatePixPayload } from '@/lib/pix';
 import { callOpenRouter } from '@/lib/openrouter';
@@ -132,6 +134,37 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
       return NextResponse.json(null, { headers: corsHeaders(), status: 200 });
     }
     return NextResponse.json([], { headers: corsHeaders() });
+  }
+
+  // ==========================================
+  // 1.0.2 PREFERÊNCIAS DE IA E DESIGN (user_ai_design_preferences)
+  // ==========================================
+  if (targetPath === 'rest/v1/user_ai_design_preferences') {
+    const userId = extractUserId(req);
+    const acceptHeader = req.headers.get('accept') || '';
+    const isSingle = acceptHeader.includes('application/vnd.pgrst.object+json');
+
+    if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
+      try {
+        const body = await req.json();
+        const incoming = Array.isArray(body) ? body[0] : body;
+        const pref = await saveUserDesignPreference(userId, incoming);
+        if (isSingle) {
+          return NextResponse.json(pref, { headers: corsHeaders(), status: 200 });
+        }
+        return NextResponse.json([pref], { headers: corsHeaders(), status: 200 });
+      } catch (err) {
+        const fallback = { user_id: userId, image_provider: 'credits', onboarding_completed: true };
+        return NextResponse.json(isSingle ? fallback : [fallback], { headers: corsHeaders(), status: 200 });
+      }
+    }
+
+    // GET
+    const pref = await getUserDesignPreference(userId);
+    if (isSingle) {
+      return NextResponse.json(pref, { headers: corsHeaders() });
+    }
+    return NextResponse.json([pref], { headers: corsHeaders() });
   }
 
   // ==========================================
