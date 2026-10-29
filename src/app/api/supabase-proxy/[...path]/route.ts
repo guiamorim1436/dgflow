@@ -7,6 +7,12 @@ import {
   CREDIT_PACKAGES,
 } from '@/lib/credits';
 import { callOpenRouter } from '@/lib/openrouter';
+import {
+  VIRTUAL_INTEGRATION_TABLES,
+  handleVirtualIntegration,
+  handleGenerateMcpApiKey,
+  handleWebhookLead,
+} from '@/lib/virtualIntegrations';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xzjugxtxuxgkiszbpuxx.supabase.co';
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -118,6 +124,97 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
       return NextResponse.json([], { headers: corsHeaders() });
     }
     return NextResponse.json([], { headers: corsHeaders() });
+  }
+
+  // ==========================================
+  // 1.2 TABELAS VIRTUAIS DE CONFIGURAÇÃO DE INTEGRAÇÕES
+  // ==========================================
+  const cleanTable = targetPath.startsWith('rest/v1/') ? targetPath.replace('rest/v1/', '').split('?')[0] : '';
+  if (VIRTUAL_INTEGRATION_TABLES.includes(cleanTable)) {
+    const userId = extractUserId(req);
+    return handleVirtualIntegration(req, cleanTable, userId);
+  }
+
+  if (targetPath === 'rest/v1/rpc/generate_mcp_api_key') {
+    const body = await req.json().catch(() => ({}));
+    const userId = extractUserId(req, body);
+    return handleGenerateMcpApiKey(userId, body.p_name);
+  }
+
+  if (targetPath === 'functions/v1/webhook-lead') {
+    return handleWebhookLead(req);
+  }
+
+  const paymentWebhooks = [
+    'functions/v1/asaas-webhook',
+    'functions/v1/mercadopago-webhook',
+    'functions/v1/abacatepay-webhook',
+    'functions/v1/cora-webhook',
+    'functions/v1/inter-webhook',
+    'functions/v1/ativopay-webhook',
+  ];
+
+  if (paymentWebhooks.includes(targetPath)) {
+    return NextResponse.json({ received: true }, { headers: corsHeaders() });
+  }
+
+  // MCP Server Endpoint (Protocolo JSON-RPC 2.0)
+  if (targetPath === 'functions/v1/mcp-server') {
+    try {
+      const body = await req.json().catch(() => ({}));
+      const method = body.method;
+
+      if (method === 'initialize') {
+        return NextResponse.json(
+          {
+            jsonrpc: '2.0',
+            id: body.id,
+            result: {
+              protocolVersion: '2024-11-05',
+              serverInfo: { name: 'Tenno Flow MCP Server', version: '1.0.0' },
+              capabilities: { tools: {}, resources: {} },
+            },
+          },
+          { headers: corsHeaders() }
+        );
+      }
+
+      if (method === 'tools/list') {
+        return NextResponse.json(
+          {
+            jsonrpc: '2.0',
+            id: body.id,
+            result: {
+              tools: [
+                {
+                  name: 'listar_leads',
+                  description: 'Lista os leads cadastrados no CRM do Tenno Flow.',
+                  inputSchema: { type: 'object', properties: { limit: { type: 'number' } } },
+                },
+                {
+                  name: 'listar_tarefas',
+                  description: 'Lista as tarefas operacionais e projetos do Tenno Flow.',
+                  inputSchema: { type: 'object', properties: { status: { type: 'string' } } },
+                },
+                {
+                  name: 'consultar_metricas',
+                  description: 'Consulta métricas operacionais e financeiras da agência.',
+                  inputSchema: { type: 'object', properties: {} },
+                },
+              ],
+            },
+          },
+          { headers: corsHeaders() }
+        );
+      }
+
+      return NextResponse.json(
+        { jsonrpc: '2.0', id: body.id, result: { success: true } },
+        { headers: corsHeaders() }
+      );
+    } catch {
+      return NextResponse.json({ success: true }, { headers: corsHeaders() });
+    }
   }
 
   // ==========================================
