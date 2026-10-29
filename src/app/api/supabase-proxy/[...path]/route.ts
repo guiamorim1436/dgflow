@@ -1242,6 +1242,7 @@ ESTRUTURE SUA RESPOSTA EM 3 BLOCOS CLAROS:
   const isAdminRequest = targetPath.includes('rpc/get_admin_') || 
                          targetPath.includes('rpc/admin_') ||
                          targetPath.includes('rpc/get_user_') ||
+                         targetPath.startsWith('rest/v1/leads') ||
                          (targetPath === 'rest/v1/user_subscriptions' && req.method === 'GET' && !sanitizedSearch.includes('user_id=eq.'));
 
   let effectiveApiKey = (incomingApiKey && incomingApiKey !== 'null' && incomingApiKey !== 'undefined' && incomingApiKey !== 'mock')
