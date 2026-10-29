@@ -715,7 +715,7 @@ Responda APENAS com um array JSON com as 3 opções em formato texto, sem markdo
               },
               { role: 'user', content: `Melhore este prompt: "${prompt}" no estilo ${body.stylePreset || 'phoenix'}` },
             ],
-            'prompt_enhancer',
+            'image_prompt',
             { temperature: 0.7, maxTokens: 150 }
           );
           if (enhanceRes.text && enhanceRes.text.length > 10) {
@@ -779,7 +779,7 @@ Responda APENAS com um array JSON com as 3 opções em formato texto, sem markdo
           },
           { role: 'user', content: `Melhore este prompt: "${rawPrompt}" no estilo ${stylePreset}` },
         ],
-        'prompt_enhancer',
+        'image_prompt',
         { temperature: 0.7, maxTokens: 160 }
       );
 
@@ -1188,6 +1188,14 @@ ESTRUTURE SUA RESPOSTA EM 3 BLOCOS CLAROS:
   // 3. PASSTHROUGH PADRÃO PARA O SUPABASE REST / STORAGE
   // ==========================================
   let sanitizedSearch = search;
+  if (targetPath.startsWith('rest/v1/leads')) {
+    sanitizedSearch = sanitizedSearch
+      .replace(/select=[^&]*/, 'select=*')
+      .replace(/customer_name/g, 'name')
+      .replace(/estimated_value/g, 'value')
+      .replace(/&is_archived=[^&]*/g, '')
+      .replace(/is_archived=[^&]*&?/g, '');
+  }
   if (targetPath === 'rest/v1/projects') {
     sanitizedSearch = sanitizedSearch.replace(/customer_name/g, 'customer_name:name');
   }
@@ -1257,38 +1265,68 @@ ESTRUTURE SUA RESPOSTA EM 3 BLOCOS CLAROS:
     if (targetPath.startsWith('rest/v1/leads') && ['POST', 'PATCH', 'PUT'].includes(req.method) && body) {
       try {
         const text = new TextDecoder().decode(body);
-        const json = JSON.parse(text);
-        if (json && typeof json === 'object') {
-          const hasUtm =
-            json.utm_source !== undefined ||
-            json.utm_campaign !== undefined ||
-            json.utm_content !== undefined ||
-            json.ad_id !== undefined;
+        let json = JSON.parse(text);
 
-          if (hasUtm) {
-            const extractedUtm = {
-              source: json.utm_source || null,
-              campaign: json.utm_campaign || null,
-              content: json.utm_content || null,
-              ad_id: json.ad_id || null,
-            };
-            delete json.utm_source;
-            delete json.utm_campaign;
-            delete json.utm_content;
-            delete json.ad_id;
+        const VALID_COLUMNS = new Set([
+          'id',
+          'user_id',
+          'pipeline_id',
+          'name',
+          'company',
+          'email',
+          'phone',
+          'value',
+          'stage',
+          'status',
+          'source',
+          'notes',
+          'tags',
+          'created_at',
+          'updated_at',
+        ]);
 
-            let existingNotes = json.notes || '';
-            existingNotes = existingNotes.replace(/<!--UTM:[\s\S]*?-->/g, '').trim();
-            const utmTag = `\n<!--UTM:${JSON.stringify(extractedUtm)}-->`;
-            json.notes = existingNotes ? `${existingNotes}${utmTag}` : utmTag.trim();
-
-            const updatedStr = JSON.stringify(json);
-            body = new TextEncoder().encode(updatedStr).buffer as any;
-            headers.set('content-length', String((body as ArrayBuffer).byteLength));
+        const sanitizeLeadPayload = (item: any) => {
+          if (!item || typeof item !== 'object') return item;
+          if (item.customer_name && !item.name) {
+            item.name = item.customer_name;
           }
+          if (item.estimated_value !== undefined && item.value === undefined) {
+            item.value = item.estimated_value;
+          }
+
+          const extra: Record<string, any> = {};
+          for (const key of Object.keys(item)) {
+            if (!VALID_COLUMNS.has(key)) {
+              if (item[key] !== undefined && item[key] !== null) {
+                extra[key] = item[key];
+              }
+              delete item[key];
+            }
+          }
+
+          if (Object.keys(extra).length > 0) {
+            let existingNotes = item.notes || '';
+            existingNotes = existingNotes
+              .replace(/<!--EXTRA_LEAD:[\s\S]*?-->/g, '')
+              .replace(/<!--UTM:[\s\S]*?-->/g, '')
+              .trim();
+            const tag = `\n<!--EXTRA_LEAD:${JSON.stringify(extra)}-->`;
+            item.notes = existingNotes ? `${existingNotes}${tag}` : tag.trim();
+          }
+          return item;
+        };
+
+        if (Array.isArray(json)) {
+          json = json.map(sanitizeLeadPayload);
+        } else if (json && typeof json === 'object') {
+          json = sanitizeLeadPayload(json);
         }
+
+        const updatedStr = JSON.stringify(json);
+        body = new TextEncoder().encode(updatedStr).buffer as any;
+        headers.set('content-length', String((body as ArrayBuffer).byteLength));
       } catch (e) {
-        console.warn('Error handling UTM in leads payload:', e);
+        console.warn('Error handling leads payload:', e);
       }
     }
 
@@ -1312,21 +1350,36 @@ ESTRUTURE SUA RESPOSTA EM 3 BLOCOS CLAROS:
 
     const resBody = await response.arrayBuffer();
 
-    if (targetPath.startsWith('rest/v1/leads') && req.method === 'GET' && response.ok) {
+    if (targetPath.startsWith('rest/v1/leads') && response.ok) {
       try {
         const text = new TextDecoder().decode(resBody);
         const json = JSON.parse(text);
         const enrichLead = (lead: any) => {
           if (!lead || typeof lead !== 'object') return lead;
+          lead.customer_name = lead.name || '';
+          lead.estimated_value = lead.value || 0;
+          lead.is_archived = false;
+
           const notes = lead.notes || '';
-          const match = notes.match(/<!--UTM:([\s\S]*?)-->/);
-          if (match && match[1]) {
+          const extraMatch = notes.match(/<!--EXTRA_LEAD:([\s\S]*?)-->/);
+          if (extraMatch && extraMatch[1]) {
             try {
-              const utm = JSON.parse(match[1]);
-              lead.utm_source = utm.source || '';
-              lead.utm_campaign = utm.campaign || '';
-              lead.utm_content = utm.content || '';
-              lead.ad_id = utm.ad_id || '';
+              const extra = JSON.parse(extraMatch[1]);
+              Object.assign(lead, extra);
+              if (!lead.customer_name && lead.name) lead.customer_name = lead.name;
+              if (!lead.name && lead.customer_name) lead.name = lead.customer_name;
+              if (lead.estimated_value === undefined && lead.value !== undefined) lead.estimated_value = lead.value;
+            } catch {}
+          }
+
+          const utmMatch = notes.match(/<!--UTM:([\s\S]*?)-->/);
+          if (utmMatch && utmMatch[1]) {
+            try {
+              const utm = JSON.parse(utmMatch[1]);
+              if (!lead.utm_source) lead.utm_source = utm.source || '';
+              if (!lead.utm_campaign) lead.utm_campaign = utm.campaign || '';
+              if (!lead.utm_content) lead.utm_content = utm.content || '';
+              if (!lead.ad_id) lead.ad_id = utm.ad_id || '';
             } catch {}
           }
           return lead;
