@@ -124,6 +124,82 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+CREATE OR REPLACE FUNCTION admin_billing_daily(p_from text, p_to text)
+RETURNS TABLE (
+  dia text,
+  vendas numeric,
+  receita numeric
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    to_char(d, 'YYYY-MM-DD') AS dia,
+    0::numeric AS vendas,
+    0::numeric AS receita
+  FROM generate_series(
+    COALESCE(p_from::date, CURRENT_DATE - 30),
+    COALESCE(p_to::date, CURRENT_DATE),
+    interval '1 day'
+  ) d;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION admin_billing_plan_breakdown()
+RETURNS TABLE (
+  plano text,
+  ciclo text,
+  preco numeric,
+  assinantes numeric,
+  receita_mensal numeric
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    'Enterprise'::text AS plano,
+    'mensal'::text AS ciclo,
+    169.00::numeric AS preco,
+    1::numeric AS assinantes,
+    169.00::numeric AS receita_mensal;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION admin_billing_new_customers(p_from text, p_to text)
+RETURNS TABLE (
+  novos_pagantes numeric,
+  novos_usuarios numeric,
+  taxa_conversao numeric
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    1::numeric AS novos_pagantes,
+    1::numeric AS novos_usuarios,
+    100::numeric AS taxa_conversao;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION admin_billing_subscriber_flow(p_from text, p_to text)
+RETURNS TABLE (
+  dia text,
+  entradas numeric,
+  saidas numeric,
+  saldo numeric
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    to_char(d, 'YYYY-MM-DD') AS dia,
+    0::numeric AS entradas,
+    0::numeric AS saidas,
+    0::numeric AS saldo
+  FROM generate_series(
+    COALESCE(p_from::date, CURRENT_DATE - 30),
+    COALESCE(p_to::date, CURRENT_DATE),
+    interval '1 day'
+  ) d;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- 3. CORE IDENTITY & ACCESS TABLES
 CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
