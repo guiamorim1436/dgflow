@@ -538,6 +538,102 @@ CREATE TABLE IF NOT EXISTS public.cash_movements (
   movement_date timestamptz DEFAULT now()
 );
 
+-- 7.1 PAYMENT GATEWAY CONFIGURATIONS
+CREATE TABLE IF NOT EXISTS public.user_infinitepay_config (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  handle text NOT NULL,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT user_infinitepay_config_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.user_asaas_config (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  api_key text,
+  is_active boolean DEFAULT true,
+  environment text DEFAULT 'production',
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT user_asaas_config_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.mercadopago_configs (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  access_token text,
+  public_key text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT mercadopago_configs_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.user_abacatepay_config (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  api_key text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT user_abacatepay_config_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.user_ativopay_config (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  api_key text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT user_ativopay_config_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.inter_configs (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  client_id text,
+  client_secret text,
+  cert_content text,
+  key_content text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT inter_configs_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.user_stripe_config (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  secret_key text,
+  publishable_key text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT user_stripe_config_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.cora_configs (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  client_id text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT cora_configs_user_id_key UNIQUE (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.sicredi_configs (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT sicredi_configs_user_id_key UNIQUE (user_id)
+);
+
 -- 8. WHATSAPP & AUTOMATIONS
 CREATE TABLE IF NOT EXISTS public.whatsapp_instances (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -685,6 +781,15 @@ ALTER TABLE public.portfolio_pages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.bio_pages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.capture_pages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.reminders ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_infinitepay_config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_asaas_config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.mercadopago_configs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_abacatepay_config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_ativopay_config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.inter_configs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_stripe_config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.cora_configs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.sicredi_configs ENABLE ROW LEVEL SECURITY;
 
 DO $$
 BEGIN
@@ -711,6 +816,15 @@ BEGIN
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on bio_pages" ON public.bio_pages FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on capture_pages" ON public.capture_pages FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all for authenticated users on reminders" ON public.reminders FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on user_infinitepay_config" ON public.user_infinitepay_config FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on user_asaas_config" ON public.user_asaas_config FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on mercadopago_configs" ON public.mercadopago_configs FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on user_abacatepay_config" ON public.user_abacatepay_config FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on user_ativopay_config" ON public.user_ativopay_config FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on inter_configs" ON public.inter_configs FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on user_stripe_config" ON public.user_stripe_config FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on cora_configs" ON public.cora_configs FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on sicredi_configs" ON public.sicredi_configs FOR ALL TO authenticated USING (true) WITH CHECK (true)';
 EXCEPTION WHEN OTHERS THEN
   NULL;
 END $$;
@@ -736,6 +850,11 @@ BEGIN
   INSERT INTO public.user_roles (user_id, role)
   VALUES (v_user_id, 'admin')
   ON CONFLICT (user_id, role) DO NOTHING;
+
+  -- Configure InfinitePay handle ($tenno)
+  INSERT INTO public.user_infinitepay_config (user_id, handle, is_active)
+  VALUES (v_user_id, 'tenno', true)
+  ON CONFLICT (user_id) DO UPDATE SET handle = 'tenno', is_active = true, updated_at = now();
 
   -- Create default team if not exists
   SELECT id INTO v_team_id FROM public.teams WHERE owner_id = v_user_id LIMIT 1;
