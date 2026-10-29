@@ -576,22 +576,20 @@ Dados: ${JSON.stringify(body)}`;
   const incomingAuth = req.headers.get('authorization') || '';
   const incomingApiKey = req.headers.get('apikey') || '';
 
-  // Garante que a apikey nunca seja vazia
-  const effectiveApiKey = (incomingApiKey && incomingApiKey !== 'null' && incomingApiKey !== 'undefined')
-    ? incomingApiKey
-    : (ANON_KEY || SERVICE_KEY);
-
-  // Se a rota for administrativa de RPC ou se não houver token válido do cliente, usa a SERVICE_KEY.
-  // Caso o cliente envie um Bearer token válido (JWT de sessão), mantém o token do cliente para respeitar auth e RLS,
-  // mas se for requisição administrativa (rpc/get_admin_*, user_subscriptions pelo admin, etc.) ou se não houver auth,
-  // injeta a SERVICE_KEY para garantir permissão total de admin!
   const isAdminRequest = targetPath.includes('rpc/get_admin_') || 
                          targetPath.includes('rpc/admin_') ||
                          targetPath.includes('rpc/get_user_') ||
                          (targetPath === 'rest/v1/user_subscriptions' && req.method === 'GET' && !sanitizedSearch.includes('user_id=eq.'));
 
+  let effectiveApiKey = (incomingApiKey && incomingApiKey !== 'null' && incomingApiKey !== 'undefined' && incomingApiKey !== 'mock')
+    ? incomingApiKey
+    : (ANON_KEY || SERVICE_KEY);
+
   let effectiveAuth = incomingAuth;
-  if (isAdminRequest || !effectiveAuth || effectiveAuth === 'Bearer' || effectiveAuth === 'Bearer null' || effectiveAuth === 'Bearer undefined') {
+  if (isAdminRequest) {
+    effectiveApiKey = SERVICE_KEY;
+    effectiveAuth = `Bearer ${SERVICE_KEY}`;
+  } else if (!effectiveAuth || effectiveAuth === 'Bearer' || effectiveAuth === 'Bearer null' || effectiveAuth === 'Bearer undefined') {
     effectiveAuth = `Bearer ${SERVICE_KEY}`;
   }
 
