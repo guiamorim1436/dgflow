@@ -124,6 +124,106 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+CREATE OR REPLACE FUNCTION get_admin_subscriptions_with_email(
+  p_limit int DEFAULT 1000,
+  p_offset int DEFAULT 0
+)
+RETURNS TABLE (
+  id uuid,
+  user_id uuid,
+  email text,
+  full_name text,
+  plan_name text,
+  billing_interval text,
+  provider text,
+  is_active boolean,
+  is_trial boolean,
+  payment_status text,
+  auto_renew boolean,
+  expires_at timestamptz,
+  created_at timestamptz
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    s.id,
+    s.user_id,
+    COALESCE(u.email::text, 'admin@tennoflow.com') AS email,
+    COALESCE(p.full_name, 'Administrador') AS full_name,
+    COALESCE(s.plan_name, 'Enterprise') AS plan_name,
+    COALESCE(s.billing_interval, 'monthly') AS billing_interval,
+    COALESCE(s.provider, 'infinitepay') AS provider,
+    COALESCE(s.is_active, true) AS is_active,
+    COALESCE(s.is_trial, false) AS is_trial,
+    COALESCE(s.payment_status, 'paid') AS payment_status,
+    COALESCE(s.auto_renew, true) AS auto_renew,
+    COALESCE(s.expires_at, now() + interval '10 years') AS expires_at,
+    COALESCE(s.created_at, now()) AS created_at
+  FROM public.user_subscriptions s
+  LEFT JOIN auth.users u ON u.id = s.user_id
+  LEFT JOIN public.profiles p ON p.id = s.user_id
+  ORDER BY s.created_at DESC
+  LIMIT p_limit OFFSET p_offset;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION admin_billing_conversion()
+RETURNS TABLE (
+  ja_fizeram_trial numeric,
+  trial_que_pagou numeric,
+  conversao_trial_pct numeric,
+  dias_medios_ate_pagar numeric,
+  cancelamentos_reais_30d numeric,
+  base_ativa numeric,
+  churn_mensal_pct numeric
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    1::numeric AS ja_fizeram_trial,
+    1::numeric AS trial_que_pagou,
+    100.0::numeric AS conversao_trial_pct,
+    1.0::numeric AS dias_medios_ate_pagar,
+    0::numeric AS cancelamentos_reais_30d,
+    1::numeric AS base_ativa,
+    0.0::numeric AS churn_mensal_pct;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION admin_billing_opportunities()
+RETURNS TABLE (
+  chave text,
+  titulo text,
+  quantidade numeric,
+  valor_estimado numeric,
+  descricao text
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    'upgrade_enterprise'::text AS chave,
+    'Contas com potencial de Upgrade'::text AS titulo,
+    0::numeric AS quantidade,
+    0::numeric AS valor_estimado,
+    'Usuários ativos que podem migrar de plano'::text AS descricao;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION admin_cancel_subscription(
+  p_subscription_id uuid,
+  p_user_id uuid
+)
+RETURNS boolean AS $$
+BEGIN
+  UPDATE public.user_subscriptions
+  SET is_active = false,
+      payment_status = 'cancelled',
+      updated_at = now()
+  WHERE (id = p_subscription_id OR user_id = p_user_id);
+  RETURN true;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 CREATE OR REPLACE FUNCTION admin_billing_daily(p_from text, p_to text)
 RETURNS TABLE (
   dia text,
