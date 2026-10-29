@@ -13,7 +13,7 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
   req.headers.forEach((value, key) => {
     // Preserve useful headers except host, connection, etc.
     const lower = key.toLowerCase();
-    if (!['host', 'connection', 'content-length'].includes(lower)) {
+    if (!['host', 'connection', 'content-length', 'accept-encoding'].includes(lower)) {
       headers.set(key, value);
     }
   });
@@ -33,7 +33,10 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
 
     const resHeaders = new Headers();
     response.headers.forEach((value, key) => {
-      resHeaders.set(key, value);
+      const lower = key.toLowerCase();
+      if (!['content-encoding', 'content-length'].includes(lower)) {
+        resHeaders.set(key, value);
+      }
     });
 
     // Ensure CORS headers if needed
