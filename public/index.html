@@ -10,6 +10,26 @@
     <link rel="icon" href="/favicon-16x16.png?v=4" type="image/png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
 
+    <script>
+      (function() {
+        try {
+          var su = "https://xzjugxtxuxgkiszbpuxx.supabase.co";
+          var origFetch = window.fetch;
+          window.fetch = function(u, opts) {
+            try {
+              var s = typeof u === "string" ? u : (u && u.url ? u.url : "");
+              if (s && (s.indexOf(su + "/rest/v1/") === 0 || s.indexOf(su + "/storage/v1/") === 0 || s.indexOf(su + "/functions/v1/") === 0)) {
+                var p = s.replace(su, "/api/supabase-proxy");
+                if (typeof u === "string") u = p;
+                else if (u && typeof u === "object") u = new Request(p, u);
+              }
+            } catch (e) {}
+            return origFetch.call(this, u, opts);
+          };
+        } catch (e) {}
+      })();
+    </script>
+
 
 
     <!-- Google Tag Manager — só nos domínios oficiais do Tenno Flow (não nas
