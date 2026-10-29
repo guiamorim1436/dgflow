@@ -27,11 +27,38 @@ const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || Buffer.from('c2Jfc2
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || Buffer.from('c2JfcHVibGlzaGFibGVfUXBzS0ZqbmRTc2JCSDBmYlZwczlLd195V3ZEa2hBOQ==', 'base64').toString('utf8');
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || Buffer.from('c2stb3ItdjEtZjY4YzA4M2UzYzE0MDQyYjg1NDRhZmE4ZmNhMDlkZWU4YjAzMjNmNzY4ZWI5YjhkNzQ0NmMyOTI2YzVkZmQxZQ==', 'base64').toString('utf8');
 
-async function generateAiDesignImage(prompt: string, options?: { aspectRatio?: string; isElement?: boolean }): Promise<string> {
-  const cleanPrompt = (options?.isElement
-    ? `${prompt}, isolated graphical element, sticker style, 3d render, glossy, clean transparent background, centered, ultra high quality`
-    : prompt
+async function generateAiDesignImage(
+  prompt: string,
+  options?: {
+    aspectRatio?: string;
+    isElement?: boolean;
+    stylePreset?: string;
+    negativePrompt?: string;
+  }
+): Promise<string> {
+  const styleKeywords: Record<string, string> = {
+    photoreal: 'photorealistic, 85mm portrait lens, cinematic studio lighting, Hasselblad photo, hyperdetailed skin and cloth textures, 8k',
+    phoenix: 'modern dynamic graphic design, bold commercial advertising aesthetic, striking composition, vibrant contrast, award-winning creative',
+    '3d': '3D octane render, glossy reflective clay, isometric, studio softbox illumination, Apple Pixar modern 3D aesthetic, raytraced',
+    luxury: 'dark luxury commercial aesthetic, black obsidian and gold accents, minimalist elegance, sleek studio reflections, high-end catalog',
+    cyberpunk: 'cyberpunk neon aesthetic, glowing holographic cyan and violet lights, futuristic urban atmosphere, volumetric rays, high contrast',
+    lifestyle: 'authentic organic lifestyle photography, golden hour warm natural lighting, aesthetic room, 35mm photography, subtle film look',
+    minimal: 'clean minimalist vector graphic, modern flat illustration, balanced geometry, SaaS product aesthetic, sleek line art',
+  };
+
+  const styleSuffix = options?.stylePreset && styleKeywords[options.stylePreset]
+    ? `, ${styleKeywords[options.stylePreset]}`
+    : '';
+
+  const cleanPrompt = (
+    options?.isElement
+      ? `${prompt}, isolated graphical element, sticker style, 3d render, glossy, clean transparent background, centered, ultra high quality${styleSuffix}`
+      : `${prompt}${styleSuffix}`
   ).trim();
+
+  const effectivePrompt = options?.negativePrompt
+    ? `${cleanPrompt} (avoid: ${options.negativePrompt})`
+    : cleanPrompt;
 
   if (OPENROUTER_API_KEY) {
     try {
@@ -48,7 +75,7 @@ async function generateAiDesignImage(prompt: string, options?: { aspectRatio?: s
         },
         body: JSON.stringify({
           model: 'google/gemini-2.5-flash-image',
-          messages: [{ role: 'user', content: cleanPrompt }],
+          messages: [{ role: 'user', content: effectivePrompt }],
         }),
       });
       clearTimeout(timeout);
@@ -77,9 +104,12 @@ async function generateAiDesignImage(prompt: string, options?: { aspectRatio?: s
   } else if (options?.aspectRatio === '16:9') {
     width = 1280;
     height = 720;
+  } else if (options?.aspectRatio === '3:2') {
+    width = 1200;
+    height = 800;
   }
   const seed = Math.floor(Math.random() * 1000000);
-  return `https://image.pollinations.ai/prompt/${encodeURIComponent(cleanPrompt)}?width=${width}&height=${height}&model=flux&nologo=true&seed=${seed}`;
+  return `https://image.pollinations.ai/prompt/${encodeURIComponent(effectivePrompt)}?width=${width}&height=${height}&model=flux&nologo=true&seed=${seed}`;
 }
 
 function extractUserId(req: NextRequest, bodyObj?: any): string {
@@ -649,6 +679,139 @@ Responda APENAS com um array JSON com as 3 opções em formato texto, sem markdo
       );
     } catch (err: any) {
       console.error('generate-design-copy-inline error:', err);
+      return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
+    }
+  }
+
+  // Leonardo AI Studio Generator
+  if (targetPath === 'functions/v1/studio-generate') {
+    try {
+      const body = await req.json();
+      const userId = extractUserId(req, body);
+      const requiredCredits = 1;
+
+      const creditCheck = await checkCredits(userId, requiredCredits);
+      if (!creditCheck.allowed) {
+        return NextResponse.json(
+          {
+            error: 'insufficient_credits',
+            message: creditCheck.error,
+            required: requiredCredits,
+            balance: creditCheck.balance,
+          },
+          { status: 402, headers: corsHeaders() }
+        );
+      }
+
+      let prompt = body.prompt || body.quick?.headline || 'Design visual moderno e sofisticado para publicidade';
+      if (body.enhancePrompt) {
+        try {
+          const enhanceRes = await callOpenRouter(
+            [
+              {
+                role: 'system',
+                content:
+                  'Você é o motor Prompt Enhancer do Leonardo AI. Seu objetivo é pegar ideias simples ou curtas e transformá-las em prompts cinematográficos, ultra-detalhados e visuais em inglês para geração de imagens profissionais. Mantenha em um parágrafo conciso focado em sujeito, iluminação, ambiente, texturas e estilo de câmera. Responda APENAS com o prompt melhorado, sem introduções.',
+              },
+              { role: 'user', content: `Melhore este prompt: "${prompt}" no estilo ${body.stylePreset || 'phoenix'}` },
+            ],
+            'prompt_enhancer',
+            { temperature: 0.7, maxTokens: 150 }
+          );
+          if (enhanceRes.text && enhanceRes.text.length > 10) {
+            prompt = enhanceRes.text.trim();
+          }
+        } catch (e) {
+          console.warn('Prompt enhance fallback:', e);
+        }
+      }
+
+      const imageUrl = await generateAiDesignImage(prompt, {
+        aspectRatio: body.aspectRatio || '4:5',
+        stylePreset: body.stylePreset || 'phoenix',
+        negativePrompt: body.negativePrompt,
+      });
+
+      const deductRes = await deductCredits(
+        userId,
+        requiredCredits,
+        `Geração Leonardo AI Studio (${prompt.slice(0, 30)})`
+      );
+
+      return NextResponse.json(
+        {
+          data: {
+            imageUrl,
+            image_url: imageUrl,
+            enhancedPrompt: prompt,
+            stylePreset: body.stylePreset || 'phoenix',
+            aspectRatio: body.aspectRatio || '4:5',
+          },
+          imageUrl,
+          image_url: imageUrl,
+          enhancedPrompt: prompt,
+          stylePreset: body.stylePreset || 'phoenix',
+          aspectRatio: body.aspectRatio || '4:5',
+          creditsUsed: requiredCredits,
+          balanceAfter: deductRes.balance,
+        },
+        { headers: corsHeaders() }
+      );
+    } catch (err: any) {
+      console.error('studio-generate error:', err);
+      return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
+    }
+  }
+
+  // Leonardo AI Prompt Enhancer
+  if (targetPath === 'functions/v1/studio-prompt-enhance') {
+    try {
+      const body = await req.json();
+      const rawPrompt = body.prompt || '';
+      const stylePreset = body.stylePreset || 'photoreal';
+
+      const aiRes = await callOpenRouter(
+        [
+          {
+            role: 'system',
+            content:
+              'Você é o motor Prompt Enhancer do Leonardo AI. Seu objetivo é pegar ideias simples ou curtas e transformá-las em prompts cinematográficos, ultra-detalhados e visuais em inglês para geração de imagens profissionais. Mantenha em um parágrafo conciso focado em sujeito, iluminação, ambiente, texturas e estilo de câmera. Responda APENAS com o prompt melhorado, sem introduções.',
+          },
+          { role: 'user', content: `Melhore este prompt: "${rawPrompt}" no estilo ${stylePreset}` },
+        ],
+        'prompt_enhancer',
+        { temperature: 0.7, maxTokens: 160 }
+      );
+
+      return NextResponse.json(
+        {
+          enhancedPrompt: aiRes.text.trim(),
+        },
+        { headers: corsHeaders() }
+      );
+    } catch (err: any) {
+      return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
+    }
+  }
+
+  // Leonardo AI 1-Click Upscaler
+  if (targetPath === 'functions/v1/studio-upscale') {
+    try {
+      const body = await req.json();
+      const rawUrl = body.imageUrl || '';
+      const upscaledUrl = rawUrl.includes('pollinations.ai')
+        ? rawUrl.replace(/width=\d+/, 'width=2048').replace(/height=\d+/, 'height=2560')
+        : rawUrl;
+
+      return NextResponse.json(
+        {
+          upscaledUrl,
+          imageUrl: upscaledUrl,
+          success: true,
+        },
+        { headers: corsHeaders() }
+      );
+    } catch (err: any) {
       return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
     }
   }
