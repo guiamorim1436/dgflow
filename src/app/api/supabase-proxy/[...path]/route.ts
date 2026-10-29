@@ -112,7 +112,15 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
             order = await markCreditOrderPaid(order.id);
           }
         }
-        const resPayload = { id: order!.id, status: order!.status };
+        const resPayload = {
+          id: order!.id,
+          status: order!.status,
+          credits: order!.credits || 50,
+          amount_cents: order!.amount_cents || 2500,
+          payment_method: order!.payment_method || 'pix',
+          created_at: order!.created_at || new Date().toISOString(),
+          paid_at: order!.paid_at || null,
+        };
         if (isSingle) {
           return NextResponse.json(resPayload, { headers: corsHeaders() });
         }
@@ -121,9 +129,9 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
     }
 
     if (isSingle) {
-      return NextResponse.json({ id: orderId || 'default', status: 'paid' }, { headers: corsHeaders() });
+      return NextResponse.json(null, { headers: corsHeaders(), status: 200 });
     }
-    return NextResponse.json([{ id: orderId || 'default', status: 'paid' }], { headers: corsHeaders() });
+    return NextResponse.json([], { headers: corsHeaders() });
   }
 
   // ==========================================
