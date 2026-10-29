@@ -263,12 +263,12 @@ const LeonardoStudio = () => {
                   })
                 ]
               }),
-              e.jsx(ba, {
+              e.jsx("textarea", {
                 rows: 3,
                 value: prompt,
                 onChange: (ev) => setPrompt(ev.target.value),
                 placeholder: "Ex: Café moderno de luxo em São Paulo com iluminação suave pela janela, grãos torrados e xícara de porcelana...",
-                className: "text-sm resize-none bg-card"
+                className: "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none"
               }),
               e.jsxs("div", {
                 className: "flex items-center justify-between text-xs text-muted-foreground pt-1",
@@ -297,11 +297,12 @@ const LeonardoStudio = () => {
                 className: "p-3 rounded-lg border bg-muted/30 space-y-2 mt-2",
                 children: [
                   e.jsx("span", { className: "text-xs font-medium text-muted-foreground", children: "Negative Prompt (O que NÃO deve aparecer):" }),
-                  e.jsx(fa, {
+                  e.jsx("input", {
+                    type: "text",
                     value: negativePrompt,
                     onChange: (e) => setNegativePrompt(e.target.value),
                     placeholder: "Ex: blurry, extra limbs, bad anatomy, deformed, watermark, text glitch...",
-                    className: "text-xs bg-background h-8"
+                    className: "flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-xs shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   })
                 ]
               })
