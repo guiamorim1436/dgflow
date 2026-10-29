@@ -1,0 +1,222 @@
+[
+  {
+    "file": "public\\assets\\Finance-BXfZwaU4.js",
+    "match": "infinitepay",
+    "snippet": ":!1,mercadopago:!1,inter:!1,stripe:!1,ativopay:!1,infinitepay:!1,pix_manual:!1}),[m,d]=n.useState(null),[k,A]=n.useState(\"BOLETO_P"
+  },
+  {
+    "file": "public\\assets\\Finance-BXfZwaU4.js",
+    "match": "infinitepay",
+    "snippet": "ive\").eq(\"user_id\",Pe).maybeSingle(),g.from(\"user_infinitepay_config\").select(\"handle, is_active\").eq(\"user_id\",Pe).maybeSingle(),"
+  },
+  {
+    "file": "public\\assets\\Finance-BXfZwaU4.js",
+    "match": "infinitepay",
+    "snippet": "=S.data)!=null&&B.api_key&&S.data.is_active!==!1),infinitepay:!!((re=H.data)!=null&&re.handle&&H.data.is_active!==!1),pix_manual:!"
+  },
+  {
+    "file": "public\\assets\\Finance-BXfZwaU4.js",
+    "match": "infinitepay",
+    "snippet": "asaas\",\"mercadopago\",\"inter\",\"stripe\",\"ativopay\",\"infinitepay\",\"pix_manual\"].find(Te=>Ee[Te]);Ce&&d(Ce)}catch(xe){console.error(\"E"
+  },
+  {
+    "file": "public\\assets\\Finance-BXfZwaU4.js",
+    "match": "infinitepay",
+    "snippet": "Phone:w||void 0,customerCpfCnpj:E||void 0}}):m===\"infinitepay\"&&(xe=await g.functions.invoke(\"infinitepay-create-charge\",{body:{ac"
+  },
+  {
+    "file": "public\\assets\\GatewaySelector-C26Qko5F.js",
+    "match": "infinitepay",
+    "snippet": "inter:!1,cora:!1,sicredi:!1,stripe:!1,ativopay:!1,infinitepay:!1}),[u,p]=g.useState(c),t=async()=>{var r,_,y,a,l,h,b,S;p(!0);try{c"
+  },
+  {
+    "file": "public\\assets\\GatewaySelector-C26Qko5F.js",
+    "match": "infinitepay",
+    "snippet": "inter:!1,cora:!1,sicredi:!1,stripe:!1,ativopay:!1,infinitepay:!1});return}const{data:N}=await s.rpc(\"get_team_owner_for\",{p_user_i"
+  },
+  {
+    "file": "public\\assets\\GatewaySelector-C26Qko5F.js",
+    "match": "infinitepay",
+    "snippet": "tive\").eq(\"user_id\",i).maybeSingle(),s.from(\"user_infinitepay_config\").select(\"handle, is_active\").eq(\"user_id\",i).maybeSingle()])"
+  },
+  {
+    "file": "public\\assets\\GatewaySelector-C26Qko5F.js",
+    "match": "infinitepay",
+    "snippet": "=q.data)!=null&&b.api_key&&q.data.is_active!==!1),infinitepay:!!((S=E.data)!=null&&S.handle&&E.data.is_active!==!1)})}catch(d){con"
+  },
+  {
+    "file": "public\\assets\\GatewaySelector-C26Qko5F.js",
+    "match": "infinitepay",
+    "snippet": "go\",\"inter\",\"cora\",\"sicredi\",\"stripe\",\"ativopay\",\"infinitepay\"].find(r=>o[r])??null;return{gateways:o,loading:u,hasAny:!!n,firstAc"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "infinitepay",
+    "snippet": "tions.invoke=async(fnName,opts={})=>{if(fnName===\"infinitepay-create-charge\"){const b=opts.body||{},tag=\"tenno\",payUrl=\"https://in"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "infinitepay",
+    "snippet": "const b=opts.body||{},tag=\"tenno\",payUrl=\"https://infinitepay.io/$\"+tag;if(b.accountId)try{await ie.from(\"accounts_receivable\").up"
+  },
+  {
+    "file": "public\\assets\\QuickTransactionDialog-BcTmWgXR.js",
+    "match": "infinitepay",
+    "snippet": "tive\").eq(\"user_id\",b).maybeSingle(),c.from(\"user_infinitepay_config\").select(\"id, is_active\").eq(\"user_id\",b).maybeSingle()]);Tr("
+  },
+  {
+    "file": "public\\assets\\QuickTransactionDialog-BcTmWgXR.js",
+    "match": "infinitepay",
+    "snippet": " items-center gap-1.5\",children:[e.jsx(ge,{value:\"infinitepay\",id:`gw-${s}-infinitepay`,className:\"h-3.5 w-3.5\"}),e.jsx(p,{htmlFor"
+  },
+  {
+    "file": "public\\assets\\QuickTransactionDialog-BcTmWgXR.js",
+    "match": "infinitepay",
+    "snippet": "ildren:[e.jsx(ge,{value:\"infinitepay\",id:`gw-${s}-infinitepay`,className:\"h-3.5 w-3.5\"}),e.jsx(p,{htmlFor:`gw-${s}-infinitepay`,cl"
+  },
+  {
+    "file": "public\\assets\\QuickTransactionDialog-BcTmWgXR.js",
+    "match": "infinitepay",
+    "snippet": "assName:\"h-3.5 w-3.5\"}),e.jsx(p,{htmlFor:`gw-${s}-infinitepay`,className:\"text-xs cursor-pointer\",children:\"InfinitePay\"})]})]}),Y"
+  },
+  {
+    "file": "public\\assets\\QuickTransactionDialog-BcTmWgXR.js",
+    "match": "InfinitePay",
+    "snippet": "pay`,className:\"text-xs cursor-pointer\",children:\"InfinitePay\"})]})]}),Yt=()=>P===\"interno\"?null:e.jsxs(\"div\",{className:\"space-y-"
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "infinitepay",
+    "snippet": "s.email||void 0,customerCpfCnpj:b||void 0}}):d===\"infinitepay\"&&(z=await x.functions.invoke(\"infinitepay-create-charge\",{body:{acc"
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "infinitepay",
+    "snippet": "):d===\"infinitepay\"&&(z=await x.functions.invoke(\"infinitepay-create-charge\",{body:{accountId:W.id,value:t.total,description:`${t."
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "infinitepay",
+    "snippet": "===\"asaas\"?\"Asaas\":d===\"ativopay\"?\"AtivoPay\":d===\"infinitepay\"?\"InfinitePay\":null;y&&ee?D===v?h.success(v>1?`${v} cobranças criada"
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "InfinitePay",
+    "snippet": "aas\":d===\"ativopay\"?\"AtivoPay\":d===\"infinitepay\"?\"InfinitePay\":null;y&&ee?D===v?h.success(v>1?`${v} cobranças criadas no ${ee}!`:`"
+  },
+  {
+    "file": "public\\assets\\Settings-C70Pkd1T.js",
+    "match": "infinitepay",
+    "snippet": "const p=await m(c.id),{data:l}=await w.from(\"user_infinitepay_config\").select(\"id, handle, is_active\").eq(\"user_id\",p).maybeSingle"
+  },
+  {
+    "file": "public\\assets\\Settings-C70Pkd1T.js",
+    "match": "InfinitePay",
+    "snippet": "atch(c){console.error(\"Erro ao carregar config da InfinitePay:\",c)}finally{t(!1)}},b=async()=>{const c=Di(u.handle);if(!c){x.error"
+  },
+  {
+    "file": "public\\assets\\Settings-C70Pkd1T.js",
+    "match": "infinitepay",
+    "snippet": "(p.id);if(u.id){const{error:_}=await w.from(\"user_infinitepay_config\").update({handle:c,is_active:u.is_active}).eq(\"id\",u.id);if(_"
+  },
+  {
+    "file": "public\\assets\\Settings-C70Pkd1T.js",
+    "match": "infinitepay",
+    "snippet": "c})}else{const{data:_,error:d}=await w.from(\"user_infinitepay_config\").insert({user_id:l,handle:c,is_active:u.is_active}).select(\""
+  },
+  {
+    "file": "public\\assets\\Settings-C70Pkd1T.js",
+    "match": "InfinitePay",
+    "snippet": "f(d)throw d;i({...u,handle:c,id:_.id})}x.success(\"InfinitePay conectada!\")}catch(p){console.error(\"Erro ao salvar config da Infini"
+  },
+  {
+    "file": "public\\assets\\WhatsApp-B8DNCBps.js",
+    "match": "infinitepay",
+    "snippet": "e:D()||void 0,customerCpfCnpj:We||void 0}}):Ne===\"infinitepay\"&&(re=await N.functions.invoke(\"infinitepay-create-charge\",{body:{ac"
+  },
+  {
+    "file": "public\\assets\\WhatsApp-B8DNCBps.js",
+    "match": "infinitepay",
+    "snippet": "Ne===\"infinitepay\"&&(re=await N.functions.invoke(\"infinitepay-create-charge\",{body:{accountId:ie.id,value:ie.total_amount,descript"
+  },
+  {
+    "file": "public\\assets\\WhatsApp-B8DNCBps.js",
+    "match": "infinitepay",
+    "snippet": "r\"?\"Banco Inter\":Ne===\"ativopay\"?\"AtivoPay\":Ne===\"infinitepay\"?\"InfinitePay\":\"Asaas\";if(ms>0){C.success(t(\"newAccount.chargesGener"
+  },
+  {
+    "file": "public\\assets\\WhatsApp-B8DNCBps.js",
+    "match": "InfinitePay",
+    "snippet": "r\":Ne===\"ativopay\"?\"AtivoPay\":Ne===\"infinitepay\"?\"InfinitePay\":\"Asaas\";if(ms>0){C.success(t(\"newAccount.chargesGenerated\",{count:m"
+  },
+  {
+    "file": "schema.sql",
+    "match": "infinitepay",
+    "snippet": "') AS billing_interval, COALESCE(s.provider, 'infinitepay') AS provider, COALESCE(s.is_active, true) AS is_active, COA"
+  },
+  {
+    "file": "schema.sql",
+    "match": "infinitepay",
+    "snippet": "IGURATIONS CREATE TABLE IF NOT EXISTS public.user_infinitepay_config ( id uuid PRIMARY KEY DEFAULT gen_random_uuid(), user_id "
+  },
+  {
+    "file": "schema.sql",
+    "match": "infinitepay",
+    "snippet": "d_at timestamptz DEFAULT now(), CONSTRAINT user_infinitepay_config_user_id_key UNIQUE (user_id) ); CREATE TABLE IF NOT EXISTS p"
+  },
+  {
+    "file": "schema.sql",
+    "match": "infinitepay",
+    "snippet": "NABLE ROW LEVEL SECURITY; ALTER TABLE public.user_infinitepay_config ENABLE ROW LEVEL SECURITY; ALTER TABLE public.user_asaas_conf"
+  },
+  {
+    "file": "schema.sql",
+    "match": "infinitepay",
+    "snippet": "ue)'; EXECUTE 'CREATE POLICY \"Allow all on user_infinitepay_config\" ON public.user_infinitepay_config FOR ALL TO authenticated U"
+  },
+  {
+    "file": "scripts\\check_finance_integrations.js",
+    "match": "infinitepay",
+    "snippet": "tive(rootDir, fullPath); const regex = /(?:infinitepay|infinite[_\\s-]pay|asaas|pagarme|mercadopago|abacatepay|subscription|"
+  },
+  {
+    "file": "scripts\\check_finance_integrations.js",
+    "match": "infinitepay",
+    "snippet": "c(content)) !== null && count < 5) { if (/infinitepay|infinite[_\\s-]pay/i.test(m[0])) { const start = Math.max(0"
+  },
+  {
+    "file": "scripts\\check_finance_integrations.js",
+    "match": "InfinitePay",
+    "snippet": "k(rootDir); console.log(`Found ${matches.length} InfinitePay references`); fs.writeFileSync(path.join(__dirname, 'infinitepay_mat"
+  },
+  {
+    "file": "scripts\\check_finance_integrations.js",
+    "match": "infinitepay",
+    "snippet": "erences`); fs.writeFileSync(path.join(__dirname, 'infinitepay_matches.json'), JSON.stringify(matches, null, 2), 'utf8'); "
+  },
+  {
+    "file": "supabase_fix_gateways_and_billing.sql",
+    "match": "INFINITEPAY",
+    "snippet": "=========== -- TENNO FLOW - CORREÇÃO DE GATEWAYS (INFINITEPAY $tenno) E RPCs DO ADMIN -- Execute este script no SQL Editor do seu "
+  },
+  {
+    "file": "supabase_fix_gateways_and_billing.sql",
+    "match": "infinitepay",
+    "snippet": "E GATEWAYS CREATE TABLE IF NOT EXISTS public.user_infinitepay_config ( id uuid PRIMARY KEY DEFAULT gen_random_uuid(), user_id "
+  },
+  {
+    "file": "supabase_fix_gateways_and_billing.sql",
+    "match": "infinitepay",
+    "snippet": "d_at timestamptz DEFAULT now(), CONSTRAINT user_infinitepay_config_user_id_key UNIQUE (user_id) ); CREATE TABLE IF NOT EXISTS p"
+  },
+  {
+    "file": "supabase_fix_gateways_and_billing.sql",
+    "match": "infinitepay",
+    "snippet": "') AS billing_interval, COALESCE(s.provider, 'infinitepay') AS provider, COALESCE(s.is_active, true) AS is_active, COA"
+  },
+  {
+    "file": "supabase_fix_gateways_and_billing.sql",
+    "match": "infinitepay",
+    "snippet": "SEGURANÇA E POLÍTICAS RLS ALTER TABLE public.user_infinitepay_config ENABLE ROW LEVEL SECURITY; ALTER TABLE public.user_asaas_conf"
+  }
+]

@@ -1,5 +1,5 @@
 -- ==============================================================================
--- TENNO FLOW - CORREÇÃO DE GATEWAYS (INFINITEPAY $tenno) E RPCs DO ADMIN
+-- TENNO FLOW - CORREÇÃO DE GATEWAYS (INFINITEPAY $tenno), WEBHOOK E RPCs DO ADMIN
 -- Execute este script no SQL Editor do seu projeto Supabase (xzjugxtxuxgkiszbpuxx)
 -- ==============================================================================
 
@@ -84,6 +84,15 @@ CREATE TABLE IF NOT EXISTS public.user_stripe_config (
   CONSTRAINT user_stripe_config_user_id_key UNIQUE (user_id)
 );
 
+-- Tabela de logs de webhook para auditoria
+CREATE TABLE IF NOT EXISTS public.infinitepay_webhook_logs (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_type text,
+  payload jsonb,
+  processed boolean DEFAULT false,
+  created_at timestamptz DEFAULT now()
+);
+
 -- Garantir colunas de link de pagamento em contas a receber
 ALTER TABLE public.accounts_receivable ADD COLUMN IF NOT EXISTS invoice_url text;
 ALTER TABLE public.accounts_receivable ADD COLUMN IF NOT EXISTS payment_url text;
@@ -91,8 +100,50 @@ ALTER TABLE public.accounts_receivable ADD COLUMN IF NOT EXISTS gateway text;
 ALTER TABLE public.accounts_receivable ADD COLUMN IF NOT EXISTS payer_name text;
 ALTER TABLE public.accounts_receivable ADD COLUMN IF NOT EXISTS remaining_amount numeric;
 ALTER TABLE public.accounts_receivable ADD COLUMN IF NOT EXISTS notes text;
+ALTER TABLE public.accounts_receivable ADD COLUMN IF NOT EXISTS reference text;
 
--- 3. FUNÇÕES RPC DO DASHBOARD DE FATURAMENTO (ADMIN)
+-- 3. WEBHOOK & CONFIRMAÇÃO DE PAGAMENTO INFINITEPAY
+CREATE OR REPLACE FUNCTION public.confirm_infinitepay_payment(
+  p_reference text,
+  p_amount numeric DEFAULT NULL,
+  p_user_id uuid DEFAULT NULL
+)
+RETURNS jsonb AS $$
+DECLARE
+  v_rec_id uuid;
+  v_sub_id uuid;
+BEGIN
+  -- 1. Tenta localizar em contas a receber
+  UPDATE public.accounts_receivable
+  SET status = 'paid',
+      received_amount = COALESCE(p_amount, value),
+      received_at = now(),
+      updated_at = now()
+  WHERE (id::text = p_reference OR reference = p_reference)
+    AND status != 'paid'
+  RETURNING id INTO v_rec_id;
+
+  -- 2. Tenta localizar ou ativar assinatura do cliente
+  IF p_user_id IS NOT NULL THEN
+    UPDATE public.user_subscriptions
+    SET is_active = true,
+        gateway = 'infinitepay',
+        expires_at = now() + interval '30 days',
+        updated_at = now()
+    WHERE user_id = p_user_id
+    RETURNING id INTO v_sub_id;
+  END IF;
+
+  RETURN jsonb_build_object(
+    'success', true,
+    'accounts_receivable_id', v_rec_id,
+    'subscription_id', v_sub_id,
+    'confirmed_at', now()
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 4. FUNÇÕES RPC DO DASHBOARD DE FATURAMENTO (ADMIN)
 CREATE OR REPLACE FUNCTION admin_billing_daily(p_from text, p_to text)
 RETURNS TABLE (
   dia text,
@@ -101,87 +152,154 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
-    to_char(d, 'YYYY-MM-DD') AS dia,
-    0::numeric AS vendas,
-    0::numeric AS receita
-  FROM generate_series(
-    COALESCE(p_from::date, CURRENT_DATE - 30),
-    COALESCE(p_to::date, CURRENT_DATE),
-    interval '1 day'
-  ) d;
+  WITH dates AS (
+    SELECT generate_series(
+      COALESCE(p_from::date, current_date - interval '30 days'),
+      COALESCE(p_to::date, current_date),
+      '1 day'::interval
+    )::date AS d
+  )
+  SELECT
+    to_char(dates.d, 'YYYY-MM-DD') AS dia,
+    COALESCE(COUNT(ar.id), 0)::numeric AS vendas,
+    COALESCE(SUM(CASE WHEN ar.status = 'paid' THEN ar.value ELSE 0 END), 0)::numeric AS receita
+  FROM dates
+  LEFT JOIN public.accounts_receivable ar 
+    ON date_trunc('day', ar.created_at)::date = dates.d
+  GROUP BY dates.d
+  ORDER BY dates.d ASC;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION admin_billing_plan_breakdown()
+CREATE OR REPLACE FUNCTION admin_billing_monthly(p_from text, p_to text)
 RETURNS TABLE (
-  plano text,
-  ciclo text,
-  preco numeric,
-  assinantes numeric,
-  receita_mensal numeric
+  mes text,
+  vendas numeric,
+  receita numeric
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
-    'Enterprise'::text AS plano,
-    'mensal'::text AS ciclo,
-    169.00::numeric AS preco,
-    1::numeric AS assinantes,
-    169.00::numeric AS receita_mensal;
+  WITH months AS (
+    SELECT generate_series(
+      date_trunc('month', COALESCE(p_from::date, current_date - interval '12 months')),
+      date_trunc('month', COALESCE(p_to::date, current_date)),
+      '1 month'::interval
+    )::date AS m
+  )
+  SELECT
+    to_char(months.m, 'YYYY-MM') AS mes,
+    COALESCE(COUNT(ar.id), 0)::numeric AS vendas,
+    COALESCE(SUM(CASE WHEN ar.status = 'paid' THEN ar.value ELSE 0 END), 0)::numeric AS receita
+  FROM months
+  LEFT JOIN public.accounts_receivable ar 
+    ON date_trunc('month', ar.created_at)::date = months.m
+  GROUP BY months.m
+  ORDER BY months.m ASC;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION admin_billing_new_customers(p_from text, p_to text)
-RETURNS TABLE (
-  novos_pagantes numeric,
-  novos_usuarios numeric,
-  taxa_conversao numeric
-) AS $$
+CREATE OR REPLACE FUNCTION admin_billing_kpis(p_from text, p_to text)
+RETURNS jsonb AS $$
+DECLARE
+  v_total_revenue numeric := 0;
+  v_paid_count integer := 0;
+  v_pending_count integer := 0;
+  v_pending_amount numeric := 0;
+  v_active_subscriptions integer := 0;
+  v_result jsonb;
 BEGIN
-  RETURN QUERY
   SELECT 
-    1::numeric AS novos_pagantes,
-    1::numeric AS novos_usuarios,
-    100::numeric AS taxa_conversao;
+    COALESCE(SUM(CASE WHEN status = 'paid' THEN value ELSE 0 END), 0),
+    COALESCE(COUNT(CASE WHEN status = 'paid' THEN 1 END), 0),
+    COALESCE(COUNT(CASE WHEN status = 'pending' THEN 1 END), 0),
+    COALESCE(SUM(CASE WHEN status = 'pending' THEN value ELSE 0 END), 0)
+  INTO v_total_revenue, v_paid_count, v_pending_count, v_pending_amount
+  FROM public.accounts_receivable
+  WHERE (p_from IS NULL OR created_at >= p_from::timestamptz)
+    AND (p_to IS NULL OR created_at <= (p_to || ' 23:59:59')::timestamptz);
+
+  SELECT COUNT(*) INTO v_active_subscriptions
+  FROM public.user_subscriptions
+  WHERE is_active = true;
+
+  v_result := jsonb_build_object(
+    'total_revenue', v_total_revenue,
+    'paid_count', v_paid_count,
+    'pending_count', v_pending_count,
+    'pending_amount', v_pending_amount,
+    'active_subscriptions', v_active_subscriptions,
+    'conversion_rate', CASE WHEN (v_paid_count + v_pending_count) > 0 
+      THEN ROUND((v_paid_count::numeric / (v_paid_count + v_pending_count)::numeric) * 100, 2)
+      ELSE 0 END
+  );
+
+  RETURN v_result;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION admin_billing_subscriber_flow(p_from text, p_to text)
-RETURNS TABLE (
-  dia text,
-  entradas numeric,
-  saidas numeric,
-  saldo numeric
-) AS $$
+CREATE OR REPLACE FUNCTION admin_billing_conversion(p_from text, p_to text)
+RETURNS jsonb AS $$
+DECLARE
+  v_paid integer := 0;
+  v_pending integer := 0;
+  v_canceled integer := 0;
 BEGIN
-  RETURN QUERY
   SELECT 
-    to_char(d, 'YYYY-MM-DD') AS dia,
-    0::numeric AS entradas,
-    0::numeric AS saidas,
-    0::numeric AS saldo
-  FROM generate_series(
-    COALESCE(p_from::date, CURRENT_DATE - 30),
-    COALESCE(p_to::date, CURRENT_DATE),
-    interval '1 day'
-  ) d;
+    COALESCE(COUNT(CASE WHEN status = 'paid' THEN 1 END), 0),
+    COALESCE(COUNT(CASE WHEN status = 'pending' THEN 1 END), 0),
+    COALESCE(COUNT(CASE WHEN status = 'canceled' THEN 1 END), 0)
+  INTO v_paid, v_pending, v_canceled
+  FROM public.accounts_receivable
+  WHERE (p_from IS NULL OR created_at >= p_from::timestamptz)
+    AND (p_to IS NULL OR created_at <= (p_to || ' 23:59:59')::timestamptz);
+
+  RETURN jsonb_build_object(
+    'paid', v_paid,
+    'pending', v_pending,
+    'canceled', v_canceled,
+    'total', v_paid + v_pending + v_canceled
+  );
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION get_admin_subscriptions(
-  p_limit int DEFAULT 100,
-  p_offset int DEFAULT 0
+CREATE OR REPLACE FUNCTION admin_billing_opportunities(p_from text, p_to text)
+RETURNS jsonb AS $$
+DECLARE
+  v_abandoned integer := 0;
+  v_recovered integer := 0;
+  v_potential_value numeric := 0;
+BEGIN
+  SELECT 
+    COALESCE(COUNT(*), 0),
+    COALESCE(SUM(value), 0)
+  INTO v_abandoned, v_potential_value
+  FROM public.accounts_receivable
+  WHERE status = 'pending'
+    AND created_at < (now() - interval '24 hours');
+
+  RETURN jsonb_build_object(
+    'abandoned', v_abandoned,
+    'recovered', 0,
+    'potential_value', v_potential_value
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION get_admin_subscriptions_with_email(
+  p_search text DEFAULT NULL,
+  p_limit integer DEFAULT 50,
+  p_offset integer DEFAULT 0
 )
 RETURNS TABLE (
   id uuid,
   user_id uuid,
   plan_id text,
-  plan_name text,
   is_active boolean,
   is_trial boolean,
   expires_at timestamptz,
-  created_at timestamptz
+  created_at timestamptz,
+  email text,
+  full_name text
 ) AS $$
 BEGIN
   RETURN QUERY
@@ -189,150 +307,41 @@ BEGIN
     s.id,
     s.user_id,
     s.plan_id,
-    'Enterprise'::text AS plan_name,
     s.is_active,
     s.is_trial,
     s.expires_at,
-    s.created_at
-  FROM public.user_subscriptions s
-  ORDER BY s.created_at DESC
-  LIMIT p_limit OFFSET p_offset;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-CREATE OR REPLACE FUNCTION get_admin_subscriptions_with_email(
-  p_limit int DEFAULT 1000,
-  p_offset int DEFAULT 0
-)
-RETURNS TABLE (
-  id uuid,
-  user_id uuid,
-  email text,
-  full_name text,
-  plan_name text,
-  billing_interval text,
-  provider text,
-  is_active boolean,
-  is_trial boolean,
-  payment_status text,
-  auto_renew boolean,
-  expires_at timestamptz,
-  created_at timestamptz
-) AS $$
-BEGIN
-  RETURN QUERY
-  SELECT 
-    s.id,
-    s.user_id,
-    COALESCE(u.email::text, 'admin@tennoflow.com') AS email,
-    COALESCE(p.full_name, 'Administrador') AS full_name,
-    COALESCE(s.plan_name, 'Enterprise') AS plan_name,
-    COALESCE(s.billing_interval, 'monthly') AS billing_interval,
-    COALESCE(s.provider, 'infinitepay') AS provider,
-    COALESCE(s.is_active, true) AS is_active,
-    COALESCE(s.is_trial, false) AS is_trial,
-    COALESCE(s.payment_status, 'paid') AS payment_status,
-    COALESCE(s.auto_renew, true) AS auto_renew,
-    COALESCE(s.expires_at, now() + interval '10 years') AS expires_at,
-    COALESCE(s.created_at, now()) AS created_at
+    s.created_at,
+    u.email::text,
+    p.full_name
   FROM public.user_subscriptions s
   LEFT JOIN auth.users u ON u.id = s.user_id
   LEFT JOIN public.profiles p ON p.id = s.user_id
+  WHERE (p_search IS NULL OR u.email ILIKE '%' || p_search || '%' OR p.full_name ILIKE '%' || p_search || '%')
   ORDER BY s.created_at DESC
   LIMIT p_limit OFFSET p_offset;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION admin_billing_conversion()
-RETURNS TABLE (
-  ja_fizeram_trial numeric,
-  trial_que_pagou numeric,
-  conversao_trial_pct numeric,
-  dias_medios_ate_pagar numeric,
-  cancelamentos_reais_30d numeric,
-  base_ativa numeric,
-  churn_mensal_pct numeric
-) AS $$
-BEGIN
-  RETURN QUERY
-  SELECT 
-    1::numeric AS ja_fizeram_trial,
-    1::numeric AS trial_que_pagou,
-    100.0::numeric AS conversao_trial_pct,
-    1.0::numeric AS dias_medios_ate_pagar,
-    0::numeric AS cancelamentos_reais_30d,
-    1::numeric AS base_ativa,
-    0.0::numeric AS churn_mensal_pct;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-CREATE OR REPLACE FUNCTION admin_billing_opportunities()
-RETURNS TABLE (
-  chave text,
-  titulo text,
-  quantidade numeric,
-  valor_estimado numeric,
-  descricao text
-) AS $$
-BEGIN
-  RETURN QUERY
-  SELECT 
-    'upgrade_enterprise'::text AS chave,
-    'Contas com potencial de Upgrade'::text AS titulo,
-    0::numeric AS quantidade,
-    0::numeric AS valor_estimado,
-    'Usuários ativos que podem migrar de plano'::text AS descricao;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-CREATE OR REPLACE FUNCTION admin_cancel_subscription(
-  p_subscription_id uuid,
-  p_user_id uuid
-)
+CREATE OR REPLACE FUNCTION admin_cancel_subscription(p_subscription_id uuid)
 RETURNS boolean AS $$
 BEGIN
   UPDATE public.user_subscriptions
-  SET is_active = false,
-      payment_status = 'cancelled',
-      updated_at = now()
-  WHERE (id = p_subscription_id OR user_id = p_user_id);
+  SET is_active = false, updated_at = now()
+  WHERE id = p_subscription_id;
   RETURN true;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION get_admin_users_stats()
-RETURNS jsonb AS $$
-DECLARE
-  v_total int;
-  v_membros int;
-  v_proprias int;
-BEGIN
-  SELECT count(*) INTO v_total FROM auth.users;
-  SELECT count(*) INTO v_membros FROM public.team_members WHERE role != 'owner';
-  SELECT count(*) INTO v_proprias FROM public.teams;
-  RETURN jsonb_build_object(
-    'total', COALESCE(v_total, 1),
-    'membros_equipe', COALESCE(v_membros, 0),
-    'contas_proprias', COALESCE(v_proprias, 1)
-  );
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-CREATE OR REPLACE FUNCTION get_admin_users(
-  p_limit int DEFAULT 100,
-  p_offset int DEFAULT 0,
-  p_search text DEFAULT NULL
+CREATE OR REPLACE FUNCTION get_admin_users_with_email(
+  p_search text DEFAULT NULL,
+  p_limit integer DEFAULT 50,
+  p_offset integer DEFAULT 0
 )
 RETURNS TABLE (
   id uuid,
   email text,
   full_name text,
-  phone text,
-  company_name text,
-  avatar_url text,
-  roles text[],
-  last_sign_in_at timestamptz,
-  auth_created_at timestamptz,
+  role text,
   created_at timestamptz
 ) AS $$
 BEGIN
@@ -341,22 +350,18 @@ BEGIN
     u.id,
     u.email::text,
     p.full_name,
-    p.phone,
-    p.company_name,
-    p.avatar_url,
-    ARRAY(SELECT role FROM public.user_roles ur WHERE ur.user_id = u.id) AS roles,
-    u.last_sign_in_at,
-    u.created_at AS auth_created_at,
+    COALESCE(ur.role, 'user') AS role,
     COALESCE(p.created_at, u.created_at) AS created_at
   FROM auth.users u
   LEFT JOIN public.profiles p ON p.id = u.id
+  LEFT JOIN public.user_roles ur ON ur.user_id = u.id
   WHERE (p_search IS NULL OR u.email ILIKE '%' || p_search || '%' OR p.full_name ILIKE '%' || p_search || '%')
   ORDER BY u.created_at DESC
   LIMIT p_limit OFFSET p_offset;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 4. SEGURANÇA E POLÍTICAS RLS
+-- 5. SEGURANÇA E POLÍTICAS RLS
 ALTER TABLE public.user_infinitepay_config ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_asaas_config ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.mercadopago_configs ENABLE ROW LEVEL SECURITY;
@@ -364,6 +369,7 @@ ALTER TABLE public.user_abacatepay_config ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_ativopay_config ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.inter_configs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_stripe_config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.infinitepay_webhook_logs ENABLE ROW LEVEL SECURITY;
 
 DO $$
 BEGIN
@@ -374,11 +380,12 @@ BEGIN
   EXECUTE 'CREATE POLICY "Allow all on user_ativopay_config" ON public.user_ativopay_config FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all on inter_configs" ON public.inter_configs FOR ALL TO authenticated USING (true) WITH CHECK (true)';
   EXECUTE 'CREATE POLICY "Allow all on user_stripe_config" ON public.user_stripe_config FOR ALL TO authenticated USING (true) WITH CHECK (true)';
+  EXECUTE 'CREATE POLICY "Allow all on infinitepay_webhook_logs" ON public.infinitepay_webhook_logs FOR ALL TO authenticated USING (true) WITH CHECK (true)';
 EXCEPTION WHEN OTHERS THEN
   NULL;
 END $$;
 
--- 5. ATIVAÇÃO IMEDIATA DA SUA INFINITETAG ($tenno)
+-- 6. ATIVAÇÃO IMEDIATA DA SUA INFINITETAG ($tenno)
 DO $$
 DECLARE
   v_user_id uuid := '198bf0db-ed7a-45d7-b6e2-7aabf5093f5b'::uuid;

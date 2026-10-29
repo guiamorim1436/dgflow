@@ -1,0 +1,1512 @@
+[
+  {
+    "file": ".vercel\\project.json",
+    "match": "dgflow",
+    "snippet": "UuYAA58RtPDBCZspIpHhwDw\",\"projectName\":\"dgflow\"}"
+  },
+  {
+    "file": "package-lock.json",
+    "match": "dgflow",
+    "snippet": "{ \"name\": \"dgflow\", \"version\": \"1.0.0\", \"lockfileVersion\""
+  },
+  {
+    "file": "package-lock.json",
+    "match": "dgflow",
+    "snippet": " \"packages\": { \"\": { \"name\": \"dgflow\", \"version\": \"1.0.0\", \"dependen"
+  },
+  {
+    "file": "package.json",
+    "match": "dgflow",
+    "snippet": "{ \"name\": \"dgflow\", \"version\": \"1.0.0\", \"private\": true, "
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": ":s})]})};function In(){const d=\"https://dgflow.vercel.app/subscription?woovi=1\",[i,_]=r.us"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "60*24))},Q=()=>N!=null&&N.slug?`https://dgflow.app/p/${N.slug}`:null,de=G(),pe=Q();return "
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "Password:\"123@mudar\",loginLink:\"https://dgflow.app/auth\",planName:\"Tenno Flow Pro\"};case\"p"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "name:\"Usuário Teste\",resetLink:\"https://dgflow.app/auth?type=recovery&token=test-token-123"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "name:\"Usuário Teste\",renewLink:\"https://dgflow.app/subscription\"};default:return{}}},f=asy"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": ")==null?void 0:M.nome)??v},y=n?`https://dgflow.vercel.app/t/${n.slug}`:\"\",k=100,h=N.filter"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "ext-sm text-muted-foreground\",children:\"dgflow.vercel.app/t/\"}),e.jsx(te,{id:\"t-slug\",plac"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "çar Gratuitamente\",redirectUrl:\"https://dgflow.app/auth\"},estruturando:{icon:\"📈\",title:\"V"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "Grátis por 7 Dias\",redirectUrl:\"https://dgflow.app/auth\"},escalando:{icon:\"🚀\",title:\"Você"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "calar Meu Negócio\",redirectUrl:\"https://dgflow.app/auth\"}},li=({quizId:s,results:d,onRefre"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "l:n.target.value}),placeholder:\"https://dgflow.app/auth ou página de vendas\"}),e.jsx(\"p\",{"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "izar meu negócio\",redirect_url:\"https://dgflow.app/auth\"}]).select().single();if(T)throw T"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "in:0,score_max:20,redirect_url:\"https://dgflow.app/auth\",cta_text:\"Começar a organizar ago"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "n:21,score_max:40,redirect_url:\"https://dgflow.app/auth\",cta_text:\"Quero automatizar meu n"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": ":41,score_max:100,redirect_url:\"https://dgflow.app/auth\",cta_text:\"Escalar meu negócio ago"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "l:p.target.value}),placeholder:\"https://dgflow.app/auth\"})]}),e.jsxs(\"div\",{className:\"spa"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "Diego",
+    "snippet": "ta Pagar.me ativa: ${f===\"next\"?\"Next\":\"Diego\"}`)}catch(m){console.error(\"[AdminPagarmeAcc"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "diego",
+    "snippet": "-2 cursor-pointer transition-all ${s===\"diego\"?\"border-primary bg-primary/5\":\"border-borde"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "diego",
+    "snippet": "rimary/40\"}`,children:[e.jsx(Et,{value:\"diego\"}),e.jsxs(\"div\",{className:\"flex-1\",children"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "Diego",
+    "snippet": "div\",{className:\"font-medium\",children:\"Diego\"}),e.jsx(\"div\",{className:\"text-xs text-mute"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "DIEGO",
+    "snippet": "ound\",children:\"Secret: PAGARME_API_KEY_DIEGO\"})]}),s===\"diego\"&&e.jsx(H,{className:\"bg-gr"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "diego",
+    "snippet": "ecret: PAGARME_API_KEY_DIEGO\"})]}),s===\"diego\"&&e.jsx(H,{className:\"bg-green-500 text-xs\","
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "https'); const exportData = require('./dgflow-full-export.json'); const manifest = export"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "createElement(\"a\");h.href=k,h.download=`dgflow-full-export-${new Date().toISOString().spli"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "ync()=>{try{const k=await(await fetch(\"/dgflow-full-export.json\")).json();if(!k.userMappin"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": ":[e.jsx(Us,{className:\"w-4 h-4\"}),\"Usar dgflow-full-export.json\"]}),m&&e.jsxs(H,{variant:\""
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "ync()=>{try{const n=await(await fetch(\"/dgflow-full-export.json\")).json();f(n),g.success(`"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "e,{className:\"w-4 h-4 mr-2\"}),\"Carregar dgflow-full-export.json\"]}),t&&e.jsxs(\"span\",{clas"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "ync()=>{try{const a=await(await fetch(\"/dgflow-full-export.json\")).json();_(a);const u=a.u"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "e,{className:\"w-4 h-4 mr-2\"}),\"Carregar dgflow-full-export.json\"]}),i&&e.jsxs(P,{onClick:n"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "C(!0);const D=O,{data:ae}=await D.from(\"dgdireto_recovery_settings\").select(\"*\").eq(\"id\",1"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "e(de,500)){const{data:$e}=await D.from(\"dgdireto_recovery_sends\").select(\"lead_id, status,"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "(!0);const D=O,{error:ae}=await D.from(\"dgdireto_recovery_settings\").update({enabled:s.ena"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "!0);const D=Array.from(k);await O.from(\"dgdireto_recovery_sends\").delete().in(\"lead_id\",D)"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": ",le=async D=>{x(D.id);try{await O.from(\"dgdireto_recovery_sends\").delete().eq(\"lead_id\",D."
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "or:G}=await O.functions.invoke(\"process-dgdireto-recovery\",{body:{lead_id:D.id,force:!0}})"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "r:ie}=await O.functions.invoke(\"process-dgdireto-recovery\",{body:D?{lead_id:D}:{}});if(ie)"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "d);const ae=O,{error:ie}=await ae.from(\"dgdireto_recovery_sends\").insert({lead_id:D.id,pho"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "d);const ae=O,{error:ie}=await ae.from(\"dgdireto_recovery_sends\").delete().eq(\"lead_id\",D."
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "DGDireto",
+    "snippet": "lg font-semibold\",children:\"Recuperação DGDireto\"}),e.jsx(\"p\",{className:\"text-sm text-mut"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "_em).toLocaleString(\"pt-BR\")]})]})},Gt={dgdireto:{titulo:\"Lead do popup\",descricao:\"Quem d"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "ync()=>{try{const j=await(await fetch(\"/dgflow-full-export.json\")).json();let a=[];j.userM"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": ":[e.jsx(Us,{className:\"w-4 h-4\"}),\"Usar dgflow-full-export.json\"]}),c.length>0&&e.jsxs(H,{"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "locked\")})]}),e.jsxs(\"a\",{href:`https://dgflow.lovable.app/p/${a.portfolio_slug}`,target:\""
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgflow",
+    "snippet": "locked\")})]}),e.jsxs(\"a\",{href:`https://dgflow.lovable.app/bio/${a.bio_slug}`,target:\"_bla"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "DGflow",
+    "snippet": "\"};function tl(){const[s,d]=r.useState(\"DGflow\"),[i,_]=r.useState(\"all\"),[c,l]=r.useState("
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "DGflow",
+    "snippet": "hange:n=>d(n.target.value),placeholder:\"DGflow\"})]}),e.jsxs(P,{onClick:m,disabled:c,childr"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "sters\"}]},{label:\"Marketing\",items:[{v:\"dgdireto\",icon:Da,label:\"DGDireto\"},{v:\"sales-quiz"
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "DGDireto",
+    "snippet": "ng\",items:[{v:\"dgdireto\",icon:Da,label:\"DGDireto\"},{v:\"sales-quiz\",icon:vt,label:\"Quiz de "
+  },
+  {
+    "file": "public\\assets\\Admin-DIitkSWg.js",
+    "match": "dgdireto",
+    "snippet": "0 space-y-6\",children:[e.jsx(ce,{value:\"dgdireto\",children:e.jsxs(as,{defaultValue:\"result"
+  },
+  {
+    "file": "public\\assets\\AIAgents-gkkdYXuC.js",
+    "match": "Dgflow",
+    "snippet": "\";import{u as Oe,a as Te,b as $e}from\"./DgflowAgentChat-CY2JIZnE.js\";import{T as Fe}from\"."
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "Dgflow",
+    "snippet": "ts/aiContentAgents-CRoQ6H-R.js\",\"assets/DgflowAgentChat-CY2JIZnE.js\",\"assets/AIAnalyst-8TO"
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "Dgflow",
+    "snippet": "\";import{u as Zt,A as Ln,D as Fn}from\"./DgflowAgentChat-CY2JIZnE.js\";import{S as gs,a as f"
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "ading:b}=Le(),[w,v]=d.useState(null),C=`dgflow_renew_banner_dismissed:${(p==null?void 0:p."
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "`,\"_blank\"),a(!1)},[t,n,s,a]),null},ta=\"dgflow_read_notifications\",Ns=\"dgflow_cleared_noti"
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "ull},ta=\"dgflow_read_notifications\",Ns=\"dgflow_cleared_notifications\",aa=()=>{try{const t="
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "ut(n)},[t]),null},De=\"2026.09.28.1\",Qe=\"dgflow_app_version\",qa=\"dgflow_update_dismissed\";f"
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "26.09.28.1\",Qe=\"dgflow_app_version\",qa=\"dgflow_update_dismissed\";function Or(){const{t}=J("
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "sName:\"h-4 w-4\"})})]})]})})})}const Pt=\"dgflow_claude_mcp_announcement_v1_seen\",Ae=\"#D9775"
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": ",updateEntry:j,deleteEntry:o}}const Fa=\"dgflow_production_active_cycle\",Oa=\"dgflow_product"
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "Fa=\"dgflow_production_active_cycle\",Oa=\"dgflow_production_seeded\";function ks(){const t=[\""
+  },
+  {
+    "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+    "match": "dgflow",
+    "snippet": "rence.quick.save\")]})]})]})})}const Ma=\"dgflow:revenue-hidden\",Cl=({children:t})=>{const{t"
+  },
+  {
+    "file": "public\\assets\\BioEditor-aWhG8OhX.js",
+    "match": "dgflow",
+    "snippet": "reground self-center text-sm\",children:\"dgflow.app/bio/\"}),e.jsx(P,{id:\"slug\",value:s,onCh"
+  },
+  {
+    "file": "public\\assets\\BioLink-D9FXCSZs.js",
+    "match": "dgflow",
+    "snippet": "${window.location.origin}${p}`:`https://dgflow.vercel.app${p}`:`https://${p}`}const ra=({c"
+  },
+  {
+    "file": "public\\assets\\BioLink-D9FXCSZs.js",
+    "match": "dgflow",
+    "snippet": "Feito com\",\" \",e.jsx(\"a\",{href:\"https://dgflow.vercel.app\",target:\"_blank\",rel:\"noopener n"
+  },
+  {
+    "file": "public\\assets\\BioLink-D9FXCSZs.js",
+    "match": "dgflow",
+    "snippet": "mt-1\",children:e.jsx(\"a\",{href:\"https://dgflow.vercel.app/signup\",target:\"_blank\",rel:\"noo"
+  },
+  {
+    "file": "public\\assets\\BrandingConfigSection-BugsCdIQ.js",
+    "match": "dgflow",
+    "snippet": "madeWith\"),\" \",e.jsx(\"a\",{href:\"https://dgflow.vercel.app\",target:\"_blank\",rel:\"noopener n"
+  },
+  {
+    "file": "public\\assets\\BrandingConfigSection-BugsCdIQ.js",
+    "match": "dgflow",
+    "snippet": "mt-1\",children:e.jsx(\"a\",{href:\"https://dgflow.vercel.app/signup\",target:\"_blank\",rel:\"noo"
+  },
+  {
+    "file": "public\\assets\\ClientAccessDialog-BMjfwW40.js",
+    "match": "dgflow",
+    "snippet": "}/aprovacao/${d}`}catch{}return`https://dgflow.vercel.app/aprovacao/${d}`}const k=d=>{cons"
+  },
+  {
+    "file": "public\\assets\\ConstrutorDeColunas-CrZDWrsM.js",
+    "match": "dgflow",
+    "snippet": ",approval,revision,approved,publish\",T=\"dgflow_construtor_colunas_visto\";function le({open"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "s.custom_domain}`}catch{}return\"https://dgflow.vercel.app\"}function Go({leadId:t,nomeClien"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "Loading:d,definir:y,salvando:n}=Tl(),h=`dgflow_aviso_arquivar:${o??\"x\"}`,[p,g]=l.useState("
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "indow>\"u\"?\"title\":localStorage.getItem(\"dgflow_production_sort\")||\"title\"),B=r=>{q(r);try{"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "\"),B=r=>{q(r);try{localStorage.setItem(\"dgflow_production_sort\",r)}catch{}},[H,se]=l.useSt"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "(()=>{try{const r=localStorage.getItem(\"dgflow_production_thumb_size\");return r!==null&&/^"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "test(r)?Number(r):localStorage.getItem(\"dgflow_production_thumbs\")===\"0\"?0:1}catch{return "
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": ",Qe=r=>{Ie(r);try{localStorage.setItem(\"dgflow_production_thumb_size\",String(r))}catch{}},"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "ndow>\"u\"?\"kanban\":localStorage.getItem(\"dgflow_production_view\")||\"kanban\"),[Ue,et]=l.useS"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "e(()=>{try{return localStorage.getItem(\"dgflow_lista_agrupar\")===\"prazo\"?\"prazo\":\"etapa\"}c"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": ",At=r=>{Bt(r);try{localStorage.setItem(\"dgflow_lista_agrupar\",r)}catch{}},[we,Nt]=l.useSta"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "d==null||d(r);try{localStorage.setItem(\"dgflow_production_view\",r)}catch{}},ie=a.find(r=>r"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "return JSON.parse(localStorage.getItem(\"dgflow_lista_recolhidas\")||\"[]\")}catch{return[]}})"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "==c):[...j,c];try{localStorage.setItem(\"dgflow_lista_recolhidas\",JSON.stringify(C))}catch{"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "e(()=>{try{return localStorage.getItem(\"dgflow_production_view\")===\"list\"?\"list\":\"kanban\"}"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "(()=>{try{const T=localStorage.getItem(\"dgflow_conteudos_aba\");if(T===\"deadlines\"){try{loc"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "=\"deadlines\"){try{localStorage.setItem(\"dgflow_lista_agrupar\",\"prazo\")}catch{}return\"lista"
+  },
+  {
+    "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+    "match": "dgflow",
+    "snippet": "if(u!==\"list\")try{localStorage.setItem(\"dgflow_conteudos_aba\",u)}catch{}},[u]),l.useState("
+  },
+  {
+    "file": "public\\assets\\ContentItemFullDialog-CX7fuwxD.js",
+    "match": "dgflow",
+    "snippet": "ull?void 0:l.user_id)||o;let d=\"https://dgflow.vercel.app\";try{if(p){const{data:h}=await P"
+  },
+  {
+    "file": "public\\assets\\ContentItemFullDialog-CX7fuwxD.js",
+    "match": "dgflow",
+    "snippet": "){if(B===!1)try{sessionStorage.getItem(\"dgflow_aviso_drive\")||(sessionStorage.setItem(\"dgf"
+  },
+  {
+    "file": "public\\assets\\ContentItemFullDialog-CX7fuwxD.js",
+    "match": "dgflow",
+    "snippet": "aviso_drive\")||(sessionStorage.setItem(\"dgflow_aviso_drive\",\"1\"),q.info(\"Conecte o Google "
+  },
+  {
+    "file": "public\\assets\\ContentItemFullDialog-CX7fuwxD.js",
+    "match": "dgflow",
+    "snippet": "oid 0:C.id);if(!s)return;let i=\"https://dgflow.vercel.app\";try{const{data:m}=await P.from("
+  },
+  {
+    "file": "public\\assets\\Dashboard-8U8JXat7.js",
+    "match": "dgflow",
+    "snippet": "u,onOpenChange:m,onComplete:G})]})},Wr=\"dgflow_welcome_video_dismissed_v2\";function In(){c"
+  },
+  {
+    "file": "public\\assets\\DataDeletion-WSuoW5fF.js",
+    "match": "DGflow",
+    "snippet": "são completa dos seus dados pessoais da DGflow.\"}),s.jsxs(\"section\",{className:\"space-y-4\""
+  },
+  {
+    "file": "public\\assets\\DataDeletion-WSuoW5fF.js",
+    "match": "dgflow",
+    "snippet": "l:\",\" \",s.jsx(\"a\",{href:\"mailto:contato@dgflow.vercel.app\",className:\"text-primary hover:u"
+  },
+  {
+    "file": "public\\assets\\DataDeletion-WSuoW5fF.js",
+    "match": "dgflow",
+    "snippet": "mary hover:underline\",children:\"contato@dgflow.vercel.app\"})]})]})]})]})})};export{x as de"
+  },
+  {
+    "file": "public\\assets\\DestacarTelaButton-D2KdFx_N.js",
+    "match": "dgflow",
+    "snippet": "=Math.max(0,m+(g-a)/2),o=window.open(w,`dgflow_${e.replace(/\\W/g,\"_\")}`,`width=${n},height"
+  },
+  {
+    "file": "public\\assets\\DgflowAgentChat-CY2JIZnE.js",
+    "match": "dgflow",
+    "snippet": "ta:s,error:i}=await A.functions.invoke(\"dgflow-assistant\",{body:{conversation_id:n,message"
+  },
+  {
+    "file": "public\\assets\\DgflowAgentChat-CY2JIZnE.js",
+    "match": "dgflow",
+    "snippet": "){window.dispatchEvent(new CustomEvent(\"dgflow-agent:abrir\",{detail:{mensagem:c}}))}functi"
+  },
+  {
+    "file": "public\\assets\\DgflowAgentChat-CY2JIZnE.js",
+    "match": "dgflow",
+    "snippet": "ta:a,error:s}=await A.functions.invoke(\"dgflow-agent\",{body:{...e,conversation_id:D}});if("
+  },
+  {
+    "file": "public\\assets\\DgflowAgentChat-CY2JIZnE.js",
+    "match": "dgflow",
+    "snippet": ",b(s))};return window.addEventListener(\"dgflow-agent:abrir\",e),()=>window.removeEventListe"
+  },
+  {
+    "file": "public\\assets\\DgflowAgentChat-CY2JIZnE.js",
+    "match": "dgflow",
+    "snippet": "rir\",e),()=>window.removeEventListener(\"dgflow-agent:abrir\",e)},[]),r.useEffect(()=>{c&&k."
+  },
+  {
+    "file": "public\\assets\\Finance-BXfZwaU4.js",
+    "match": "dgflow",
+    "snippet": "e(()=>{try{return localStorage.getItem(\"dgflow_finance_view_mode\")||\"card\"}catch{return\"ca"
+  },
+  {
+    "file": "public\\assets\\Finance-BXfZwaU4.js",
+    "match": "dgflow",
+    "snippet": ",ls=i=>{Es(i);try{localStorage.setItem(\"dgflow_finance_view_mode\",i)}catch{}},{categories:"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "s/differenceInDays-BzUmCGAf.js\",\"assets/DgflowAgentChat-CY2JIZnE.js\",\"assets/sheet-DstkcvP"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": ";const i=async()=>{var c;try{const{clearDgflowAdvancedMatching:d}=await j(async()=>{const{"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "atching:d}=await j(async()=>{const{clearDgflowAdvancedMatching:u}=await Promise.resolve()."
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "mise.resolve().then(()=>lH);return{clearDgflowAdvancedMatching:u}},void 0);d()}catch{}try{"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "t.id)&&!e&&s,requestAccess:i}}const V0=\"dgflow_popup_slot\",nh=new Map;async function Lm(t)"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ction Fu(t,e){try{localStorage.setItem(`dgflow_popup_${e}`,new Date().toISOString())}catch"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "rn!0}catch{try{if(localStorage.getItem(`dgflow_popup_${e}`))return!0}catch{}}try{if(localS"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "!0}catch{}}try{if(localStorage.getItem(`dgflow_popup_${e}`))return Fu(t,e),!0;for(const o "
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "n Rne(t,e){try{localStorage.removeItem(`dgflow_popup_${e}`)}catch{}try{await ie.from(\"user"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "atch{}try{const a=localStorage.getItem(`dgflow_popup_${e}`);if(a)return new Date(a)}catch{"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "rU.displayName=A_.displayName;const rw=\"dgflow_hide_values\",T_=f.createContext(void 0);fun"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "eturn}d(!0);try{let v=u;if(!v){const A=\"dgflow_vapid_key\",T=\"dgflow_vapid_expiry\",M=localS"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "=u;if(!v){const A=\"dgflow_vapid_key\",T=\"dgflow_vapid_expiry\",M=localStorage.getItem(A),R=l"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "n.later\",\"Fazer depois\")})]})]})})},bh=\"dgflow_pwa_prompt_dismissed\";function $$(){return!"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": ",t),...a})}const Xi=\"2026-08-25-v1\",Ch=\"dgflow_whats_new_seen\",i6={produtos:{label:\"Produt"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": ".1\",\"lovable.app\",\"lovableproject.com\",\"dgflow.app\",\"dgflow.vercel.app\",\"preview--\"],bw=as"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "app\",\"lovableproject.com\",\"dgflow.app\",\"dgflow.vercel.app\",\"preview--\"],bw=async t=>{const"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "erty(`--${o}`)})}},[e]),null},CD=!1,Sw=\"dgflow_visitor\";function Ic(){var t;if(!(typeof wi"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "}const mb=\"Sq58jTwaw67HRow6yfo5zh\",eH=[\"dgflow.lovable.app\",\"dgflow.vercel.app\",\"www.dgflo"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "7HRow6yfo5zh\",eH=[\"dgflow.lovable.app\",\"dgflow.vercel.app\",\"www.dgflow.vercel.app\",\"dgflow"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "w.lovable.app\",\"dgflow.vercel.app\",\"www.dgflow.vercel.app\",\"dgflow.app\"];function tH(){try"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ow.vercel.app\",\"www.dgflow.vercel.app\",\"dgflow.app\"];function tH(){try{return eH.indexOf(w"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "\",{pixelId:mb})}catch(e){console.warn(\"[dgflowPixel] init OpenAI falhou:\",e)}}async functi"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ail_sha256:n}})}catch(e){console.warn(\"[dgflowPixel] identificação OpenAI falhou:\",e)}}con"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "(\"measure\",t,o)}catch(a){console.warn(`[dgflowPixel] evento OpenAI ${t} falhou:`,a)}}const"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ento OpenAI ${t} falhou:`,a)}}const ED=\"dgflow_pv_event_id\";function hb(){try{const t=wind"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "_id\";function hb(){try{const t=window.__dgflowPvEventId;return t||sessionStorage.getItem(E"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "eturn null}}function fb(t){try{window.__dgflowPvEventId=t,sessionStorage.setItem(ED,t)}cat"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": ").toLowerCase().slice(0,1)),e}const TD=\"dgflow_meta_am\";function kD(t){try{const a={...Mn("
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "bp||\"\",a.fbc||\"\"].join(\"|\");if(window.__dgflowPvEnriquecido!==o){window.__dgflowPvEnriquec"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "dow.__dgflowPvEnriquecido!==o){window.__dgflowPvEnriquecido=o;try{const r=yi(),n=await Jm("
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "bc,fbp:r.fbp}})}catch(r){console.warn(\"[dgflowPixel] reenvio do PageView falhou:\",r)}}}fun"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ion oH(){if(typeof window>\"u\"||window.__dgflowFbpWatcher||(window.__dgflowFbpWatcher=!0,!!"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "\"||window.__dgflowFbpWatcher||(window.__dgflowFbpWatcher=!0,!!yi().fbp))return;let e=0;con"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": ".length===0)return;const a={...window.__dgflowAdvancedMatching||{},...e};window.__dgflowAd"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "flowAdvancedMatching||{},...e};window.__dgflowAdvancedMatching=a,kD(e),Oc({event:\"dg_am_up"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "if(a.country||(a.country=\"br\"),window.__dgflowPixelLoaded){Xm(a);return}const o=Zm();fb(o)"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "D(a);Object.keys(r).length>0&&(window.__dgflowAdvancedMatching=r,kD(r)),Oc({event:\"dg_init"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "r)),Oc({event:\"dg_init\",...r}),window.__dgflowPixelLoaded=!0,(async()=>{try{const n=yi(),s"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "indow<\"u\"?window.location.href:\"https://dgflow.vercel.app/\",user_agent:typeof navigator<\"u"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "bc,fbp:n.fbp}})}catch(n){console.warn(\"[dgflowPixel] PageView CAPI failed:\",n)}})(),oH()}f"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "rage.setItem(o,r),localStorage.setItem(\"dgflow_utm_at\",new Date().toISOString())):a&&local"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "Item(o)}catch{}}rH(a)}catch{}}const Fg=\"dgflow_entrada\";function rH(t){try{const e=localSt"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ndow>\"u\"?Promise.resolve(null):window.__dgflowClientIp?Promise.resolve(window.__dgflowClie"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "dgflowClientIp?Promise.resolve(window.__dgflowClientIp):Td||(Td=(async()=>{const t=[\"https"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": ":n.ip)||\"\").trim();if(s)return window.__dgflowClientIp=s,s}catch{}return null})(),Td)}func"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "\"u\"&&window.fbq}catch(w){console.warn(`[dgflowPixel] browser ${t} failed:`,w)}try{const w="
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "indow<\"u\"?window.location.href:\"https://dgflow.vercel.app/checkout\",user_agent:typeof navi"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "oppref:RD()}})}catch(w){console.error(`[dgflowPixel] CAPI ${t} failed:`,w)}return o}const "
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ngTracking:DD,consumePageViewEventId:hb,dgflowDataLayerPush:Oc,fireDgflowEvent:qg,getClien"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "ewEventId:hb,dgflowDataLayerPush:Oc,fireDgflowEvent:qg,getClientIpPreferIPv6:Jm,getFbclid:"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "PaginaDeEntrada:ND,lerUtmsAtuais:jD,loadDgflowPixel:gb,medirOpenAi:pb,newEventId:Zm,persis"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": ",readPersistedAdvancedMatching:Mn,updateDgflowAdvancedMatching:Xm,valorDoPlanoCentavos:wD}"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "mbol.toStringTag,{value:\"Module\"})),sH=\"dgflow_meta_am\";function iH(){try{localStorage.rem"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "sH)}catch{}typeof window<\"u\"&&(window.__dgflowAdvancedMatching=void 0)}function ID(){const"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "st{user:t}=$t(),{data:e}=yo({queryKey:[\"dgflow-advanced-matching\",t==null?void 0:t.id],que"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "ect.defineProperty({__proto__:null,clearDgflowAdvancedMatching:iH,useDgflowAdvancedMatchin"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": ":null,clearDgflowAdvancedMatching:iH,useDgflowAdvancedMatching:ID},Symbol.toStringTag,{val"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "t t=window.location.hostname;return!!([\"dgflow.lovable.app\",\"dgflow.vercel.app\",\"www.dgflo"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ostname;return!!([\"dgflow.lovable.app\",\"dgflow.vercel.app\",\"www.dgflow.vercel.app\",\"dgflow"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "w.lovable.app\",\"dgflow.vercel.app\",\"www.dgflow.vercel.app\",\"dgflow.app\"].includes(t)||t.in"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ow.vercel.app\",\"www.dgflow.vercel.app\",\"dgflow.app\"].includes(t)||t.includes(\"lovableproje"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": " R$ 100 mil\",\"Acima de R$ 100 mil\"],qD=\"dgflow_perfil_negocio\";function XH(t){try{localSto"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": " Flow\",subtitle:r(\"toolComparison.tools.dgflowSubtitle\")},{emoji:\"🟣\",name:\"ClickUp\",subti"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "comparison:{spreadsheets:\"📋 Planilhas\",dgflow:\"⚡ Tenno Flow\",row1Problem:\"Leads perdidos\""
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": "2026\",s1_title:\"1. Introdução\",s1_p1:'A DGflow (\"nós\", \"nosso\" ou \"plataforma\") está compr"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": "ar sua conta do Instagram ou Facebook à DGflow, você nos concede permissão para:\",s4_items"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "em contato conosco pelo e-mail: contato@dgflow.vercel.app\",s7_closed_items:[],s8_title:\"8."
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ntre em contato:\",contactEmail:\"contato@dgflow.vercel.app\",contactWebsite:\"https://dgflow."
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "low.vercel.app\",contactWebsite:\"https://dgflow.vercel.app\"},RJ={title:\"Termos de Uso\",back"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": "p1:\"Ao acessar ou utilizar a plataforma DGflow, você concorda com estes Termos de Uso. Se "
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": "e:\"2. Descrição do Serviço\",s2_intro:\"A DGflow é uma plataforma de geração de criativos e "
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": "cê para fins comerciais.\",\"A plataforma DGflow, incluindo seu código, design e marca, é pr"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": " Instagram ou Facebook, você autoriza a DGflow a publicar conteúdo em seu nome conforme su"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": ",s6_2_title:\"6.2 Limitações\",s6_2_p1:\"A DGflow não se responsabiliza por restrições impost"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "DGflow",
+    "snippet": "Limitação de Responsabilidade\",s8_p1:'A DGflow fornece seus serviços \"como estão\". Não gar"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "ntre em contato:\",contactEmail:\"contato@dgflow.vercel.app\",contactWebsite:\"https://dgflow."
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "low.vercel.app\",contactWebsite:\"https://dgflow.vercel.app\"},jJ={hello:\"Olá, {{name}}!\",ite"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "curso\",recommended:\"Recomendado\",tools:{dgflowSubtitle:\"All-in-one BR\",clickupSubtitle:\"Ti"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "uente, indicacao\",tagsPlaceholder4:\"ex: dgflow, lp-popup, frio\",delayLabel:\"Delay (minutos"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "al\",priceStrikethrough:\"R$ 297/ano\",withDgflow:\"Com o Tenno Flow\",free:\"GRÁTIS\",colorsTitl"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "nt-medium\",children:t(\"landingPromo.withDgflow\")}),l.jsx(\"span\",{className:\"text-2xl font-"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "Gj.displayName=Wj.displayName;const Kj=\"dgflow_contas_lembradas\",boe=5,Qj=\"dgflow_contas_n"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": " Kj=\"dgflow_contas_lembradas\",boe=5,Qj=\"dgflow_contas_nao_lembrar\",xv=()=>{try{const t=JSO"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": ".nome)})}const hS=\"Tenno Flow2024!\",fS=\"dgflow_last_login_cache_clear\",woe=1e3*60*5;async "
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "rror notifying admin:\",K)}try{const{fireDgflowEvent:K,medirOpenAi:je,identificarOpenAi:He,"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "entavos:ke}=await j(async()=>{const{fireDgflowEvent:wo,medirOpenAi:to,identificarOpenAi:Po"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "Dgflow",
+    "snippet": "omise.resolve().then(()=>nH);return{fireDgflowEvent:wo,medirOpenAi:to,identificarOpenAi:Po"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": ".jsx(Soe,{})})]})})})]})})})]})})}),wv=\"dgflow_font_size\",Cne=[{value:\"default\",label:\"Nor"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "Ld=\"2026.10.05.sem-utmify-sw-unico\",Id=\"dgflow_forced_flush_version\",PS=\"dgflow_forced_flu"
+  },
+  {
+    "file": "public\\assets\\index-G-E061gt.js",
+    "match": "dgflow",
+    "snippet": "o\",Id=\"dgflow_forced_flush_version\",PS=\"dgflow_forced_flush_attempted\";(async()=>{try{if(s"
+  },
+  {
+    "file": "public\\assets\\Leads-BGnNxtP6.js",
+    "match": "dgflow",
+    "snippet": "-4 h-4\"})})]},p.id))})})]})})}const Ln=\"dgflow_pipeline_card_prefs\",Cn=\"dgflow:pipeline-ca"
+  },
+  {
+    "file": "public\\assets\\Leads-BGnNxtP6.js",
+    "match": "dgflow",
+    "snippet": "nst Ln=\"dgflow_pipeline_card_prefs\",Cn=\"dgflow:pipeline-card-prefs-changed\",Pn={showWhatsA"
+  },
+  {
+    "file": "public\\assets\\Leads-BGnNxtP6.js",
+    "match": "dgflow",
+    "snippet": "\"),e(\"leadLost.reasonOtherRegion\")],lh=\"dgflow_lost_reasons\";function $4(e){try{const t=lo"
+  },
+  {
+    "file": "public\\assets\\Leads-BGnNxtP6.js",
+    "match": "dgflow",
+    "snippet": "e(()=>{try{return localStorage.getItem(\"dgflow_pipeline_insights\")===\"1\"}catch{return!1}})"
+  },
+  {
+    "file": "public\\assets\\Leads-BGnNxtP6.js",
+    "match": "dgflow",
+    "snippet": "t de=!x;m(de);try{localStorage.setItem(\"dgflow_pipeline_insights\",de?\"1\":\"0\")}catch{}},chi"
+  },
+  {
+    "file": "public\\assets\\Lp3-BiOP2ACN.js",
+    "match": "dgflow",
+    "snippet": "und border border-border\",children:\"app.dgflow.vercel.app/dashboard\"})})]}),e.jsxs(\"div\",{"
+  },
+  {
+    "file": "public\\assets\\Lp3-BiOP2ACN.js",
+    "match": "dgflow",
+    "snippet": "und border border-border\",children:\"app.dgflow.vercel.app/conteudo\"})})]}),e.jsxs(\"div\",{c"
+  },
+  {
+    "file": "public\\assets\\Lp3-BiOP2ACN.js",
+    "match": "dgflow",
+    "snippet": "und border border-border\",children:\"app.dgflow.vercel.app/financeiro\"})})]}),e.jsxs(\"div\","
+  },
+  {
+    "file": "public\\assets\\lpAbTest-CHonBXet.js",
+    "match": "dgflow",
+    "snippet": "rt{s}from\"./index-G-E061gt.js\";const m=\"dgflow_ab\",u=\"dgflow_visitor\",d=\"dgflow_ab_session"
+  },
+  {
+    "file": "public\\assets\\lpAbTest-CHonBXet.js",
+    "match": "dgflow",
+    "snippet": "dex-G-E061gt.js\";const m=\"dgflow_ab\",u=\"dgflow_visitor\",d=\"dgflow_ab_session\";function f()"
+  },
+  {
+    "file": "public\\assets\\lpAbTest-CHonBXet.js",
+    "match": "dgflow",
+    "snippet": "nst m=\"dgflow_ab\",u=\"dgflow_visitor\",d=\"dgflow_ab_session\";function f(){try{return crypto."
+  },
+  {
+    "file": "public\\assets\\lpAbTest-CHonBXet.js",
+    "match": "dgflow",
+    "snippet": "function k(t){try{localStorage.setItem(\"dgflow_ab_origem\",JSON.stringify({experimento:t.ex"
+  },
+  {
+    "file": "public\\assets\\lpAbTest-CHonBXet.js",
+    "match": "dgflow",
+    "snippet": "n b(){try{const t=localStorage.getItem(\"dgflow_ab_origem\");if(t)return JSON.parse(t)}catch"
+  },
+  {
+    "file": "public\\assets\\LpTest-DZ8VN4GZ.js",
+    "match": "dgflow",
+    "snippet": "|r.current)return;r.current=!0;const d=`dgflow_ab_view_${e.experimentSlug}_${e.key}`;let m"
+  },
+  {
+    "file": "public\\assets\\ManageColumnsDialog-Cn0BkU8R.js",
+    "match": "dgflow",
+    "snippet": "from\"./rotate-ccw-IHrD9a7y.js\";const E=\"dgflow_kanban_columns\",u=[{id:\"pending\",title:\"Bac"
+  },
+  {
+    "file": "public\\assets\\MyLinksSection-BDPKzdoO.js",
+    "match": "dgflow",
+    "snippet": "(),{baseUrl:f,customDomain:g}=D(),L=g||\"dgflow.vercel.app\",[S,b]=d.useState(!0),[w,p]=d.us"
+  },
+  {
+    "file": "public\\assets\\Nps-tbbuq_2H.js",
+    "match": "dgflow",
+    "snippet": "atarSync-DTRm1N6i.js\";const ue=\"https://dgflow.vercel.app\",R=l=>new Date(l).toLocaleDateSt"
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "nd text-sm border border-r-0\",children:\"dgflow.app/p/\"}),e.jsx(z,{value:l.slug,onChange:i="
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "bleAt\"),\" \",e.jsxs(\"strong\",{children:[\"dgflow.app/p/\",l.slug]})]})})]})]});case 3:return "
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "-background rounded text-xs\",children:[\"dgflow.vercel.app/p/\",l]})]}),e.jsxs(\"div\",{classN"
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "-background rounded text-xs\",children:[\"dgflow.vercel.app/bio/\",l]})]})]})]}),e.jsxs(\"div\""
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "gap-2\",onClick:()=>window.open(`https://dgflow.vercel.app/p/${Ie}`,\"_blank\"),children:[e.j"
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "ssName:\"text-sm font-medium\",children:[\"dgflow.vercel.app/p/\",Ie]}),e.jsx(N,{variant:\"ghos"
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "7 p-0\",onClick:()=>window.open(`https://dgflow.vercel.app/p/${Ie}`,\"_blank\"),children:e.js"
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "en:[e.jsx(Es,{className:\"w-3 h-3\"}),Ie?`dgflow.vercel.app/p/${Ie}`:\"dgflow.vercel.app/p/se"
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": " h-3\"}),Ie?`dgflow.vercel.app/p/${Ie}`:\"dgflow.vercel.app/p/seu-slug\"]})}),e.jsx(\"div\",{cl"
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "e:\"sm\",onClick:()=>window.open(`https://dgflow.vercel.app/bio/${me}`,\"_blank\"),className:\""
+  },
+  {
+    "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+    "match": "dgflow",
+    "snippet": "reground self-center text-sm\",children:\"dgflow.vercel.app/bio/\"}),e.jsx(z,{id:\"slug\",value"
+  },
+  {
+    "file": "public\\assets\\PreviaAoVivo-asihVXmf.js",
+    "match": "dgflow",
+    "snippet": "ow.parent)==null||t.postMessage({fonte:\"dgflow-previa\",...e},window.location.origin)}catch"
+  },
+  {
+    "file": "public\\assets\\PreviaAoVivo-asihVXmf.js",
+    "match": "dgflow",
+    "snippet": "n||((r=i.data)==null?void 0:r.fonte)!==\"dgflow-editor\"||i.data.tipo===\"dados\"&&i.data.dado"
+  },
+  {
+    "file": "public\\assets\\PreviaAoVivo-asihVXmf.js",
+    "match": "dgflow",
+    "snippet": "n||((f=l.data)==null?void 0:f.fonte)!==\"dgflow-editor\")&&l.data.tipo===\"rolar\"&&l.data.alv"
+  },
+  {
+    "file": "public\\assets\\PreviaAoVivo-asihVXmf.js",
+    "match": "dgflow",
+    "snippet": "entWindow)==null||k.postMessage({fonte:\"dgflow-editor\",...h},window.location.origin)};C.us"
+  },
+  {
+    "file": "public\\assets\\PreviaAoVivo-asihVXmf.js",
+    "match": "dgflow",
+    "snippet": "st k=w.data;(k==null?void 0:k.fonte)===\"dgflow-previa\"&&(k.tipo===\"pronto\"&&(g(!0),p({tipo"
+  },
+  {
+    "file": "public\\assets\\ProductivityReport-tek3ToHk.js",
+    "match": "dgflow",
+    "snippet": "(!1)}},Q=P?`${I?`https://${I}`:\"https://dgflow.vercel.app\"}/pr/${P}`:\"\",xe=async()=>{Q&&(a"
+  },
+  {
+    "file": "public\\assets\\Projects-DuGQbYZO.js",
+    "match": "dgflow",
+    "snippet": "ll\"),onClick:()=>{localStorage.setItem(\"dgflow_seen_fullscreen_hint\",\"1\"),r(!1),C(`/tasks/"
+  },
+  {
+    "file": "public\\assets\\Projects-DuGQbYZO.js",
+    "match": "dgflow",
+    "snippet": "e(()=>{try{return localStorage.getItem(\"dgflow_convite_importar_dispensado\")===\"1\"}catch{r"
+  },
+  {
+    "file": "public\\assets\\Projects-DuGQbYZO.js",
+    "match": "dgflow",
+    "snippet": "ck:()=>{y(!0);try{localStorage.setItem(\"dgflow_convite_importar_dispensado\",\"1\")}catch{}},"
+  },
+  {
+    "file": "public\\assets\\PublicBriefing-1C691_Xk.js",
+    "match": "dgflow",
+    "snippet": "card\",children:s.jsx(\"a\",{href:\"https://dgflow.vercel.app\",target:\"_blank\",rel:\"noopener n"
+  },
+  {
+    "file": "public\\assets\\PublicForm-Cnb7uYNV.js",
+    "match": "dgflow",
+    "snippet": "card\",children:a.jsx(\"a\",{href:\"https://dgflow.app\",target:\"_blank\",rel:\"noopener noreferr"
+  },
+  {
+    "file": "public\\assets\\PublicPortfolio-D9FgMl1L.js",
+    "match": "dgflow",
+    "snippet": "hide_branding&&s.jsx(\"a\",{href:\"https://dgflow.app\",target:\"_blank\",rel:\"noopener noreferr"
+  },
+  {
+    "file": "public\\assets\\PublicPortfolio-D9FgMl1L.js",
+    "match": "dgflow",
+    "snippet": "hide_branding&&s.jsx(\"a\",{href:\"https://dgflow.app\",target:\"_blank\",rel:\"noopener noreferr"
+  },
+  {
+    "file": "public\\assets\\QuizReels-Dn6nwTZJ.js",
+    "match": "dgflow",
+    "snippet": "gradient:\"from-amber-500 to-orange-500\",dgflowBenefit:\"Organize clientes e projetos desde "
+  },
+  {
+    "file": "public\\assets\\QuizReels-Dn6nwTZJ.js",
+    "match": "dgflow",
+    "snippet": ":B,gradient:\"from-blue-500 to-cyan-500\",dgflowBenefit:\"Automatize propostas e contratos\"};"
+  },
+  {
+    "file": "public\\assets\\QuizReels-Dn6nwTZJ.js",
+    "match": "dgflow",
+    "snippet": "gradient:\"from-emerald-500 to-teal-500\",dgflowBenefit:\"Dashboard financeiro completo\"};def"
+  },
+  {
+    "file": "public\\assets\\QuizReels-Dn6nwTZJ.js",
+    "match": "dgflow",
+    "snippet": "ee,gradient:\"from-pink-500 to-rose-500\",dgflowBenefit:\"Gestão completa para freelancers\"}}"
+  },
+  {
+    "file": "public\\assets\\QuoteRequest-Cu8suypM.js",
+    "match": "dgflow",
+    "snippet": "token:b.approval_token,baseUrl:\"https://dgflow.app\"}),He=await fr(H,v);I.invalidateQueries"
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "dgflow",
+    "snippet": ")=>{const O=ae?`https://${ae}`:\"https://dgflow.vercel.app\",E=zs({type:\"quote\",token:a,base"
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "dgflow",
+    "snippet": "r B;const u=ae?`https://${ae}`:\"https://dgflow.vercel.app\",A=zs({type:\"quote\",token:a.appr"
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "dgflow",
+    "snippet": "a=>{const u=ae?`https://${ae}`:\"https://dgflow.vercel.app\",q=zs({type:\"quote\",token:a.appr"
+  },
+  {
+    "file": "public\\assets\\Quotes-DPV34c1_.js",
+    "match": "dgflow",
+    "snippet": "e.jsxs(Q,{onClick:()=>{const q=`https://dgflow.app/contract/${a.signature_token}`;navigato"
+  },
+  {
+    "file": "public\\assets\\RichTextEditor-GcJVtVco.js",
+    "match": "dgflow",
+    "snippet": ")return!0;const A=localStorage.getItem(\"dgflow_rte_toolbar_collapsed\");return A===null?!0:"
+  },
+  {
+    "file": "public\\assets\\RichTextEditor-GcJVtVco.js",
+    "match": "dgflow",
+    "snippet": ">{const oe=!A;try{localStorage.setItem(\"dgflow_rte_toolbar_collapsed\",oe?\"1\":\"0\")}catch{}r"
+  },
+  {
+    "file": "public\\assets\\ScheduledPosts-CteYbZTD.js",
+    "match": "dgflow",
+    "snippet": "e(()=>{try{return localStorage.getItem(\"dgflow_agendamentos_visao\")===\"calendario\"?\"calend"
+  },
+  {
+    "file": "public\\assets\\ScheduledPosts-CteYbZTD.js",
+    "match": "dgflow",
+    "snippet": "seEffect(()=>{try{localStorage.setItem(\"dgflow_agendamentos_visao\",H)}catch{}},[H]);const "
+  },
+  {
+    "file": "public\\assets\\SendApprovalLinkDialog-CSns80dF.js",
+    "match": "dgflow",
+    "snippet": "mask-image\",i))}function _e(u){const d=`dgflow_colunas_inteiras_${u}`,[i,x]=o.useState(()="
+  },
+  {
+    "file": "public\\assets\\SendApprovalLinkDialog-CSns80dF.js",
+    "match": "dgflow",
+    "snippet": "tom_domain}/aprovacao/${e}`):_(`https://dgflow.vercel.app/aprovacao/${e}`)}catch{_(`https:"
+  },
+  {
+    "file": "public\\assets\\SendApprovalLinkDialog-CSns80dF.js",
+    "match": "dgflow",
+    "snippet": "l.app/aprovacao/${e}`)}catch{_(`https://dgflow.vercel.app/aprovacao/${e}`)}try{const{data:"
+  },
+  {
+    "file": "public\\assets\\Services-CinVTd9c.js",
+    "match": "dgflow",
+    "snippet": "presentação salva!\")},g=l.slug?`https://dgflow.vercel.app/planos/${gs(l.slug)}`:\"\",$=async"
+  },
+  {
+    "file": "public\\assets\\Services-CinVTd9c.js",
+    "match": "dgflow",
+    "snippet": "elf-center whitespace-nowrap\",children:\"dgflow.vercel.app/planos/\"}),e.jsx(P,{value:l.slug"
+  },
+  {
+    "file": "public\\assets\\Settings-C70Pkd1T.js",
+    "match": "DGFLOW",
+    "snippet": "tep2Pre\"),\" \",e.jsx(\"strong\",{children:\"DGFLOW\"})]}),e.jsx(\"li\",{children:a(\"asaasConfig.h"
+  },
+  {
+    "file": "public\\assets\\Settings-C70Pkd1T.js",
+    "match": "dgflow",
+    "snippet": "4\"}),\" Salvar\"]})]})})]})})}const po=\"__dgflow_corpo_slot__\",Zc=`<p data-corpo-slot=\"${po}"
+  },
+  {
+    "file": "public\\assets\\Setup-8drIwsw9.js",
+    "match": "dgflow",
+    "snippet": "sName:\"text-muted-foreground\",children:\"dgflow.vercel.app/p/\"}),e.jsx(\"span\",{className:\"f"
+  },
+  {
+    "file": "public\\assets\\Setup-8drIwsw9.js",
+    "match": "dgflow",
+    "snippet": "leAt\"),\": \",e.jsxs(\"strong\",{children:[\"dgflow.vercel.app/p/\",n.slug]})]})})]})]});case 3:"
+  },
+  {
+    "file": "public\\assets\\SetupGuiado-E3nZCjTG.js",
+    "match": "dgflow",
+    "snippet": "throw l.error;try{localStorage.setItem(\"dgflow_kanban_columns\",JSON.stringify(a))}catch{}_"
+  },
+  {
+    "file": "public\\assets\\shareLinks-C6QAEuXx.js",
+    "match": "dgflow",
+    "snippet": "peSlug:s}=r,o=t?`https://${t}`:\"https://dgflow.vercel.app\";switch(c){case\"quote\":return`${"
+  },
+  {
+    "file": "public\\assets\\shareLinks-C6QAEuXx.js",
+    "match": "dgflow",
+    "snippet": "ype:c,token:n,slug:e,baseUrl:t=\"https://dgflow.vercel.app\"}=r;switch(c){case\"quote\":return"
+  },
+  {
+    "file": "public\\assets\\Subscription-DN9coBP-.js",
+    "match": "dgflow",
+    "snippet": "rnalUrl:\"https://hotmart.com/pt-br/club/dgflow\",message:t(\"subscription.hotmartMessage\")};"
+  },
+  {
+    "file": "public\\assets\\TaskDetail-D7CmjVld.js",
+    "match": "dgflow",
+    "snippet": "nfirm\")})]})]})]})]})]}),(()=>{const t=\"dgflow_seen_taskdetail_hint\";return localStorage.g"
+  },
+  {
+    "file": "public\\assets\\TestimonialsLp3-kBU7aBED.js",
+    "match": "dgflow",
+    "snippet": "und border border-border\",children:\"app.dgflow.vercel.app/producao\"})})]}),e.jsx(\"div\",{cl"
+  },
+  {
+    "file": "public\\assets\\useCustomDomain-BegtEA37.js",
+    "match": "dgflow",
+    "snippet": ":5*60*1e3}),i=n?`https://${n}`:\"https://dgflow.vercel.app\";return{customDomain:n,baseUrl:i"
+  },
+  {
+    "file": "public\\assets\\useProductionCounterVisibility-DrP2o-XX.js",
+    "match": "dgflow",
+    "snippet": "as i}from\"./index-G-E061gt.js\";const a=\"dgflow_menu_hidden\",c=\"dgflow_menu_order\",d=\"dgflo"
+  },
+  {
+    "file": "public\\assets\\useProductionCounterVisibility-DrP2o-XX.js",
+    "match": "dgflow",
+    "snippet": "1gt.js\";const a=\"dgflow_menu_hidden\",c=\"dgflow_menu_order\",d=\"dgflow:menu-visibility-chang"
+  },
+  {
+    "file": "public\\assets\\useProductionCounterVisibility-DrP2o-XX.js",
+    "match": "dgflow",
+    "snippet": "w_menu_hidden\",c=\"dgflow_menu_order\",d=\"dgflow:menu-visibility-changed\",h=2,v=\"dgflow_menu"
+  },
+  {
+    "file": "public\\assets\\useProductionCounterVisibility-DrP2o-XX.js",
+    "match": "dgflow",
+    "snippet": "\"dgflow:menu-visibility-changed\",h=2,v=\"dgflow_menu_version\",p=\"dgflow_menu_was_reset\",b=("
+  },
+  {
+    "file": "public\\assets\\useProductionCounterVisibility-DrP2o-XX.js",
+    "match": "dgflow",
+    "snippet": "changed\",h=2,v=\"dgflow_menu_version\",p=\"dgflow_menu_was_reset\",b=()=>{try{if(Number(localS"
+  },
+  {
+    "file": "public\\assets\\useProductionCounterVisibility-DrP2o-XX.js",
+    "match": "dgflow",
+    "snippet": "e=>!e.children||e.children.length>0),y=\"dgflow_show_production_counter\",N=()=>typeof windo"
+  },
+  {
+    "file": "public\\assets\\useSeoMeta-CAtnSB4Y.js",
+    "match": "dgflow",
+    "snippet": "eys().then(c=>c.filter(a=>a.startsWith(\"dgflow-\")||a.includes(\"workbox\")).forEach(a=>cache"
+  },
+  {
+    "file": "public\\assets\\useTaskFormMode-C5deWYqf.js",
+    "match": "dgflow",
+    "snippet": "rt{r}from\"./index-G-E061gt.js\";const d=\"dgflow:form-mode-changed\",m=t=>t===\"task\"?\"dgflow_"
+  },
+  {
+    "file": "public\\assets\\useTaskFormMode-C5deWYqf.js",
+    "match": "dgflow",
+    "snippet": "low:form-mode-changed\",m=t=>t===\"task\"?\"dgflow_task_form_mode\":`dgflow_${t}_form_mode`,l=\""
+  },
+  {
+    "file": "public\\assets\\useTaskFormMode-C5deWYqf.js",
+    "match": "dgflow",
+    "snippet": "=t=>t===\"task\"?\"dgflow_task_form_mode\":`dgflow_${t}_form_mode`,l=\"simples\",a=t=>{try{const"
+  },
+  {
+    "file": "public\\assets\\useUpgradeCalculation-C14KDz0_.js",
+    "match": "Diego",
+    "snippet": ",\"Gustavo\",\"Letícia\",\"Thiago\",\"Amanda\",\"Diego\",\"Bianca\",\"Matheus\",\"Isabela\",\"Felipe\",\"Rena"
+  },
+  {
+    "file": "public\\assets\\VideoThumbnailPreview-Bhvtpz4D.js",
+    "match": "dgflow",
+    "snippet": "iaUtils-CFGxSXfp.js\";const E=new Map,y=\"dgflow_video_thumb_v1::\",u=\"__failed__\",D=e=>{if(E"
+  },
+  {
+    "file": "public\\assets\\WhatsApp-B8DNCBps.js",
+    "match": "dgflow",
+    "snippet": "isplayName=\"WhatsAppInputBar\";const Ca=\"dgflow_aviso_assinatura_dispensado\";function ri(){"
+  },
+  {
+    "file": "public\\assets\\WhatsAppSettingsPanel-Dio4ooZ1.js",
+    "match": "dgflow",
+    "snippet": "ix:\"pix@suaempresa.com\",link_pagamento:\"dgflow.vercel.app/p/abc123\",dias_atraso:\"3\",titulo"
+  },
+  {
+    "file": "public\\assets\\WhatsAppSettingsPanel-Dio4ooZ1.js",
+    "match": "dgflow",
+    "snippet": "rive\",cliente:\"Studio Ana\",link_tarefa:\"dgflow.vercel.app/tasks/abc\",descricao_tarefa:\"Aju"
+  },
+  {
+    "file": "public\\assets\\WhatsAppSettingsPanel-Dio4ooZ1.js",
+    "match": "dgflow",
+    "snippet": ",data_expiracao:\"31/10\",link_aprovacao:\"dgflow.vercel.app/a/X7k2\",link_portal:\"dgflow.verc"
+  },
+  {
+    "file": "public\\assets\\WhatsAppSettingsPanel-Dio4ooZ1.js",
+    "match": "dgflow",
+    "snippet": "\"dgflow.vercel.app/a/X7k2\",link_portal:\"dgflow.vercel.app/a/X7k2\",link_post:\"dgflow.vercel"
+  },
+  {
+    "file": "public\\assets\\WhatsAppSettingsPanel-Dio4ooZ1.js",
+    "match": "dgflow",
+    "snippet": "l:\"dgflow.vercel.app/a/X7k2\",link_post:\"dgflow.vercel.app/post/X7k2\"};function nn(a,n){con"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "const results = { dgReferences: [], diegoReferences: [], imageFiles: [], dgImages:"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "ageFiles.push(relPath); if (/dg|diego/i.test(entry.name)) { results.dgIm"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "dgflow",
+    "snippet": " 'utf8'); // Match dgflow or dg flow (case-insensitive) con"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "dg flow",
+    "snippet": " // Match dgflow or dg flow (case-insensitive) const dgMatch"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "dgflow",
+    "snippet": "st dgMatches = [...content.matchAll(/(?:dgflow|dg[_\\s-]flow|dgdireto)/gi)]; if ("
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "dgdireto",
+    "snippet": "ontent.matchAll(/(?:dgflow|dg[_\\s-]flow|dgdireto)/gi)]; if (dgMatches.length > 0"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": " }); } // Match diego (case-insensitive) const diegoMatc"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "iego (case-insensitive) const diegoMatches = [...content.matchAll(/diego/gi)]; "
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "st diegoMatches = [...content.matchAll(/diego/gi)]; if (diegoMatches.length > 0)"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "ent.matchAll(/diego/gi)]; if (diegoMatches.length > 0) { results.die"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "tches.length > 0) { results.diegoReferences.push({ file: relPath"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": " file: relPath, count: diegoMatches.length, samples: diegoM"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "oMatches.length, samples: diegoMatches.slice(0, 5).map(m => { "
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "diego",
+    "snippet": "rences.length} files with DG, ${results.diegoReferences.length} with Diego, ${results.dgIm"
+  },
+  {
+    "file": "scripts\\system_audit.js",
+    "match": "Diego",
+    "snippet": " ${results.diegoReferences.length} with Diego, ${results.dgImages.length} images matching "
+  },
+  {
+    "file": "src\\app\\layout.tsx",
+    "match": "DGFlow",
+    "snippet": "export const metadata = { title: 'DGFlow — Plataforma de gestão (CRM) para agências "
+  }
+]

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'DGFlow — Plataforma de gestão (CRM) para agências e profissionais de marketing',
+  title: 'Tenno Flow — Plataforma de gestão (CRM) para agências e profissionais de marketing',
   description: 'CRM completo para agências e freelancers',
 };
 

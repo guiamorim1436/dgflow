@@ -1,0 +1,560 @@
+{
+  "dgReferences": [
+    {
+      "file": ".vercel\\project.json",
+      "count": 1,
+      "samples": [
+        "DBCZspIpHhwDw\",\"projectName\":\"dgflow\"}"
+      ]
+    },
+    {
+      "file": "package-lock.json",
+      "count": 2,
+      "samples": [
+        "{   \"name\": \"dgflow\",   \"version\": \"1.0.0\",   \"lockfi",
+        "\": {     \"\": {       \"name\": \"dgflow\",       \"version\": \"1.0.0\",      "
+      ]
+    },
+    {
+      "file": "package.json",
+      "count": 1,
+      "samples": [
+        "{   \"name\": \"dgflow\",   \"version\": \"1.0.0\",   \"privat"
+      ]
+    },
+    {
+      "file": "public\\assets\\Admin-DIitkSWg.js",
+      "count": 44,
+      "samples": [
+        "unction In(){const d=\"https://dgflow.vercel.app/subscription?woovi=1\",",
+        "=()=>N!=null&&N.slug?`https://dgflow.app/p/${N.slug}`:null,de=G(),pe=Q",
+        "123@mudar\",loginLink:\"https://dgflow.app/auth\",planName:\"Tenno Flow Pr",
+        "rio Teste\",resetLink:\"https://dgflow.app/auth?type=recovery&token=test",
+        "rio Teste\",renewLink:\"https://dgflow.app/subscription\"};default:return"
+      ]
+    },
+    {
+      "file": "public\\assets\\AIAgents-gkkdYXuC.js",
+      "count": 1,
+      "samples": [
+        " as Oe,a as Te,b as $e}from\"./DgflowAgentChat-CY2JIZnE.js\";import{T as"
+      ]
+    },
+    {
+      "file": "public\\assets\\AppLayout-DQCqTAe0.js",
+      "count": 11,
+      "samples": [
+        "ntAgents-CRoQ6H-R.js\",\"assets/DgflowAgentChat-CY2JIZnE.js\",\"assets/AIA",
+        " as Zt,A as Ln,D as Fn}from\"./DgflowAgentChat-CY2JIZnE.js\";import{S as",
+        "e(),[w,v]=d.useState(null),C=`dgflow_renew_banner_dismissed:${(p==null",
+        "),a(!1)},[t,n,s,a]),null},ta=\"dgflow_read_notifications\",Ns=\"dgflow_cl",
+        "gflow_read_notifications\",Ns=\"dgflow_cleared_notifications\",aa=()=>{tr"
+      ]
+    },
+    {
+      "file": "public\\assets\\BioEditor-aWhG8OhX.js",
+      "count": 1,
+      "samples": [
+        "elf-center text-sm\",children:\"dgflow.app/bio/\"}),e.jsx(P,{id:\"slug\",va"
+      ]
+    },
+    {
+      "file": "public\\assets\\BioLink-D9FXCSZs.js",
+      "count": 3,
+      "samples": [
+        "ocation.origin}${p}`:`https://dgflow.vercel.app${p}`:`https://${p}`}co",
+        ",\" \",e.jsx(\"a\",{href:\"https://dgflow.vercel.app\",target:\"_blank\",rel:\"",
+        "dren:e.jsx(\"a\",{href:\"https://dgflow.vercel.app/signup\",target:\"_blank"
+      ]
+    },
+    {
+      "file": "public\\assets\\BrandingConfigSection-BugsCdIQ.js",
+      "count": 2,
+      "samples": [
+        ",\" \",e.jsx(\"a\",{href:\"https://dgflow.vercel.app\",target:\"_blank\",rel:\"",
+        "dren:e.jsx(\"a\",{href:\"https://dgflow.vercel.app/signup\",target:\"_blank"
+      ]
+    },
+    {
+      "file": "public\\assets\\ClientAccessDialog-BMjfwW40.js",
+      "count": 1,
+      "samples": [
+        "o/${d}`}catch{}return`https://dgflow.vercel.app/aprovacao/${d}`}const "
+      ]
+    },
+    {
+      "file": "public\\assets\\ConstrutorDeColunas-CrZDWrsM.js",
+      "count": 1,
+      "samples": [
+        "revision,approved,publish\",T=\"dgflow_construtor_colunas_visto\";functio"
+      ]
+    },
+    {
+      "file": "public\\assets\\ContentCalendar-ABQSUhAP.js",
+      "count": 17,
+      "samples": [
+        "omain}`}catch{}return\"https://dgflow.vercel.app\"}function Go({leadId:t",
+        "definir:y,salvando:n}=Tl(),h=`dgflow_aviso_arquivar:${o??\"x\"}`,[p,g]=l",
+        "\"title\":localStorage.getItem(\"dgflow_production_sort\")||\"title\"),B=r=>",
+        "(r);try{localStorage.setItem(\"dgflow_production_sort\",r)}catch{}},[H,s",
+        "const r=localStorage.getItem(\"dgflow_production_thumb_size\");return r!"
+      ]
+    },
+    {
+      "file": "public\\assets\\ContentItemFullDialog-CX7fuwxD.js",
+      "count": 4,
+      "samples": [
+        ":l.user_id)||o;let d=\"https://dgflow.vercel.app\";try{if(p){const{data:",
+        "1)try{sessionStorage.getItem(\"dgflow_aviso_drive\")||(sessionStorage.se",
+        "e\")||(sessionStorage.setItem(\"dgflow_aviso_drive\",\"1\"),q.info(\"Conecte",
+        ");if(!s)return;let i=\"https://dgflow.vercel.app\";try{const{data:m}=awa"
+      ]
+    },
+    {
+      "file": "public\\assets\\Dashboard-8U8JXat7.js",
+      "count": 1,
+      "samples": [
+        "ange:m,onComplete:G})]})},Wr=\"dgflow_welcome_video_dismissed_v2\";funct"
+      ]
+    },
+    {
+      "file": "public\\assets\\DataDeletion-WSuoW5fF.js",
+      "count": 3,
+      "samples": [
+        "ta dos seus dados pessoais da DGflow.\"}),s.jsxs(\"section\",{className:\"",
+        "jsx(\"a\",{href:\"mailto:contato@dgflow.vercel.app\",className:\"text-prima",
+        ":underline\",children:\"contato@dgflow.vercel.app\"})]})]})]})]})})};expo"
+      ]
+    },
+    {
+      "file": "public\\assets\\DestacarTelaButton-D2KdFx_N.js",
+      "count": 1,
+      "samples": [
+        "0,m+(g-a)/2),o=window.open(w,`dgflow_${e.replace(/\\W/g,\"_\")}`,`width=$"
+      ]
+    },
+    {
+      "file": "public\\assets\\DgflowAgentChat-CY2JIZnE.js",
+      "count": 5,
+      "samples": [
+        ":i}=await A.functions.invoke(\"dgflow-assistant\",{body:{conversation_id",
+        "ispatchEvent(new CustomEvent(\"dgflow-agent:abrir\",{detail:{mensagem:c}",
+        ":s}=await A.functions.invoke(\"dgflow-agent\",{body:{...e,conversation_i",
+        "turn window.addEventListener(\"dgflow-agent:abrir\",e),()=>window.remove",
+        "=>window.removeEventListener(\"dgflow-agent:abrir\",e)},[]),r.useEffect("
+      ]
+    },
+    {
+      "file": "public\\assets\\Finance-BXfZwaU4.js",
+      "count": 2,
+      "samples": [
+        "{return localStorage.getItem(\"dgflow_finance_view_mode\")||\"card\"}catch",
+        "(i);try{localStorage.setItem(\"dgflow_finance_view_mode\",i)}catch{}},{c"
+      ]
+    },
+    {
+      "file": "public\\assets\\index-G-E061gt.js",
+      "count": 91,
+      "samples": [
+        "ceInDays-BzUmCGAf.js\",\"assets/DgflowAgentChat-CY2JIZnE.js\",\"assets/she",
+        "sync()=>{var c;try{const{clearDgflowAdvancedMatching:d}=await j(async(",
+        "=await j(async()=>{const{clearDgflowAdvancedMatching:u}=await Promise.",
+        "ve().then(()=>lH);return{clearDgflowAdvancedMatching:u}},void 0);d()}c",
+        "&s,requestAccess:i}}const V0=\"dgflow_popup_slot\",nh=new Map;async func"
+      ]
+    },
+    {
+      "file": "public\\assets\\Leads-BGnNxtP6.js",
+      "count": 5,
+      "samples": [
+        ")]},p.id))})})]})})}const Ln=\"dgflow_pipeline_card_prefs\",Cn=\"dgflow:p",
+        "flow_pipeline_card_prefs\",Cn=\"dgflow:pipeline-card-prefs-changed\",Pn={",
+        "Lost.reasonOtherRegion\")],lh=\"dgflow_lost_reasons\";function $4(e){try{",
+        "{return localStorage.getItem(\"dgflow_pipeline_insights\")===\"1\"}catch{r",
+        "de);try{localStorage.setItem(\"dgflow_pipeline_insights\",de?\"1\":\"0\")}ca"
+      ]
+    },
+    {
+      "file": "public\\assets\\Lp3-BiOP2ACN.js",
+      "count": 3,
+      "samples": [
+        " border-border\",children:\"app.dgflow.vercel.app/dashboard\"})})]}),e.js",
+        " border-border\",children:\"app.dgflow.vercel.app/conteudo\"})})]}),e.jsx",
+        " border-border\",children:\"app.dgflow.vercel.app/financeiro\"})})]}),e.j"
+      ]
+    },
+    {
+      "file": "public\\assets\\lpAbTest-CHonBXet.js",
+      "count": 5,
+      "samples": [
+        "./index-G-E061gt.js\";const m=\"dgflow_ab\",u=\"dgflow_visitor\",d=\"dgflow_",
+        "gt.js\";const m=\"dgflow_ab\",u=\"dgflow_visitor\",d=\"dgflow_ab_session\";fu",
+        "low_ab\",u=\"dgflow_visitor\",d=\"dgflow_ab_session\";function f(){try{retu",
+        "(t){try{localStorage.setItem(\"dgflow_ab_origem\",JSON.stringify({experi",
+        "const t=localStorage.getItem(\"dgflow_ab_origem\");if(t)return JSON.pars"
+      ]
+    },
+    {
+      "file": "public\\assets\\LpTest-DZ8VN4GZ.js",
+      "count": 1,
+      "samples": [
+        ")return;r.current=!0;const d=`dgflow_ab_view_${e.experimentSlug}_${e.k"
+      ]
+    },
+    {
+      "file": "public\\assets\\ManageColumnsDialog-Cn0BkU8R.js",
+      "count": 1,
+      "samples": [
+        "ate-ccw-IHrD9a7y.js\";const E=\"dgflow_kanban_columns\",u=[{id:\"pending\","
+      ]
+    },
+    {
+      "file": "public\\assets\\MyLinksSection-BDPKzdoO.js",
+      "count": 1,
+      "samples": [
+        "l:f,customDomain:g}=D(),L=g||\"dgflow.vercel.app\",[S,b]=d.useState(!0),"
+      ]
+    },
+    {
+      "file": "public\\assets\\Nps-tbbuq_2H.js",
+      "count": 1,
+      "samples": [
+        "TRm1N6i.js\";const ue=\"https://dgflow.vercel.app\",R=l=>new Date(l).toLo"
+      ]
+    },
+    {
+      "file": "public\\assets\\Portfolio-DkyfEyB2.js",
+      "count": 11,
+      "samples": [
+        " border border-r-0\",children:\"dgflow.app/p/\"}),e.jsx(z,{value:l.slug,o",
+        "\",e.jsxs(\"strong\",{children:[\"dgflow.app/p/\",l.slug]})]})})]})]});case",
+        "d rounded text-xs\",children:[\"dgflow.vercel.app/p/\",l]})]}),e.jsxs(\"di",
+        "d rounded text-xs\",children:[\"dgflow.vercel.app/bio/\",l]})]})]})]}),e.",
+        "lick:()=>window.open(`https://dgflow.vercel.app/p/${Ie}`,\"_blank\"),chi"
+      ]
+    },
+    {
+      "file": "public\\assets\\PreviaAoVivo-asihVXmf.js",
+      "count": 5,
+      "samples": [
+        "==null||t.postMessage({fonte:\"dgflow-previa\",...e},window.location.ori",
+        "ata)==null?void 0:r.fonte)!==\"dgflow-editor\"||i.data.tipo===\"dados\"&&i",
+        "ata)==null?void 0:f.fonte)!==\"dgflow-editor\")&&l.data.tipo===\"rolar\"&&",
+        "==null||k.postMessage({fonte:\"dgflow-editor\",...h},window.location.ori",
+        "a;(k==null?void 0:k.fonte)===\"dgflow-previa\"&&(k.tipo===\"pronto\"&&(g(!"
+      ]
+    },
+    {
+      "file": "public\\assets\\ProductivityReport-tek3ToHk.js",
+      "count": 1,
+      "samples": [
+        "?`${I?`https://${I}`:\"https://dgflow.vercel.app\"}/pr/${P}`:\"\",xe=async"
+      ]
+    },
+    {
+      "file": "public\\assets\\Projects-DuGQbYZO.js",
+      "count": 3,
+      "samples": [
+        "ck:()=>{localStorage.setItem(\"dgflow_seen_fullscreen_hint\",\"1\"),r(!1),",
+        "{return localStorage.getItem(\"dgflow_convite_importar_dispensado\")===\"",
+        "!0);try{localStorage.setItem(\"dgflow_convite_importar_dispensado\",\"1\")"
+      ]
+    },
+    {
+      "file": "public\\assets\\PublicBriefing-1C691_Xk.js",
+      "count": 1,
+      "samples": [
+        "dren:s.jsx(\"a\",{href:\"https://dgflow.vercel.app\",target:\"_blank\",rel:\""
+      ]
+    },
+    {
+      "file": "public\\assets\\PublicForm-Cnb7uYNV.js",
+      "count": 1,
+      "samples": [
+        "dren:a.jsx(\"a\",{href:\"https://dgflow.app\",target:\"_blank\",rel:\"noopene"
+      ]
+    },
+    {
+      "file": "public\\assets\\PublicPortfolio-D9FgMl1L.js",
+      "count": 2,
+      "samples": [
+        "ing&&s.jsx(\"a\",{href:\"https://dgflow.app\",target:\"_blank\",rel:\"noopene",
+        "ing&&s.jsx(\"a\",{href:\"https://dgflow.app\",target:\"_blank\",rel:\"noopene"
+      ]
+    },
+    {
+      "file": "public\\assets\\QuizReels-Dn6nwTZJ.js",
+      "count": 4,
+      "samples": [
+        "from-amber-500 to-orange-500\",dgflowBenefit:\"Organize clientes e proje",
+        "t:\"from-blue-500 to-cyan-500\",dgflowBenefit:\"Automatize propostas e co",
+        "from-emerald-500 to-teal-500\",dgflowBenefit:\"Dashboard financeiro comp",
+        "t:\"from-pink-500 to-rose-500\",dgflowBenefit:\"Gestão completa para free"
+      ]
+    },
+    {
+      "file": "public\\assets\\QuoteRequest-Cu8suypM.js",
+      "count": 1,
+      "samples": [
+        "proval_token,baseUrl:\"https://dgflow.app\"}),He=await fr(H,v);I.invalid"
+      ]
+    },
+    {
+      "file": "public\\assets\\Quotes-DPV34c1_.js",
+      "count": 4,
+      "samples": [
+        "O=ae?`https://${ae}`:\"https://dgflow.vercel.app\",E=zs({type:\"quote\",to",
+        "u=ae?`https://${ae}`:\"https://dgflow.vercel.app\",A=zs({type:\"quote\",to",
+        "u=ae?`https://${ae}`:\"https://dgflow.vercel.app\",q=zs({type:\"quote\",to",
+        "onClick:()=>{const q=`https://dgflow.app/contract/${a.signature_token}"
+      ]
+    },
+    {
+      "file": "public\\assets\\RichTextEditor-GcJVtVco.js",
+      "count": 2,
+      "samples": [
+        "const A=localStorage.getItem(\"dgflow_rte_toolbar_collapsed\");return A=",
+        "=!A;try{localStorage.setItem(\"dgflow_rte_toolbar_collapsed\",oe?\"1\":\"0\""
+      ]
+    },
+    {
+      "file": "public\\assets\\ScheduledPosts-CteYbZTD.js",
+      "count": 2,
+      "samples": [
+        "{return localStorage.getItem(\"dgflow_agendamentos_visao\")===\"calendari",
+        ")=>{try{localStorage.setItem(\"dgflow_agendamentos_visao\",H)}catch{}},["
+      ]
+    },
+    {
+      "file": "public\\assets\\SendApprovalLinkDialog-CSns80dF.js",
+      "count": 3,
+      "samples": [
+        "\",i))}function _e(u){const d=`dgflow_colunas_inteiras_${u}`,[i,x]=o.us",
+        "}/aprovacao/${e}`):_(`https://dgflow.vercel.app/aprovacao/${e}`)}catch",
+        "vacao/${e}`)}catch{_(`https://dgflow.vercel.app/aprovacao/${e}`)}try{c"
+      ]
+    },
+    {
+      "file": "public\\assets\\Services-CinVTd9c.js",
+      "count": 2,
+      "samples": [
+        "o salva!\")},g=l.slug?`https://dgflow.vercel.app/planos/${gs(l.slug)}`:",
+        " whitespace-nowrap\",children:\"dgflow.vercel.app/planos/\"}),e.jsx(P,{va"
+      ]
+    },
+    {
+      "file": "public\\assets\\Settings-C70Pkd1T.js",
+      "count": 2,
+      "samples": [
+        "\" \",e.jsx(\"strong\",{children:\"DGFLOW\"})]}),e.jsx(\"li\",{children:a(\"asa",
+        "var\"]})]})})]})})}const po=\"__dgflow_corpo_slot__\",Zc=`<p data-corpo-s"
+      ]
+    },
+    {
+      "file": "public\\assets\\Setup-8drIwsw9.js",
+      "count": 2,
+      "samples": [
+        "t-muted-foreground\",children:\"dgflow.vercel.app/p/\"}),e.jsx(\"span\",{cl",
+        "\",e.jsxs(\"strong\",{children:[\"dgflow.vercel.app/p/\",n.slug]})]})})]})]"
+      ]
+    },
+    {
+      "file": "public\\assets\\SetupGuiado-E3nZCjTG.js",
+      "count": 1,
+      "samples": [
+        "ror;try{localStorage.setItem(\"dgflow_kanban_columns\",JSON.stringify(a)"
+      ]
+    },
+    {
+      "file": "public\\assets\\shareLinks-C6QAEuXx.js",
+      "count": 2,
+      "samples": [
+        "r,o=t?`https://${t}`:\"https://dgflow.vercel.app\";switch(c){case\"quote\"",
+        "n:n,slug:e,baseUrl:t=\"https://dgflow.vercel.app\"}=r;switch(c){case\"quo"
+      ]
+    },
+    {
+      "file": "public\\assets\\Subscription-DN9coBP-.js",
+      "count": 1,
+      "samples": [
+        "ttps://hotmart.com/pt-br/club/dgflow\",message:t(\"subscription.hotmartM"
+      ]
+    },
+    {
+      "file": "public\\assets\\TaskDetail-D7CmjVld.js",
+      "count": 1,
+      "samples": [
+        "})]})]})]})]}),(()=>{const t=\"dgflow_seen_taskdetail_hint\";return loca"
+      ]
+    },
+    {
+      "file": "public\\assets\\TestimonialsLp3-kBU7aBED.js",
+      "count": 1,
+      "samples": [
+        " border-border\",children:\"app.dgflow.vercel.app/producao\"})})]}),e.jsx"
+      ]
+    },
+    {
+      "file": "public\\assets\\useCustomDomain-BegtEA37.js",
+      "count": 1,
+      "samples": [
+        "),i=n?`https://${n}`:\"https://dgflow.vercel.app\";return{customDomain:n"
+      ]
+    },
+    {
+      "file": "public\\assets\\useProductionCounterVisibility-DrP2o-XX.js",
+      "count": 6,
+      "samples": [
+        "./index-G-E061gt.js\";const a=\"dgflow_menu_hidden\",c=\"dgflow_menu_order",
+        "nst a=\"dgflow_menu_hidden\",c=\"dgflow_menu_order\",d=\"dgflow:menu-visibi",
+        "den\",c=\"dgflow_menu_order\",d=\"dgflow:menu-visibility-changed\",h=2,v=\"d",
+        "nu-visibility-changed\",h=2,v=\"dgflow_menu_version\",p=\"dgflow_menu_was_",
+        "=2,v=\"dgflow_menu_version\",p=\"dgflow_menu_was_reset\",b=()=>{try{if(Num"
+      ]
+    },
+    {
+      "file": "public\\assets\\useSeoMeta-CAtnSB4Y.js",
+      "count": 1,
+      "samples": [
+        "(c=>c.filter(a=>a.startsWith(\"dgflow-\")||a.includes(\"workbox\")).forEac"
+      ]
+    },
+    {
+      "file": "public\\assets\\useTaskFormMode-C5deWYqf.js",
+      "count": 3,
+      "samples": [
+        "./index-G-E061gt.js\";const d=\"dgflow:form-mode-changed\",m=t=>t===\"task",
+        "ode-changed\",m=t=>t===\"task\"?\"dgflow_task_form_mode\":`dgflow_${t}_form",
+        "ask\"?\"dgflow_task_form_mode\":`dgflow_${t}_form_mode`,l=\"simples\",a=t=>"
+      ]
+    },
+    {
+      "file": "public\\assets\\VideoThumbnailPreview-Bhvtpz4D.js",
+      "count": 1,
+      "samples": [
+        "GxSXfp.js\";const E=new Map,y=\"dgflow_video_thumb_v1::\",u=\"__failed__\","
+      ]
+    },
+    {
+      "file": "public\\assets\\WhatsApp-B8DNCBps.js",
+      "count": 1,
+      "samples": [
+        "=\"WhatsAppInputBar\";const Ca=\"dgflow_aviso_assinatura_dispensado\";func"
+      ]
+    },
+    {
+      "file": "public\\assets\\WhatsAppSettingsPanel-Dio4ooZ1.js",
+      "count": 5,
+      "samples": [
+        "aempresa.com\",link_pagamento:\"dgflow.vercel.app/p/abc123\",dias_atraso:",
+        "nte:\"Studio Ana\",link_tarefa:\"dgflow.vercel.app/tasks/abc\",descricao_t",
+        "racao:\"31/10\",link_aprovacao:\"dgflow.vercel.app/a/X7k2\",link_portal:\"d",
+        "rcel.app/a/X7k2\",link_portal:\"dgflow.vercel.app/a/X7k2\",link_post:\"dgf",
+        "vercel.app/a/X7k2\",link_post:\"dgflow.vercel.app/post/X7k2\"};function n"
+      ]
+    },
+    {
+      "file": "public\\manifest.webmanifest",
+      "count": 2,
+      "samples": [
+        "{\"name\":\"DGFlow - CRM para Freelancers\",\"short_na",
+        "ra Freelancers\",\"short_name\":\"DGFlow\",\"description\":\"CRM completo para"
+      ]
+    },
+    {
+      "file": "scripts\\system_audit.js",
+      "count": 4,
+      "samples": [
+        "                     // Match dgflow or dg flow (case-insensitive)    ",
+        "           // Match dgflow or dg flow (case-insensitive)           con",
+        "es = [...content.matchAll(/(?:dgflow|dg[_\\s-]flow|dgdireto)/gi)];     ",
+        "chAll(/(?:dgflow|dg[_\\s-]flow|dgdireto)/gi)];           if (dgMatches."
+      ]
+    },
+    {
+      "file": "src\\app\\layout.tsx",
+      "count": 1,
+      "samples": [
+        " const metadata = {   title: 'DGFlow — Plataforma de gestão (CRM) para"
+      ]
+    }
+  ],
+  "diegoReferences": [
+    {
+      "file": "public\\assets\\Admin-DIitkSWg.js",
+      "count": 6,
+      "samples": [
+        "e ativa: ${f===\"next\"?\"Next\":\"Diego\"}`)}catch(m){console.error(\"[Admin",
+        "pointer transition-all ${s===\"diego\"?\"border-primary bg-primary/5\":\"bo",
+        "}`,children:[e.jsx(Et,{value:\"diego\"}),e.jsxs(\"div\",{className:\"flex-1",
+        "sName:\"font-medium\",children:\"Diego\"}),e.jsx(\"div\",{className:\"text-xs",
+        "dren:\"Secret: PAGARME_API_KEY_DIEGO\"})]}),s===\"diego\"&&e.jsx(H,{classN"
+      ]
+    },
+    {
+      "file": "public\\assets\\useUpgradeCalculation-C14KDz0_.js",
+      "count": 1,
+      "samples": [
+        ",\"Letícia\",\"Thiago\",\"Amanda\",\"Diego\",\"Bianca\",\"Matheus\",\"Isabela\",\"Fel"
+      ]
+    },
+    {
+      "file": "scripts\\system_audit.js",
+      "count": 11,
+      "samples": [
+        "lts = {   dgReferences: [],   diegoReferences: [],   imageFiles: [],  ",
+        "ush(relPath);         if (/dg|diego/i.test(entry.name)) {           re",
+        "        }            // Match diego (case-insensitive)           const",
+        "-insensitive)           const diegoMatches = [...content.matchAll(/die",
+        "tches = [...content.matchAll(/diego/gi)];           if (diegoMatches.l"
+      ]
+    }
+  ],
+  "imageFiles": [
+    "public\\assets\\abacatepay-zL8aXpJd.png",
+    "public\\assets\\ai-designer-preview-BsYyuxgD.webp",
+    "public\\assets\\asaas-icon-Bdou173I.png",
+    "public\\assets\\avatar-1-DlFmMRXM.jpg",
+    "public\\assets\\avatar-2-CCFYs9xh.jpg",
+    "public\\assets\\avatar-3-BkzJBYD2.jpg",
+    "public\\assets\\avatar-4-BlA5AQNM.jpg",
+    "public\\assets\\bancointer-CiWjKx4B.png",
+    "public\\assets\\client-portal-preview-BhiOYWtK.webp",
+    "public\\assets\\clients-preview-Dz_P91aA.webp",
+    "public\\assets\\content-preview-C8lyu3ta.webp",
+    "public\\assets\\facebook-Bs0nK44F.png",
+    "public\\assets\\finance-billing-preview-CM9k_C2v.webp",
+    "public\\assets\\google-calendar-icon-Bo09yz_z.png",
+    "public\\assets\\google-drive-icon-Bdf46tmq.webp",
+    "public\\assets\\google-meet-icon-DkxC3O6r.png",
+    "public\\assets\\hero-bg-Q8W3v9c2.jpg",
+    "public\\assets\\ig-comment-1-DtXDiXJm.webp",
+    "public\\assets\\ig-comment-2-ChDY9gTU.webp",
+    "public\\assets\\ig-comment-3-Do-nKsOk.webp",
+    "public\\assets\\instagram-B2Sd0KU_.png",
+    "public\\assets\\landing-page-preview-B0zFXjta.png",
+    "public\\assets\\leads-preview-8OCAfRuv.png",
+    "public\\assets\\logo-C3yILJ_Y.png",
+    "public\\assets\\logo-dark-DCW10g3_.png",
+    "public\\assets\\logo-mini-zp-ucdMd.png",
+    "public\\assets\\mercadopago-DHPXfvjY.png",
+    "public\\assets\\meta-pixel-KghdkAiN.png",
+    "public\\assets\\team-permissions-preview-CQ6Hh0sB.webp",
+    "public\\assets\\tenno-flow-light.png",
+    "public\\assets\\tenno-flow.png",
+    "public\\assets\\tiktok-DAGUI1uq.png",
+    "public\\assets\\whatsapp-C_828Mms.png",
+    "public\\assets\\whatsapp-preview-DDEhdpdZ.webp",
+    "public\\assets\\wpp-claude-1-qFe8zUrj.webp",
+    "public\\assets\\wpp-claude-2-pE5VEO4Z.webp",
+    "public\\favicon.png",
+    "public\\file.svg",
+    "public\\globe.svg",
+    "public\\logo.png",
+    "public\\next.svg",
+    "public\\pwa-icon.png",
+    "public\\vercel.svg",
+    "public\\window.svg"
+  ],
+  "dgImages": []
+}
