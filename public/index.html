@@ -17,11 +17,16 @@
           var origFetch = window.fetch;
           window.fetch = function(u, opts) {
             try {
-              var s = typeof u === "string" ? u : (u && u.url ? u.url : "");
+              var s = typeof u === "string" ? u : (u && (u.url || u.href) ? (u.url || u.href) : "");
               if (s && (s.indexOf(su + "/rest/v1/") === 0 || s.indexOf(su + "/storage/v1/") === 0 || s.indexOf(su + "/functions/v1/") === 0)) {
                 var p = s.replace(su, "/api/supabase-proxy");
-                if (typeof u === "string") u = p;
-                else if (u && typeof u === "object") u = new Request(p, u);
+                if (typeof u === "string") {
+                  u = p;
+                } else if (typeof URL !== "undefined" && u instanceof URL) {
+                  u = new URL(p, window.location.origin);
+                } else if (u && typeof u === "object") {
+                  u = new Request(p, opts || u);
+                }
               }
             } catch (e) {}
             return origFetch.call(this, u, opts);
@@ -158,28 +163,7 @@
       ]
     }
     </script>
-        <script>
-      (function() {
-        var su = 'https://xzjugxtxuxgkiszbpuxx.supabase.co';
-        var origFetch = window.fetch;
-        window.fetch = function(input, init) {
-          try {
-            var url = typeof input === 'string' ? input : (input && input.url ? input.url : '');
-            if (url && (url.indexOf(su + '/rest/v1/') === 0 || url.indexOf(su + '/storage/v1/') === 0)) {
-              var proxiedUrl = url.replace(su, '/api/supabase-proxy');
-              if (typeof input === 'string') {
-                input = proxiedUrl;
-              } else if (input && typeof input === 'object') {
-                input = new Request(proxiedUrl, input);
-              }
-            }
-          } catch (e) {
-            console.error('Proxy redirect error:', e);
-          }
-          return origFetch.call(this, input, init);
-        };
-      })();
-    </script>
+
     <script type="module" crossorigin src="/assets/index-G-E061gt.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BnvEi71r.css">
   <link rel="manifest" href="/manifest.webmanifest"></head>
