@@ -1,0 +1,6 @@
+import fs from 'fs';
+
+const content = fs.readFileSync('C:/Users/gui14/Projects/dgflow/public/assets/index-G-E061gt.js', 'utf8');
+
+const matches = [...content.matchAll(/(.{0,50}\bas\s+ae\b.{0,80})/g)];
+matches.forEach(m => console.log(' ->', m[0].trim()));
