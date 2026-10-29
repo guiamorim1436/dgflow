@@ -25,6 +25,62 @@ import {
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xzjugxtxuxgkiszbpuxx.supabase.co';
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || Buffer.from('c2Jfc2VjcmV0X3ZZYVQ4OVRGSnB3aUFyMXJsNkFjQUFfelVwVnBLd2E=', 'base64').toString('utf8');
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || Buffer.from('c2JfcHVibGlzaGFibGVfUXBzS0ZqbmRTc2JCSDBmYlZwczlLd195V3ZEa2hBOQ==', 'base64').toString('utf8');
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || Buffer.from('c2stb3ItdjEtZjY4YzA4M2UzYzE0MDQyYjg1NDRhZmE4ZmNhMDlkZWU4YjAzMjNmNzY4ZWI5YjhkNzQ0NmMyOTI2YzVkZmQxZQ==', 'base64').toString('utf8');
+
+async function generateAiDesignImage(prompt: string, options?: { aspectRatio?: string; isElement?: boolean }): Promise<string> {
+  const cleanPrompt = (options?.isElement
+    ? `${prompt}, isolated graphical element, sticker style, 3d render, glossy, clean transparent background, centered, ultra high quality`
+    : prompt
+  ).trim();
+
+  if (OPENROUTER_API_KEY) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000);
+      const orRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        signal: controller.signal,
+        headers: {
+          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://tennoflow.com.br',
+          'X-Title': 'Tenno Flow Design Studio',
+        },
+        body: JSON.stringify({
+          model: 'google/gemini-2.5-flash-image',
+          messages: [{ role: 'user', content: cleanPrompt }],
+        }),
+      });
+      clearTimeout(timeout);
+
+      if (orRes.ok) {
+        const orData = await orRes.json();
+        const firstChoice = orData.choices?.[0]?.message;
+        const imgObj = firstChoice?.images?.[0];
+        if (imgObj?.image_url?.url) {
+          return imgObj.image_url.url;
+        }
+      }
+    } catch (e) {
+      console.warn('OpenRouter image gen fallback to FLUX:', e);
+    }
+  }
+
+  let width = 1024;
+  let height = 1024;
+  if (options?.aspectRatio === '4:5') {
+    width = 1024;
+    height = 1280;
+  } else if (options?.aspectRatio === '9:16') {
+    width = 720;
+    height = 1280;
+  } else if (options?.aspectRatio === '16:9') {
+    width = 1280;
+    height = 720;
+  }
+  const seed = Math.floor(Math.random() * 1000000);
+  return `https://image.pollinations.ai/prompt/${encodeURIComponent(cleanPrompt)}?width=${width}&height=${height}&model=flux&nologo=true&seed=${seed}`;
+}
 
 function extractUserId(req: NextRequest, bodyObj?: any): string {
   if (bodyObj?.userId) return String(bodyObj.userId);
@@ -443,6 +499,156 @@ async function handleProxy(req: NextRequest, paramsPromise: Promise<{ path: stri
       );
     } catch (err: any) {
       console.error('credits-checkout error:', err);
+      return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
+    }
+  }
+
+  // ==========================================
+  // 1.0.3 GERAÇÃO DE IMAGENS E ELEMENTOS COM IA (DESIGN STUDIO)
+  // ==========================================
+  if (targetPath === 'functions/v1/ai-design-image') {
+    try {
+      const body = await req.json();
+      const userId = extractUserId(req, body);
+      const requiredCredits = 1;
+
+      const creditCheck = await checkCredits(userId, requiredCredits);
+      if (!creditCheck.allowed) {
+        return NextResponse.json(
+          {
+            error: 'insufficient_credits',
+            message: creditCheck.error,
+            required: requiredCredits,
+            balance: creditCheck.balance,
+          },
+          { status: 402, headers: corsHeaders() }
+        );
+      }
+
+      const prompt = body.prompt || 'Design minimalista e sofisticado';
+      const imageUrl = await generateAiDesignImage(prompt, { aspectRatio: body.aspectRatio });
+
+      const deductRes = await deductCredits(
+        userId,
+        requiredCredits,
+        `Geração de Imagem com IA (${prompt.slice(0, 30)})`
+      );
+
+      return NextResponse.json(
+        {
+          imageUrl,
+          creditsUsed: requiredCredits,
+          balanceAfter: deductRes.balance,
+        },
+        { headers: corsHeaders() }
+      );
+    } catch (err: any) {
+      console.error('ai-design-image error:', err);
+      return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
+    }
+  }
+
+  if (targetPath === 'functions/v1/generate-design-element') {
+    try {
+      const body = await req.json();
+      const userId = extractUserId(req, body);
+      const requiredCredits = 1;
+
+      const creditCheck = await checkCredits(userId, requiredCredits);
+      if (!creditCheck.allowed) {
+        return NextResponse.json(
+          {
+            error: 'insufficient_credits',
+            message: creditCheck.error,
+            required: requiredCredits,
+            balance: creditCheck.balance,
+          },
+          { status: 402, headers: corsHeaders() }
+        );
+      }
+
+      const prompt = body.prompt || 'Selo 3D ouro brilhante';
+      const elementUrl = await generateAiDesignImage(prompt, { isElement: true });
+
+      const deductRes = await deductCredits(
+        userId,
+        requiredCredits,
+        `Criação de Elemento IA (${prompt.slice(0, 30)})`
+      );
+
+      return NextResponse.json(
+        {
+          elementUrl,
+          imageUrl: elementUrl,
+          prompt,
+          creditsUsed: requiredCredits,
+          balanceAfter: deductRes.balance,
+        },
+        { headers: corsHeaders() }
+      );
+    } catch (err: any) {
+      console.error('generate-design-element error:', err);
+      return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
+    }
+  }
+
+  if (targetPath === 'functions/v1/generate-design-copy-inline') {
+    try {
+      const body = await req.json();
+      const userId = extractUserId(req, body);
+      const requiredCredits = 1;
+
+      const creditCheck = await checkCredits(userId, requiredCredits);
+      if (!creditCheck.allowed) {
+        return NextResponse.json(
+          {
+            error: 'insufficient_credits',
+            message: creditCheck.error,
+            required: requiredCredits,
+            balance: creditCheck.balance,
+          },
+          { status: 402, headers: corsHeaders() }
+        );
+      }
+
+      const task = body.task || 'headline';
+      const topic = body.topic || 'Dicas de alta performance para redes sociais';
+      const prompt = `Você é um copywriter de elite para design e mídias sociais.
+Gere 3 opções curtas, magnéticas e modernas para a parte "${task}" do post sobre o tema: "${topic}".
+Responda APENAS com um array JSON com as 3 opções em formato texto, sem markdown, sem numeração:
+["Opção 1", "Opção 2", "Opção 3"]`;
+
+      const aiRes = await callOpenRouter(
+        [{ role: 'user', content: prompt }],
+        'copy_post',
+        { temperature: 0.8, maxTokens: 250 }
+      );
+
+      let options: string[] = [];
+      try {
+        const cleaned = aiRes.text.replace(/```json/g, '').replace(/```/g, '').trim();
+        options = JSON.parse(cleaned);
+      } catch {
+        options = [aiRes.text.slice(0, 100)];
+      }
+
+      const deductRes = await deductCredits(
+        userId,
+        requiredCredits,
+        `Geração de Copy IA (${task})`
+      );
+
+      return NextResponse.json(
+        {
+          options,
+          chosen: options[0] || '',
+          creditsUsed: requiredCredits,
+          balanceAfter: deductRes.balance,
+        },
+        { headers: corsHeaders() }
+      );
+    } catch (err: any) {
+      console.error('generate-design-copy-inline error:', err);
       return NextResponse.json({ error: err.message }, { status: 500, headers: corsHeaders() });
     }
   }
